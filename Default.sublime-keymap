@@ -1,0 +1,166 @@
+[
+  // Auto-pair ** __ `` like markdown
+  {
+    "keys": ["*"],
+    "command": "insert_snippet",
+    "args": { "contents": "*${0:$SELECTION}*" },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "operand": false, "match_all": true },
+      { "key": "selector", "operand": "source.typ - markup.raw" }
+    ]
+  },
+  {
+    "keys": ["backspace"],
+    "command": "run_macro_file",
+    "args": {
+      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
+    },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "match_all": true },
+      {
+        "key": "selector",
+        "operator": "equal",
+        "operand": "source.typ - markup.raw"
+      },
+      {
+        "key": "preceding_text",
+        "operator": "regex_contains",
+        "operand": "\\*$",
+        "match_all": true
+      },
+      {
+        "key": "following_text",
+        "operator": "regex_contains",
+        "operand": "^\\*",
+        "match_all": true
+      }
+    ]
+  },
+
+  {
+    "keys": ["_"],
+    "command": "insert_snippet",
+    "args": { "contents": "_${0:$SELECTION}_" },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "operand": false, "match_all": true },
+      { "key": "selector", "operand": "source.typ - markup.raw" }
+    ]
+  },
+  {
+    "keys": ["backspace"],
+    "command": "run_macro_file",
+    "args": {
+      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
+    },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "match_all": true },
+      {
+        "key": "selector",
+        "operator": "equal",
+        "operand": "source.typ - markup.raw"
+      },
+      {
+        "key": "preceding_text",
+        "operator": "regex_contains",
+        "operand": "_$",
+        "match_all": true
+      },
+      {
+        "key": "following_text",
+        "operator": "regex_contains",
+        "operand": "^_",
+        "match_all": true
+      }
+    ]
+  },
+
+  {
+    "keys": ["`"],
+    "command": "insert_snippet",
+    "args": { "contents": "`$0`" },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "match_all": true },
+      {
+        "key": "selector",
+        "operand": "source.typ - markup.raw - meta.code-fence"
+      },
+      {
+        "key": "preceding_text",
+        "operator": "not_regex_contains",
+        "operand": "[\\w`]$",
+        "match_all": true
+      },
+      {
+        "key": "following_text",
+        "operator": "regex_contains",
+        "operand": "^(?:\t| |\\)|]|\\}|\\.|,|$)",
+        "match_all": true
+      }
+    ]
+  },
+  {
+    "keys": ["`"],
+    "command": "insert_snippet",
+    "args": { "contents": "`${0:$SELECTION}`" },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "operand": false, "match_all": true },
+      {
+        "key": "selector",
+        "operand": "source.typ - markup.raw - meta.code-fence"
+      }
+    ]
+  },
+  {
+    "keys": ["`"],
+    "command": "move",
+    "args": { "by": "characters", "forward": true },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "operand": true, "match_all": true },
+      {
+        "key": "selector",
+        "operand": "source.typ markup.raw - markup.raw.code-fence - meta.code-fence"
+      },
+      {
+        "key": "following_text",
+        "operator": "regex_contains",
+        "operand": "^`",
+        "match_all": true
+      }
+    ]
+  },
+  {
+    "keys": ["backspace"],
+    "command": "run_macro_file",
+    "args": {
+      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
+    },
+    "context": [
+      { "key": "setting.auto_match_enabled" },
+      { "key": "selection_empty", "match_all": true },
+      {
+        "key": "selector",
+        "operator": "equal",
+        "operand": "punctuation.definition.raw.begin.typ"
+      },
+      {
+        "key": "preceding_text",
+        "operator": "regex_contains",
+        "operand": "`$",
+        "match_all": true
+      },
+      {
+        "key": "following_text",
+        "operator": "regex_contains",
+        "operand": "^`",
+        "match_all": true
+      }
+    ]
+  }
+]

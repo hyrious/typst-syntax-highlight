@@ -1,0 +1,541 @@
+%YAML 1.2
+---
+# - https://www.sublimetext.com/docs/syntax.html
+# - https://typst.app/docs/reference/syntax
+
+file_extensions:
+  - typ
+
+# Ad. Read Sublime Text docs in dark mode using the user style:
+# - https://userstyles.world/api/style/9109.user.css
+# - https://gist.github.com/hyrious/0bc29547b469da34eed9af5c91315a8b (backup)
+
+scope: source.typ
+version: 2
+
+variables:
+  html_entity: '&([a-zA-Z0-9]+|#\d+|#[Xx]\h+);'
+  no_escape_behind: '(?<![^\\]\\)(?<![\\]{3})'
+  markup_symbol_shorthands: (\.\.\.|---?|-\?|~)
+  math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\|[-=]>|\|\]|\|\||~~?>|[-*'])
+  greeks: (alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|gamma|kappa|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)
+  non_raw_ident: '[[:alpha:]][_[:alnum:]]*|_[_[:alnum:]]+'
+  identifier: '(?:(?:{{non_raw_ident}})\b)'
+  operators: ([-+*/]=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
+  prefixes: (?:(?:include|import|set|let|if|for|while)\b)
+
+contexts:
+  # The prototype context is prepended to all contexts but those setting
+  # meta_include_prototype: false.
+  prototype:
+    - include: comments
+
+  main:
+    - include: markups
+
+  # https://typst.app/docs/reference/syntax/#markup
+  markups:
+    - include: headings
+    - include: list-blocks
+    - include: fenced-code-blocks
+    - include: terms
+    - include: inlines
+
+  # https://typst.app/docs/reference/syntax/#comments
+  comments:
+    - include: line-comments
+    - include: block-comments
+
+  line-comments:
+    - match: //+
+      scope: punctuation.definition.comment.typ
+      push: line-comment-body
+
+  line-comment-body:
+    - meta_include_prototype: false
+    - meta_scope: comment.line.double-dash.typ
+    - match: \n
+      pop: true
+
+  block-comments:
+    - match: /\*\*+/
+      scope: comment.block.empty.typ punctuation.definition.comment.typ
+    - match: /\*\*+
+      scope: comment.block.documentation.typ punctuation.definition.comment.begin.typ
+      push: doc-comment-body
+    - match: /\*
+      scope: punctuation.definition.comment.begin.typ
+      push: block-comment-body
+
+  block-comment-body:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.typ
+    - include: block-comment-end
+
+  block-comment-end:
+    - match: \*+/
+      scope: punctuation.definition.comment.end.typ
+      pop: true
+
+  doc-comment-body:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.documentation.typ
+    - include: block-comment-end
+    - match: ^\s*(\*)(?!/)
+      captures:
+        1: punctuation.definition.comment.typ
+
+###[ Block ]##################################################################
+
+  # https://typst.app/docs/reference/meta/heading
+  headings:
+    - match: ^\s*(=+)
+      captures:
+        1: punctuation.definition.heading.begin.typ
+      push: heading-content
+
+  heading-content:
+    - meta_scope: markup.heading.typ
+    - meta_content_scope: entity.name.section.typ
+    - match: $\n?
+      pop: true
+    - include: inlines
+
+  list-blocks:
+    # https://typst.app/docs/reference/layout/list
+    - match: \s*(-)\s
+      captures:
+        1: markup.list.unnumbered.bullet.typ punctuation.definition.list_item.typ
+      push: unordered-list-block
+    # https://typst.app/docs/reference/layout/enum
+    - match: \s*(\+)\s
+      captures:
+        1: markup.list.numbered.bullet.typ punctuation.definition.list_item.typ
+      push: ordered-list-block
+    - match: \s*(\d{1,9}([.]))\s
+      captures:
+        1: markup.list.numbered.bullet.typ punctuation.definition.list_item.typ
+      push: ordered-list-block
+
+  unordered-list-block:
+    - meta_content_scope: markup.list.unnumbered.typ
+    - include: list-block-end
+    - include: list-block-content
+
+  ordered-list-block:
+    - meta_content_scope: markup.list.numbered.typ
+    - include: list-block-end
+    - include: list-block-content
+
+  list-block-end:
+    - match: ^(?=\S)
+      pop: true
+
+  list-block-content:
+    - include: list-items
+
+  list-items:
+    - match: \s*(-)\s
+      captures:
+        1: markup.list.unnumbered.bullet.typ punctuation.definition.list_item.typ
+    - match: \s*(\+)\s
+      captures:
+        1: markup.list.numbered.bullet.typ punctuation.definition.list_item.typ
+    - match: \s*(\d{1,9}([.]))\s
+      captures:
+        1: markup.list.numbered.bullet.typ punctuation.definition.list_item.typ
+
+  # https://typst.app/docs/reference/text/raw
+  fenced-code-blocks:
+    - match: (?=`{3,})
+      push: fenced-code-block-content
+
+  fenced-code-block-content:
+    - meta_scope: meta.code-fence.typ
+    - match: $
+      pop: true
+    - include: fenced-syntaxes
+    - include: fenced-raw
+
+  fenced-syntaxes:
+    - include: fenced-javascript
+
+  fenced-javascript:
+    - match: (`{3,})((?i:js|mjs|cjs|javascript))$\n?
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typ
+        2: constant.other.language-name.typ
+      embed: scope:source.js
+      embed_scope: markup.raw.block.js.typ source.js
+      escape: ^(\1)\s*$
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typ
+
+  fenced-raw:
+    - meta_content_scope: markup.raw.block.typ
+    - match: (`{3,})([[:alpha:]][^\s`]+)?$\n?
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typ
+        2: constant.other.language-name.typ
+      push: fenced-raw-content
+
+  fenced-raw-content:
+    - meta_content_scope: markup.raw.block.typ
+    - match: ^(\1)\s*$
+      captures:
+        1: punctuation.definition.raw.code-fence.end.typ
+      pop: true
+
+  # https://typst.app/docs/reference/layout/terms
+  terms:
+    - match: \s*(/)\s*(\w+)(:)
+      scope: markup.terms.typ
+      captures:
+        1: punctuation.definition.term.typ
+        2: entity.name.enum.typ
+        3: punctuation.separator.key-value.typ
+
+###[ Inline ]#################################################################
+
+  inlines:
+    - include: hard-line-breaks
+    - include: emphasis
+    - include: literals
+    - include: links
+    - include: labels
+    - include: refs
+    - include: symbols
+    - include: maths
+    - include: scripts
+
+  # https://typst.app/docs/reference/text/linebreak
+  hard-line-breaks:
+    - match: (\\)[\s\n]
+      captures:
+        0: meta.hard-line-break.typ
+        1: constant.character.escape.typ
+
+  emphasis:
+    - include: bold
+    - include: italic
+
+  # https://typst.app/docs/reference/text/strong
+  bold:
+    - match: \*
+      scope: punctuation.definition.bold.begin.typ
+      push: bold-content
+
+  bold-content:
+    - meta_scope: markup.bold.typ
+    - match: \*
+      scope: punctuation.definition.bold.end.typ
+      pop: true
+    - include: inlines
+
+  # https://typst.app/docs/reference/text/emph
+  italic:
+    - match: _
+      scope: punctuation.definition.italic.begin.typ
+      push: italic-content
+
+  italic-content:
+    - meta_scope: markup.italic.typ
+    - match: _
+      scope: punctuation.definition.italic.end.typ
+      pop: true
+    - include: inlines
+
+  literals:
+    - include: code-spans
+
+  # https://typst.app/docs/reference/text/raw
+  code-spans:
+    - match: (`)
+      scope: punctuation.definition.raw.begin.typ
+      push: code-span-body
+
+  code-span-body:
+    - meta_scope: markup.raw.inline.typ
+    - match: \1(?!`)
+      scope: punctuation.definition.raw.end.typ
+      pop: true
+    - match: (`+)
+
+  # https://typst.app/docs/reference/meta/link
+  links:
+    - match: https?(://)[-\w]+
+      captures:
+        1: punctuation.separator.path.typ
+      push: link-content
+
+  link-content:
+    - meta_scope: markup.underline.link.typ
+    - match: (?=\s)
+      pop: true
+    - include: link-common
+
+  link-common:
+    - match: \(
+      push: link-group
+    - include: link-url-path-separators
+    - include: link-url-escapes
+
+  link-group:
+    - match: \)
+      pop: true
+    - match: (?=(?:{{html_entity}})*[?!.,:*_~]*[\s<])
+      pop: true
+    - include: link-common
+
+  link-url-path-separators:
+    - match: '[/&?#]'
+      scope: punctuation.separator.path.typ
+
+  link-url-escapes:
+    - match: (%)\h{2}
+      scope: constant.character.escape.url.typ
+      captures:
+        1: punctuation.definition.escape.typ
+
+  # https://typst.app/docs/reference/construct/label
+  labels:
+    - match: '<[-_\w]+>'
+      scope: storage.modifier.label.typ
+
+  # https://typst.app/docs/reference/meta/ref
+  refs:
+    - match: '@[-_\w]+'
+      scope: variable.other.readwrite.typ punctuation.definition.variable.typ
+      push: maybe-ref-content
+
+  maybe-ref-content:
+    - match: '\['
+      scope: punctuation.definition.generic.begin.typ
+      push: ref-content
+    - match: ''
+      pop: true
+
+  ref-content:
+    - match: '\]'
+      scope: punctuation.definition.generic.end.typ
+      pop: true
+    - include: inlines
+
+  # https://typst.app/docs/reference/symbols/sym
+  symbols:
+    - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)(?![\[\(])
+      scope: constant.other.symbol.typ
+      captures:
+        1: punctuation.definition.variable.typ
+        3: punctuation.accessor.typ
+    - match: '{{markup_symbol_shorthands}}'
+      scope: constant.other.typ
+
+
+###[ Math ]###################################################################
+
+  # https://typst.app/docs/reference/math
+  maths:
+    - match: \$
+      scope: markup.math.typ punctuation.definition.math.begin.typ
+      push: math-content
+
+  math-content:
+    - meta_scope: markup.math.typ
+    - match: \$
+      scope: markup.math.typ punctuation.definition.math.end.typ
+      pop: true
+    - include: math-common
+
+  math-common:
+    - include: greeks
+    - include: math-functions
+    - include: math-brackets
+    - include: math-numerics
+    - include: math-symbols
+    - include: math-operators
+    - include: scripts
+
+  greeks:
+    - match: '\b{{greeks}}\b'
+      captures:
+        1: keyword.other.greek.math.typ
+
+  math-functions:
+    - match: '(\.)?([[:alpha:]]+)(\()'
+      captures:
+        1: punctuation.accessor.typ
+        2: support.function.math.typ
+        3: punctuation.section.group.begin.typ
+      push: math-function-params
+    - match: '(\.)?([[:alpha:]]+)'
+      captures:
+        1: punctuation.accessor.typ
+        2: support.function.math.typ
+
+  math-brackets:
+    - match: '[\(\)]'
+      scope: constant.character.parenthesis.typ
+
+  math-function-params:
+    - match: (\))
+      captures:
+        1: punctuation.section.group.end.typ
+      pop: true
+    - include: math-common
+
+  math-numerics:
+    - match: \b(\d*)?\.?\d+([eE][-+]?\d+)?(%)
+      scope: constant.numeric.typ
+      captures:
+        3: constant.numeric.suffix.typ
+    - match: \b(\d*)?\.?\d+([eE][-+]?\d+)?(mm|pt|cm|in|em|rad|deg|fr)?\b
+      scope: constant.numeric.typ
+      captures:
+        3: constant.numeric.suffix.typ
+    - match: \b(0x[0-9a-zA-Z]+|(0b|0o)?\d+)\b
+      scope: constant.numeric.typ
+
+  math-symbols:
+    - match: '{{math_symbol_shorthands}}'
+      scope: constant.other.typ
+    - match: '&'
+      scope: constant.character.ampersand.typ
+    - match: '~'
+      scope: constant.character.space.typ
+    - include: escaped-char
+    - include: hard-line-breaks
+
+  escaped-char:
+    - match: '(\\).'
+      scope: constant.character.escape.typ
+      captures:
+        1: punctuation.definition.backslash.typ
+
+  math-operators:
+    - match: \+|\-|=|-|\*|/|\^|_|<|>
+      scope: keyword.operator.math.typ
+
+###[ Scripting ]##############################################################
+
+  # https://typst.app/docs/reference/scripting
+  scripts:
+    - match: \#
+      scope: punctuation.definition.script.begin.typ
+      push: script-content
+
+  script-content:
+    - meta_scope: markup.other.typ
+    - match: $\n?        # TODO: this is incorrect, but matching a random "expression" is also hard..
+      pop: true
+    - include: script-common
+
+  script-common:
+    - include: script-blocks
+    - include: content-blocks
+    - include: statements
+    - include: maths
+
+  script-blocks:
+    - match: '{'
+      scope: punctuation.section.group.begin.typ
+      push: script-block-content
+    - match: \(
+      scope: punctuation.section.group.begin.typ
+      push: script-dictionary
+
+  script-block-content:
+    - match: '}'
+      scope: punctuation.section.group.end.typ
+      pop: true
+    - include: script-common
+
+  script-dictionary:
+    - match: \)
+      scope: punctuation.section.group.end.typ
+      pop: true
+    - include: script-common
+
+  content-blocks:
+    - match: \[
+      scope: punctuation.section.group.begin.typ
+      push: content-block-content
+
+  content-block-content:
+    - match: \]
+      scope: punctuation.section.group.end.typ
+      pop: true
+    - include: markups
+
+  statements:
+    - include: strings
+    - include: script-functions
+    - include: keywords
+    - include: script-operators
+    - include: script-symbols
+    - include: math-numerics
+    - include: hard-line-breaks
+
+  keywords:
+    - match: '\b(include|import)\b'
+      scope: keyword.import.typ
+    - match: '\b(let|set)\b'
+      scope: storage.type.typ
+    - match: '\b(if|else|for|in|while|break)\b'
+      scope: keyword.control.typ
+    - match: '\b(none)\b'
+      scope: constant.language.null.typ
+    - match: '\b(auto)\b'
+      scope: constant.language.auto.typ
+    - match: '\b(true|false)\b'
+      scope: constant.language.boolean.typ
+
+  script-operators:
+    - match: '{{operators}}'
+      captures:
+        1: keyword.operator.typ
+
+  script-symbols:
+    - match: ':'
+      scope: punctuation.separator.key-value.typ
+    - match: ','
+      scope: punctuation.separator.typ
+    - match: ';'
+      scope: punctuation.terminator.typ
+    - match: '\.\.'
+      scope: keyword.operator.range.typ
+    - match: '='
+      scope: keyword.operator.assignment.typ
+
+  strings:
+    - match: '"'
+      scope: punctuation.definition.string.begin.typ
+      push: string-content
+
+  string-content:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.typ
+    - match: '"'
+      scope: punctuation.definition.string.end.typ
+      pop: true
+
+  script-functions:
+    - match: '(\.)?([[:alpha:]]+)(\()'
+      captures:
+        1: punctuation.accessor.typ
+        2: support.function.typ
+        3: punctuation.section.group.begin.typ
+      push: script-function-params
+    - match: '(\.)?([[:alpha:]]+)(\[)'
+      captures:
+        1: punctuation.accessor.typ
+        2: support.function.typ
+        3: punctuation.section.group.begin.typ
+      push: content-block-content
+
+  script-function-params:
+    - match: (\))
+      captures:
+        1: punctuation.section.group.end.typ
+      pop: true
+    - include: script-common
