@@ -5,7 +5,7 @@
 
 ## Install
 
-- Via Package Control: TODO (until almost complete).
+- Via Package Control: search for `Typst Syntax Highlight`.
 - Manual: clone this repo into your Sublime `Packages` folder.
 
 ## License

@@ -55,6 +55,6 @@ $ sin pi => 0 $
 //^^^ support.function.math.typ
 //    ^^ keyword.other.greek.math.typ
 //       ^^ constant.other.typ
-//          ^ constant.numeric.math.typ
+//          ^ constant.numeric.typ
 //            ^ markup.math.typ punctuation.definition.math.end.typ
 // <- markup.math.typ markup.math.typ punctuation.definition.math.begin.typ
