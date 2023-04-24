@@ -13,29 +13,13 @@
   {
     "keys": ["backspace"],
     "command": "run_macro_file",
-    "args": {
-      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
-    },
+    "args": { "file": "res://Packages/Default/Delete Left Right.sublime-macro" },
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "match_all": true },
-      {
-        "key": "selector",
-        "operator": "equal",
-        "operand": "source.typ - markup.raw"
-      },
-      {
-        "key": "preceding_text",
-        "operator": "regex_contains",
-        "operand": "\\*$",
-        "match_all": true
-      },
-      {
-        "key": "following_text",
-        "operator": "regex_contains",
-        "operand": "^\\*",
-        "match_all": true
-      }
+      { "key": "selector", "operator": "equal", "operand": "source.typ - markup.raw" },
+      { "key": "preceding_text", "operator": "regex_contains", "operand": "\\*$", "match_all": true },
+      { "key": "following_text", "operator": "regex_contains", "operand": "^\\*", "match_all": true }
     ]
   },
 
@@ -52,29 +36,13 @@
   {
     "keys": ["backspace"],
     "command": "run_macro_file",
-    "args": {
-      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
-    },
+    "args": { "file": "res://Packages/Default/Delete Left Right.sublime-macro" },
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "match_all": true },
-      {
-        "key": "selector",
-        "operator": "equal",
-        "operand": "source.typ - markup.raw"
-      },
-      {
-        "key": "preceding_text",
-        "operator": "regex_contains",
-        "operand": "_$",
-        "match_all": true
-      },
-      {
-        "key": "following_text",
-        "operator": "regex_contains",
-        "operand": "^_",
-        "match_all": true
-      }
+      { "key": "selector", "operator": "equal", "operand": "source.typ - markup.raw" },
+      { "key": "preceding_text", "operator": "regex_contains", "operand": "_$", "match_all": true },
+      { "key": "following_text", "operator": "regex_contains", "operand": "^_", "match_all": true }
     ]
   },
 
@@ -85,22 +53,9 @@
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "match_all": true },
-      {
-        "key": "selector",
-        "operand": "source.typ - markup.raw - meta.code-fence"
-      },
-      {
-        "key": "preceding_text",
-        "operator": "not_regex_contains",
-        "operand": "[\\w`]$",
-        "match_all": true
-      },
-      {
-        "key": "following_text",
-        "operator": "regex_contains",
-        "operand": "^(?:\t| |\\)|]|\\}|\\.|,|$)",
-        "match_all": true
-      }
+      { "key": "selector", "operand": "source.typ - markup.raw - meta.code-fence" },
+      { "key": "preceding_text", "operator": "not_regex_contains", "operand": "[\\w`]$", "match_all": true },
+      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|\\}|\\.|,|$)", "match_all": true }
     ]
   },
   {
@@ -110,10 +65,7 @@
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "operand": false, "match_all": true },
-      {
-        "key": "selector",
-        "operand": "source.typ - markup.raw - meta.code-fence"
-      }
+      { "key": "selector", "operand": "source.typ - markup.raw - meta.code-fence" }
     ]
   },
   {
@@ -123,44 +75,20 @@
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "operand": true, "match_all": true },
-      {
-        "key": "selector",
-        "operand": "source.typ markup.raw - markup.raw.code-fence - meta.code-fence"
-      },
-      {
-        "key": "following_text",
-        "operator": "regex_contains",
-        "operand": "^`",
-        "match_all": true
-      }
+      { "key": "selector", "operand": "source.typ markup.raw - markup.raw.code-fence - meta.code-fence" },
+      { "key": "following_text", "operator": "regex_contains", "operand": "^`", "match_all": true }
     ]
   },
   {
     "keys": ["backspace"],
     "command": "run_macro_file",
-    "args": {
-      "file": "res://Packages/Default/Delete Left Right.sublime-macro"
-    },
+    "args": { "file": "res://Packages/Default/Delete Left Right.sublime-macro" },
     "context": [
       { "key": "setting.auto_match_enabled" },
       { "key": "selection_empty", "match_all": true },
-      {
-        "key": "selector",
-        "operator": "equal",
-        "operand": "punctuation.definition.raw.begin.typ"
-      },
-      {
-        "key": "preceding_text",
-        "operator": "regex_contains",
-        "operand": "`$",
-        "match_all": true
-      },
-      {
-        "key": "following_text",
-        "operator": "regex_contains",
-        "operand": "^`",
-        "match_all": true
-      }
+      { "key": "selector", "operator": "equal", "operand": "punctuation.definition.raw.begin.typ" },
+      { "key": "preceding_text", "operator": "regex_contains", "operand": "`$", "match_all": true },
+      { "key": "following_text", "operator": "regex_contains", "operand": "^`", "match_all": true }
     ]
   }
 ]
