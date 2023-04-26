@@ -1,0 +1,7 @@
+{
+  "cmd": ["typst", "compile", "$file"],
+  "selector": "source.typst",
+  "file_regex": "┌─ (...*?):([0-9]*):?([0-9]*)",
+  "env": { "NO_COLOR": "1" },
+  "cancel": { "kill": true }
+}
