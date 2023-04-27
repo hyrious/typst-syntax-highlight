@@ -103,16 +103,16 @@ contexts:
 
   list-blocks:
     # https://typst.app/docs/reference/layout/list
-    - match: \s*(-)\s
+    - match: ^\s*(-)\s
       captures:
         1: markup.list.unnumbered.bullet.typst punctuation.definition.list_item.typst
       push: unordered-list-block
     # https://typst.app/docs/reference/layout/enum
-    - match: \s*(\+)\s
+    - match: ^\s*(\+)\s
       captures:
         1: markup.list.numbered.bullet.typst punctuation.definition.list_item.typst
       push: ordered-list-block
-    - match: \s*(\d{1,9}([.]))\s
+    - match: ^\s*(\d{1,9}([.]))\s
       captures:
         1: markup.list.numbered.bullet.typst punctuation.definition.list_item.typst
       push: ordered-list-block
