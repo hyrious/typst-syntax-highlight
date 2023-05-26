@@ -22,7 +22,7 @@ variables:
   non_raw_ident: '[[:alpha:]][_[:alnum:]]*|_[_[:alnum:]]+'
   identifier: '(?:(?:{{non_raw_ident}})\b)'
   operators: ([-+*/]=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
-  prefixes: (?:(?:include|import|set|let|if|for|while)\b)
+  prefixes: (?:(?:include|import|set|let|if|for|while|show)\b)
 
 contexts:
   # The prototype context is prepended to all contexts but those setting
@@ -739,6 +739,7 @@ contexts:
 
   literals:
     - include: code-spans
+    - include: escaped-char
 
   # https://typst.app/docs/reference/text/raw
   code-spans:
@@ -815,6 +816,13 @@ contexts:
 
   # https://typst.app/docs/reference/symbols/sym
   symbols:
+    - match: (#)(?!{{prefixes}})({{identifier}})(?:(\.)({{identifier}}))+(?=[\[\(])
+      scope: support.other.typst
+      captures:
+        1: punctuation.definition.variable.typst
+        3: punctuation.accessor.typst
+        4: variable.function.typst
+      push: script-function-content
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)(?![\[\(])
       scope: constant.other.symbol.typst
       captures:
@@ -822,7 +830,6 @@ contexts:
         3: punctuation.accessor.typst
     - match: '{{markup_symbol_shorthands}}'
       scope: constant.other.typst
-
 
 ###[ Math ]###################################################################
 
@@ -913,21 +920,25 @@ contexts:
 
   # https://typst.app/docs/reference/scripting
   scripts:
-    - match: ^\s*\#
+    - match: \#
       scope: punctuation.definition.script.begin.typst
       push: script-content
 
   script-content:
     - meta_scope: markup.other.typst
-    - match: $\n?        # TODO: this is incorrect, but matching a random "expression" is also hard..
+    - match: $\n?
+      #      ^ TODO: this is incorrect, but matching a random "expression" is also hard..
       pop: true
     - include: script-common
 
   script-common:
     - include: script-blocks
     - include: content-blocks
-    - include: statements
     - include: maths
+    - include: escaped-char
+    - include: labels
+    #          ^ not knowing the boundary of one-liners..
+    - include: statements
 
   script-blocks:
     - match: '{'
@@ -972,7 +983,7 @@ contexts:
   keywords:
     - match: '\b(include|import)\b'
       scope: keyword.import.typst
-    - match: '\b(let|set)\b'
+    - match: '\b(let|set|show)\b'
       scope: storage.type.typst
     - match: '\b(if|else|for|in|while|break)\b'
       scope: keyword.control.typst
@@ -1011,6 +1022,14 @@ contexts:
     - match: '"'
       scope: punctuation.definition.string.end.typst
       pop: true
+
+  script-function-content:
+    - match: \(
+      scope: punctuation.section.group.begin.typst
+      push: script-function-params
+    - match: \[
+      scope: punctuation.section.group.begin.typst
+      push: content-block-content
 
   script-functions:
     - match: '(\.)?([[:alpha:]]+)(\()'

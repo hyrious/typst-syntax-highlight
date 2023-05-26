@@ -1,0 +1,15 @@
+{
+  "scope": "source.typst",
+  "completions": [
+    { "trigger": "let", "contents": "#let ${1:a} = ${2:1}", "kind": "snippet", "details": "#let a = 1" },
+    { "trigger": "for", "contents": "#for ${1:item} in ${2:list} [$0]", "kind": "snippet", "details": "#for item in list [..]", },
+    { "trigger": "if", "contents": "#if ${1:condition} [$0]", "kind": "snippet", "details": "#if condition [..]", },
+    { "trigger": "ife", "contents": "#if ${1:condition} [$2] else [$0]", "kind": "snippet", "details": "#if condition [..] else [..]", },
+    { "trigger": "while", "contents": "#while ${1:condition} [$0]", "kind": "snippet", "details": "#while condition [..]", },
+    { "trigger": "inc", "contents": "#include ${1:\"${2:bar.typ}\"}", "kind": "snippet", "details": "#include file", },
+    { "trigger": "imp", "contents": "#import ${1:\"${2:bar.typ}\"}${3:: ${4:a, b}}", "kind": "snippet", "details": "#import file", },
+    { "trigger": "set", "contents": "#set ${0:text(14pt)}", "kind": "snippet", "details": "#set rule", },
+    { "trigger": "seti", "contents": "#set ${1:text(14pt)} if $0", "kind": "snippet", "details": "#set rule if ..", },
+    { "trigger": "show", "contents": "#show ${1:heading}: ${2:set text(14pt)}", "kind": "snippet", "details": "#show rule: set ..", },
+  ]
+}
