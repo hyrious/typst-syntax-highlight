@@ -2,7 +2,7 @@
 <plist version="1.0">
 <dict>
     <key>scope</key>
-    <string>source.typst</string>
+    <string>text.typst</string>
     <key>settings</key>
     <dict>
         <key>shellVariables</key>

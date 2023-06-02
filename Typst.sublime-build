@@ -1,11 +1,13 @@
 {
   "cmd": ["typst", "compile", "$file"],
-  "selector": "source.typst",
+  "selector": "text.typst",
   "file_regex": "┌─ (...*?):([0-9]*):?([0-9]*)",
   "env": { "NO_COLOR": "1" },
   "cancel": { "kill": true },
-  "variants": [{
-    "name": "Open",
-    "cmd": ["typst", "compile", "$file", "--open"]
-  }]
+  "variants": [
+    {
+      "name": "Open",
+      "cmd": ["typst", "compile", "$file", "--open"]
+    }
+  ]
 }

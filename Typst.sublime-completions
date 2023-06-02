@@ -1,5 +1,5 @@
 {
-  "scope": "source.typst",
+  "scope": "text.typst",
   "completions": [
     { "trigger": "let", "contents": "#let ${1:a} = ${2:1}", "kind": "snippet", "details": "#let a = 1" },
     { "trigger": "for", "contents": "#for ${1:item} in ${2:list} [$0]", "kind": "snippet", "details": "#for item in list [..]", },
