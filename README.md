@@ -16,6 +16,34 @@
 - Via Package Control: search for `Typst`.
 - Manual: clone this repo into your Sublime `Packages` folder.
 
+## Recipes
+
+### Show auto complete panel without pressing TAB
+
+You can create a [syntax specific settings](https://www.sublimetext.com/docs/settings.html#syntax-specific-settings)
+with the config below:
+
+```json
+{
+  "auto_complete_selector": "text.typst"
+}
+```
+
+### Build with Makefile
+
+You can create a [build system](https://www.sublimetext.com/docs/build_systems.html)
+with the config below:
+
+```json
+{
+  "cmd": ["make"],
+  "selector": "text.typst",
+  "file_regex": "┌─ (...*?):([0-9]*):?([0-9]*)",
+  "env": { "NO_COLOR": "1" },
+  "cancel": { "kill": true }
+}
+```
+
 ## License
 
 MIT @ [hyrious](https://github.com/hyrious)
