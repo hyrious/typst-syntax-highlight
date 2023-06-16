@@ -932,14 +932,25 @@ contexts:
 
   # https://typst.app/docs/reference/scripting
   scripts:
-    - match: \#
+    - match: (#)(?={{prefixes}})
+      captures:
+        1: punctuation.definition.script.begin.typst
+      push: script-statement
+    - match: '#'
       scope: punctuation.definition.script.begin.typst
-      push: script-content
+      push: script-expression
 
-  script-content:
+  script-statement:
     - meta_scope: markup.other.typst
     - match: $\n?
       #      ^ TODO: this is incorrect, but matching a random "expression" is also hard..
+      pop: true
+    - include: script-common
+
+  script-expression:
+    - meta_scope: markup.other.typst
+    - match: (?=[\s\]])
+      #      ^ stop scripting when seeing space or ], maybe wrong
       pop: true
     - include: script-common
 

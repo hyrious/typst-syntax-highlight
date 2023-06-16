@@ -58,3 +58,52 @@ $ sin pi => 0 $
 //          ^ constant.numeric.typst
 //            ^ markup.math.typst punctuation.definition.math.end.typst
 // <- markup.math.typst markup.math.typst punctuation.definition.math.begin.typst
+
+// #5
+#box()[
+  #table( columns:(1fr,auto,auto),
+    [#h(1cm) < this causes problems       ],[ as you can see  ],[ in the for below    ],
+//  ^ punctuation.section.group.begin.typst
+//   ^^^^^^^ markup.other.typst
+//                                        ^ punctuation.section.group.end.typst
+    [#"hello world".split()],
+)]
+// <- markup.other.typst markup.other.typst punctuation.section.group.end.typst
+
+for should not be highlighted here
+
+  #let foo = "bar"
+//^^^^^^^^^^^^^^^^ markup.other.typst
+//^ punctuation.definition.script.begin.typst
+// ^^^ storage.type.typst
+//         ^ keyword.operator.typst
+//           ^^^^^ string.quoted.double.typst
+//           ^ punctuation.definition.string.begin.typst
+//               ^ punctuation.definition.string.end.typst
+
+// The doc on official readme.
+#set page(width: 10cm, height: auto)
+#set heading(numbering: "1.")
+
+= Fibonacci sequence
+The Fibonacci sequence is defined through the
+recurrence relation $F_n = F_(n-1) + F_(n-2)$.
+It can also be expressed in _closed form:_
+
+$ F_n = round(1 / sqrt(5) phi.alt^n), quad
+  phi.alt = (1 + sqrt(5)) / 2 $
+
+#let count = 8
+#let nums = range(1, count + 1)
+#let fib(n) = (
+  if n <= 2 { 1 }
+  else { fib(n - 1) + fib(n - 2) }
+)
+
+The first #count numbers of the sequence are:
+
+#align(center, table(
+  columns: count,
+  ..nums.map(n => $F_#n$),
+  ..nums.map(n => str(fib(n))),
+))
