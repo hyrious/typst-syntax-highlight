@@ -1,0 +1,4 @@
+[
+  { "caption": "Typst: Preview Math",
+    "command": "typst_preview" },
+]
