@@ -10,6 +10,7 @@ file_extensions:
 # - https://userstyles.world/api/style/9109.user.css
 # - https://gist.github.com/hyrious/0bc29547b469da34eed9af5c91315a8b (backup)
 
+name: Typst
 scope: text.typst
 version: 2
 
