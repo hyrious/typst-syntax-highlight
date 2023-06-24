@@ -897,17 +897,18 @@ contexts:
         1: punctuation.section.group.end.typst
       pop: true
     - include: math-common
+    - include: script-symbols
 
   math-numerics:
-    - match: \b(\d*)?\.?\d+([eE][-+]?\d+)?(%)
+    - match: (\d*)?\.?\d+([eE][-+]?\d+)?(%)
       scope: constant.numeric.typst
       captures:
         3: constant.numeric.suffix.typst
-    - match: \b(\d*)?\.?\d+([eE][-+]?\d+)?(mm|pt|cm|in|em|rad|deg|fr)?\b
+    - match: (\d*)?\.?\d+([eE][-+]?\d+)?(mm|pt|cm|in|em|rad|deg|fr)?\b
       scope: constant.numeric.typst
       captures:
         3: constant.numeric.suffix.typst
-    - match: \b(0x[0-9a-zA-Z]+|(0b|0o)?\d+)\b
+    - match: (0x[0-9a-zA-Z]+|(0b|0o)?\d+)\b
       scope: constant.numeric.typst
 
   math-symbols:
