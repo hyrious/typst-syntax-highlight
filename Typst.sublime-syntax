@@ -867,6 +867,7 @@ contexts:
     - include: math-symbols
     - include: math-operators
     - include: symbols
+    - include: strings
     - include: scripts
 
   greeks:
