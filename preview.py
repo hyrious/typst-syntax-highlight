@@ -36,6 +36,14 @@ class TypstPreviewCommand(sublime_plugin.TextCommand):
           canvas = '#3a424b'
     return canvas, fg
 
+  # https://forum.sublimetext.com/t/mini-html-question-scale-image-to-popup-size/25394/7
+  def _get_image_size(self, path):
+    import imghdr, struct
+    with open(path, 'rb') as file:
+      if (head := file.read(32)) and imghdr.what(path, head) == 'png':
+        if struct.unpack('>i', head[4:8])[0] == 0x0d0a1a0a:
+          return struct.unpack('>ii', head[16:24])
+
   def _render_math(self, math, pt):
     import uuid, base64, pathlib, tempfile, textwrap, subprocess
 
@@ -47,7 +55,7 @@ class TypstPreviewCommand(sublime_plugin.TextCommand):
     if canvas:
       code += f'#set page(fill: rgb("{canvas[1:]}"))\n'
     if fg:
-      code += f'#set text(fill: rgb("{fg[1:]}"))\n'
+      code += f'#set text(fill: rgb("{fg[1:]}"), size: 16pt)\n'
     code += math
 
     src = pathlib.Path(tmpdir, name + '.typ')
@@ -84,11 +92,15 @@ class TypstPreviewCommand(sublime_plugin.TextCommand):
     src.unlink()
     with open(dst, 'rb') as file:
       content = file.read()
+
+    size = self._get_image_size(dst)
     dst.unlink()
 
+    # scale down from 2x to get a better view.
+    style = f'style="width:{size[0]/2}px;height:{size[1]/2}px"' if size else ""
     data = str(base64.b64encode(content), "utf-8")
     self.view.show_popup(
-      f'<img src="data:image/png;base64,{data}">',
+      f'<img {style} src="data:image/png;base64,{data}">',
       sublime.HIDE_ON_MOUSE_MOVE_AWAY,
       pt,
       *self.view.viewport_extent(),
