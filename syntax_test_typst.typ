@@ -64,11 +64,10 @@ $ sin pi => 0 $
   #table( columns:(1fr,auto,auto),
     [#h(1cm) < this causes problems       ],[ as you can see  ],[ in the for below    ],
 //  ^ punctuation.section.group.begin.typst
-//   ^^^^^^^ markup.other.typst
 //                                        ^ punctuation.section.group.end.typst
     [#"hello world".split()],
 )]
-// <- markup.other.typst markup.other.typst punctuation.section.group.end.typst
+// <- punctuation.section.group.end.typst
 
 for should not be highlighted here
 
@@ -107,3 +106,15 @@ The first #count numbers of the sequence are:
   ..nums.map(n => $F_#n$),
   ..nums.map(n => str(fib(n))),
 ))
+
+// #6
+#let a-b(a, b) = a + b
+//   ^^^ support.function.typst
+#let a_b(a, b) = a * b
+//   ^^^ support.function.typst
+  #a-b(2, 3) #a-b
+// ^^^ variable.function.typst
+//           ^^^^ constant.other.symbol.typst
+  #a_b(2, 3) #a_b
+// ^^^ variable.function.typst
+//           ^^^^ constant.other.symbol.typst

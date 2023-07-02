@@ -20,8 +20,8 @@ variables:
   markup_symbol_shorthands: (\.\.\.|---?|-\?|~)
   math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\|[-=]>|\|\]|\|\||~~?>|[-*'])
   greeks: (alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|gamma|kappa|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)
-  non_raw_ident: '[[:alpha:]][_[:alnum:]]*|_[_[:alnum:]]+'
-  identifier: '(?:(?:{{non_raw_ident}})\b)'
+  non_raw_ident: '[[:alpha:]][-_[:alnum:]]*|_[-_[:alnum:]]+'
+  identifier: '(?:{{non_raw_ident}})'
   operators: ([-+*/]=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
   prefixes: (?:(?:include|import|set|let|if|for|while|show)\b)
 
@@ -829,14 +829,13 @@ contexts:
 
   # https://typst.app/docs/reference/symbols/sym
   symbols:
-    - match: (#)(?!{{prefixes}})({{identifier}})(?:(\.)({{identifier}}))+(?=[\[\(])
-      scope: support.other.typst
+    - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)(?=[\[\(])
+      scope: support.other.typst variable.function.typst
       captures:
         1: punctuation.definition.variable.typst
         3: punctuation.accessor.typst
-        4: variable.function.typst
       push: script-function-content
-    - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)(?![\[\(])
+    - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
       scope: constant.other.symbol.typst
       captures:
         1: punctuation.definition.variable.typst
@@ -1056,15 +1055,17 @@ contexts:
     - match: \[
       scope: punctuation.section.group.begin.typst
       push: content-block-content
+    - match: ''
+      pop: true
 
   script-functions:
-    - match: '(\.)?([[:alpha:]]+)(\()'
+    - match: '(\.)?({{identifier}})(\()'
       captures:
         1: punctuation.accessor.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: script-function-params
-    - match: '(\.)?([[:alpha:]]+)(\[)'
+    - match: '(\.)?({{identifier}})(\[)'
       captures:
         1: punctuation.accessor.typst
         2: support.function.typst
