@@ -118,3 +118,25 @@ The first #count numbers of the sequence are:
   #a_b(2, 3) #a_b
 // ^^^ variable.function.typst
 //           ^^^^ constant.other.symbol.typst
+
+// #7
++ In list $cal(0)$
+
+  Nested content... $E=m c^2$.
+  $ T eq
+  cases(
+    delim: "{",
+    1 & n lt.eq 1,
+    2 T lr((log n)) plus 2^(log^ast n) & n gt 1
+//        ^ punctuation.section.group.begin.typst
+//         ^ constant.character.parenthesis.typst
+//               ^ constant.character.parenthesis.typst
+//                ^ punctuation.section.group.end.typst
+  ) $
+
+  and code
+
+  ```py
+  def find(arr: list):
+    pass
+  ```
