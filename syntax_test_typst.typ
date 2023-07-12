@@ -140,3 +140,13 @@ The first #count numbers of the sequence are:
   def find(arr: list):
     pass
   ```
+
+// #8
+This text is properly syntaxed <<<
+
+#h(1cm) foo ```js console.log(1) ```js console.log(2)
+//          ^^^ punctuation.definition.raw.code-fence.begin.typst
+//               ^^^^^^^^^^^^^^^^ markup.raw.block.javascript.typst source.js
+//                               ^^^ punctuation.definition.raw.code-fence.end.typst
+
+Evil purple now occurs <<<
