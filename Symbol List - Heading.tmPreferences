@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+  <key>scope</key>
+  <string>text.typst markup.heading - meta.whitespace.newline</string>
+  <key>settings</key>
+  <dict>
+    <key>showInSymbolList</key>
+    <integer>1</integer>
+    <key>symbolTransformation</key>
+    <string><![CDATA[
+      s/^\s*={6,}\s*/          /g;
+      s/^\s*={5}\s*/        /g;
+      s/^\s*={4}\s*/      /g;
+      s/^\s*={3}\s*/    /g;
+      s/^\s*={2}\s*/  /g;
+      s/^\s*={1}\s*//g;
+    ]]></string>
+  </dict>
+</dict>
+</plist>

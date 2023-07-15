@@ -807,8 +807,10 @@ contexts:
 
   # https://typst.app/docs/reference/construct/label
   labels:
-    - match: '<[-_\w]+>'
+    - match: '<([-_\w]+)>'
       scope: storage.modifier.label.typst
+      captures:
+        1: entity.name.label.typst
 
   # https://typst.app/docs/reference/meta/ref
   refs:
