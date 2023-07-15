@@ -90,7 +90,7 @@ contexts:
 
   # https://typst.app/docs/reference/meta/heading
   headings:
-    - match: ^\s*(=+)
+    - match: ^\s*(=+)\s*
       captures:
         1: punctuation.definition.heading.begin.typst
       push: heading-content
