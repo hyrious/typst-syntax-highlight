@@ -1,4 +1,4 @@
-// SYNTAX TEST partial-symbols "Packages/Typst/Typst.sublime-syntax"
+// SYNTAX TEST "Packages/Typst/Typst.sublime-syntax"
 
 // foo
 // ^ comment.line.double-dash
@@ -11,7 +11,7 @@
 // ^ markup.heading.typst - punctuation
  // <- - entity.name.section
 //^^^^^^^ entity.name.section.typst
-//@@@@@@@ local-definition
+//       ^ meta.whitespace.newline.typst
 
   - foo
     - bar
