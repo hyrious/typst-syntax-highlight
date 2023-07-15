@@ -98,7 +98,8 @@ contexts:
   heading-content:
     - meta_scope: markup.heading.typst
     - meta_content_scope: entity.name.section.typst
-    - match: $\n?
+    - match: \s*$\n?
+      scope: meta.whitespace.newline.typst
       pop: true
     - include: inlines
 
