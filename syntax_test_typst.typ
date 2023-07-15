@@ -57,7 +57,7 @@ $ sin pi => 0 $
 //       ^^ constant.other.typst
 //          ^ constant.numeric.typst
 //            ^ markup.math.typst punctuation.definition.math.end.typst
-// <- markup.math.typst markup.math.typst punctuation.definition.math.begin.typst
+// <- markup.math.typst punctuation.definition.math.begin.typst - markup.math markup.math
 
 // #5
 #box()[

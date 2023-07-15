@@ -849,13 +849,13 @@ contexts:
   # https://typst.app/docs/reference/math
   maths:
     - match: \$
-      scope: markup.math.typst punctuation.definition.math.begin.typst
+      scope: punctuation.definition.math.begin.typst
       push: math-content
 
   math-content:
     - meta_scope: markup.math.typst
     - match: \$
-      scope: markup.math.typst punctuation.definition.math.end.typst
+      scope: punctuation.definition.math.end.typst
       pop: true
     - include: math-common
 
