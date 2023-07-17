@@ -88,6 +88,11 @@ for should not be highlighted here
 //           ^ punctuation.definition.string.begin.typst
 //               ^ punctuation.definition.string.end.typst
 
+#set heading(numbering: "I.")
+//          ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+#lorem(30)
+//    ^^^^ meta.function-call.arguments.typst
+
 // The doc on official readme.
 #set page(width: 10cm, height: auto)
 #set heading(numbering: "1.")

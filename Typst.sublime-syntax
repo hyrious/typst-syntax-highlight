@@ -1090,6 +1090,7 @@ contexts:
       push: content-block-content
 
   script-function-params:
+    - meta_scope: meta.function-call.arguments.typst
     - match: (\))
       captures:
         1: punctuation.section.group.end.typst
