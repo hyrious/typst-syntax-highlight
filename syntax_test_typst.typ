@@ -62,6 +62,11 @@ $ sin pi => 0 $
 //            ^ markup.math.typst punctuation.definition.math.end.typst
 // <- markup.math.typst punctuation.definition.math.begin.typst - markup.math markup.math
 
+$ ( $
+//   ^ - markup.math
+$ frac(1, 2 $
+//           ^ - markup.math
+
 // #5
 #box()[
   #table( columns:(1fr,auto,auto),
