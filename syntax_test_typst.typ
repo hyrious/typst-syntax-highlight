@@ -237,3 +237,15 @@ This text is properly syntaxed <<<
 //                               ^^^ punctuation.definition.raw.code-fence.end.typst
 
 Evil purple now occurs <<<
+
+// #16
+  <label>
+//^^^^^^^ storage.modifier.label.typst
+//^ punctuation.definition.label.begin.typst
+// ^^^^^ entity.name.label.typst
+//      ^ punctuation.definition.label.end.typst
+
+  @label
+//^^^^^^ constant.other.reference.typst
+//^ punctuation.definition.reference.typst
+// ^^^^^ - punctuation 

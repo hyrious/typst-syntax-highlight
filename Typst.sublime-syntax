@@ -807,15 +807,19 @@ contexts:
 
   # https://typst.app/docs/reference/construct/label
   labels:
-    - match: '<([-_\w]+)>'
+    - match: '(<)([-_\w]+)(>)'
       scope: storage.modifier.label.typst
       captures:
-        1: entity.name.label.typst
+        1: punctuation.definition.label.begin.typst
+        2: entity.name.label.typst
+        3: punctuation.definition.label.end.typst
 
   # https://typst.app/docs/reference/meta/ref
   refs:
-    - match: '@[-_\w]+'
-      scope: variable.other.readwrite.typst punctuation.definition.variable.typst
+    - match: '(@)[-_\w]+'
+      scope: constant.other.reference.typst
+      captures:
+        1: punctuation.definition.reference.typst
       push: maybe-ref-content
 
   maybe-ref-content:
@@ -838,7 +842,7 @@ contexts:
       captures:
         1: punctuation.definition.expression.typst
         3: punctuation.accessor.typst
-      push: script-function-content
+      push: maybe-script-function-content
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
       scope: meta.expression.typst constant.other.symbol.typst
       captures:
@@ -1081,7 +1085,7 @@ contexts:
       scope: punctuation.definition.string.end.typst
       pop: true
 
-  script-function-content:
+  maybe-script-function-content:
     - meta_scope: meta.expression.typst
     - match: \(
       scope: punctuation.section.group.begin.typst
