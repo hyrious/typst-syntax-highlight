@@ -916,16 +916,32 @@ contexts:
     - include: script-symbols
 
   math-numerics:
-    - match: (\d*)?\.?\d+([eE][-+]?\d+)?(%)
-      scope: constant.numeric.typst
+    - match: \b(0x)(\h+)
+      scope: meta.number.integer.hexadecimal.typst
       captures:
-        3: constant.numeric.suffix.typst
-    - match: (\d*)?\.?\d+([eE][-+]?\d+)?(mm|pt|cm|in|em|rad|deg|fr)?\b
-      scope: constant.numeric.typst
+        1: constant.numeric.base.typst
+        2: constant.numeric.value.typst
+    - match: \b(0o)([0-7]+)
+      scope: meta.number.integer.octal.typst
       captures:
+        1: constant.numeric.base.typst
+        2: constant.numeric.value.typst
+    - match: \b(0b)([01]+)
+      scope: meta.number.integer.binary.typst
+      captures:
+        1: constant.numeric.base.typst
+        2: constant.numeric.value.typst
+    - match: (\d*(\.)\d+(?:[eE][-+]?\d+)?|\d+[eE][-+]?\d+)(%|(?:pt|mm|cm|in|em|deg|rad|fr)\b)?
+      scope: meta.number.float.decimal.typst
+      captures:
+        1: constant.numeric.value.typst
+        2: punctuation.separator.decimal.typst
         3: constant.numeric.suffix.typst
-    - match: (0x[0-9a-zA-Z]+|(0b|0o)?\d+)\b
-      scope: constant.numeric.typst
+    - match: \b(\d+)(%|(?:pt|mm|cm|in|em|deg|rad|fr)\b)?
+      scope: meta.number.integer.decimal.typst
+      captures:
+        1: constant.numeric.value.typst
+        2: constant.numeric.suffix.typst
 
   math-symbols:
     - match: '{{math_symbol_shorthands}}'
