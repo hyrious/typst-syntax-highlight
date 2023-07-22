@@ -53,12 +53,86 @@ console.log(1)
 link: https://example.org?a=%20b
 //    ^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.typst
 
+ #1
+//^ meta.number.integer.decimal.typst constant.numeric.value.typst
+
+ #0xff
+//^^^^ meta.number.integer.hexadecimal.typst
+//^^ constant.numeric.base.typst
+//  ^^ constant.numeric.value.typst
+
+ #0o10
+//^^^^ meta.number.integer.octal.typst
+//^^ constant.numeric.base.typst
+//  ^^ constant.numeric.value.typst
+
+ #0b1001
+//^^^^^^ meta.number.integer.binary.typst
+//^^ constant.numeric.base.typst
+//  ^^^^ constant.numeric.value.typst
+
+ #3.14
+//^^^^ meta.number.float.decimal.typst constant.numeric.value.typst
+// ^ punctuation.separator.decimal.typst
+
+ #1e4
+//^^^ meta.number.float.decimal.typst constant.numeric.value.typst
+
+#rect(width: 72pt)
+//           ^^^^ meta.number.integer.decimal.typst
+//           ^^ constant.numeric.value.typst
+//             ^^ constant.numeric.suffix.typst
+
+#rect(width: 254mm)
+//           ^^^^^ meta.number.integer.decimal.typst
+//           ^^^ constant.numeric.value.typst
+//              ^^ constant.numeric.suffix.typst
+
+#rect(width: 2.54cm)
+//           ^^^^^^ meta.number.float.decimal.typst
+//           ^^^^ constant.numeric.value.typst
+//            ^ punctuation.separator.decimal.typst
+//               ^^ constant.numeric.suffix.typst
+
+#rect(width: 1in)
+//           ^^^ meta.number.integer.decimal.typst
+//           ^ constant.numeric.value.typst
+//            ^^ constant.numeric.suffix.typst
+
+#rect(width: 2.5em)
+//           ^^^^^ meta.number.float.decimal.typst
+//           ^^^ constant.numeric.value.typst
+//            ^ punctuation.separator.decimal.typst
+//              ^^ constant.numeric.suffix.typst
+
+#rotate(180deg)[Hello there!]
+//      ^^^^^^ meta.number.integer.decimal.typst
+//      ^^^ constant.numeric.value.typst
+//         ^^^ constant.numeric.suffix.typst
+
+#rotate(3.14rad)[Hello there!]
+//      ^^^^^^^ meta.number.float.decimal.typst
+//      ^^^^ constant.numeric.value.typst
+//       ^ punctuation.separator.decimal.typst
+//          ^^^ constant.numeric.suffix.typst
+
+#scale(x: 150%)[Scaled apart.]
+//        ^^^^ meta.number.integer.decimal.typst
+//        ^^^ constant.numeric.value.typst
+//           ^ constant.numeric.suffix.typst
+
+Left #h(1fr) Left-ish #h(2fr) Right
+//      ^^^ meta.number.integer.decimal.typst
+//      ^ constant.numeric.value.typst
+//       ^^ constant.numeric.suffix.typst
+
+
 $ sin pi => 0 $
 //^^^^^^^^^^^^^ markup.math.typst
 //^^^ support.function.math.typst
 //    ^^ keyword.other.greek.math.typst
 //       ^^ constant.other.typst
-//          ^ constant.numeric.typst
+//          ^ constant.numeric.value.typst
 //            ^ markup.math.typst punctuation.definition.math.end.typst
 // <- markup.math.typst punctuation.definition.math.begin.typst - markup.math markup.math
 
