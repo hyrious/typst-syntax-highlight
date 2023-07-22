@@ -154,8 +154,8 @@ $ frac(1, 2 $
 for should not be highlighted here
 
   #let foo = "bar"
-//^^^^^^^^^^^^^^^^ markup.other.typst
-//^ punctuation.definition.script.begin.typst
+//^^^^^^^^^^^^^^^^ meta.expression.typst
+//^ punctuation.definition.expression.typst
 // ^^^ storage.type.typst
 //         ^ keyword.operator.typst
 //           ^^^^^ string.quoted.double.typst
