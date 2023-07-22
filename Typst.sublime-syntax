@@ -880,7 +880,7 @@ contexts:
   greeks:
     - match: '\b{{greeks}}\b'
       captures:
-        1: keyword.other.greek.math.typst
+        1: support.constant.greek.math.typst
 
   math-functions:
     - match: '(\.)?([[:alpha:]]+)(\()'
@@ -889,10 +889,14 @@ contexts:
         2: support.function.math.typst
         3: punctuation.section.group.begin.typst
       push: math-function-params
-    - match: '(\.)?([[:alpha:]]+)'
+    - match: '(\.)?([[:alpha:]]{2,})'
       captures:
         1: punctuation.accessor.typst
         2: support.function.math.typst
+    - match: '(\.)?([[:alpha:]])'
+      captures:
+        1: punctuation.accessor.typst
+        2: variable.other.math.typst
 
   math-brackets:
     - match: '\('

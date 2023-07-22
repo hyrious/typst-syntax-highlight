@@ -130,7 +130,7 @@ Left #h(1fr) Left-ish #h(2fr) Right
 $ sin pi => 0 $
 //^^^^^^^^^^^^^ markup.math.typst
 //^^^ support.function.math.typst
-//    ^^ keyword.other.greek.math.typst
+//    ^^ support.constant.greek.math.typst
 //       ^^ constant.other.typst
 //          ^ constant.numeric.value.typst
 //            ^ markup.math.typst punctuation.definition.math.end.typst
@@ -249,3 +249,13 @@ Evil purple now occurs <<<
 //^^^^^^ constant.other.reference.typst
 //^ punctuation.definition.reference.typst
 // ^^^^^ - punctuation 
+
+$ F_n = round(1 / sqrt(5) phi.alt^n) $
+//^ variable.other.math.typst
+//  ^ variable.other.math.typst
+//      ^^^^^ support.function.math.typst
+//                        ^^^ support.constant.greek.math.typst
+
+$ foo x $
+//^^^ support.function.math.typst
+//    ^ variable.other.math.typst
