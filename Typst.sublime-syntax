@@ -846,7 +846,7 @@ contexts:
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
       scope: meta.expression.typst constant.other.symbol.typst
       captures:
-        1: punctuation.definition.expression.typst
+        1: punctuation.definition.variable.typst
         3: punctuation.accessor.typst
     - match: '{{markup_symbol_shorthands}}'
       scope: constant.other.typst
@@ -856,13 +856,13 @@ contexts:
   # https://typst.app/docs/reference/math
   maths:
     - match: \$
-      scope: punctuation.definition.math.begin.typst
+      scope: string.other.math.typst punctuation.definition.math.begin.typst
       push: math-content
 
   math-content:
     - meta_scope: markup.math.typst
     - match: \$
-      scope: punctuation.definition.math.end.typst
+      scope: string.other.math.typst punctuation.definition.math.end.typst
       pop: true
     - include: math-common
 
@@ -977,10 +977,10 @@ contexts:
   scripts:
     - match: (#)(?={{prefixes}})
       captures:
-        1: punctuation.definition.expression.typst
+        1: keyword.other.typst punctuation.definition.expression.typst
       push: script-statement
     - match: '#'
-      scope: punctuation.definition.expression.typst
+      scope: keyword.other.typst punctuation.definition.expression.typst
       push: script-expression
 
   script-statement:
@@ -1050,7 +1050,7 @@ contexts:
     - match: '\b(include|import)\b'
       scope: keyword.import.typst
     - match: '\b(let|set|show)\b'
-      scope: storage.type.typst
+      scope: keyword.declaration.typst
     - match: '\b(if|else|for|in|while|break)\b'
       scope: keyword.control.typst
     - match: '\b(none)\b'

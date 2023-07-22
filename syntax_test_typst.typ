@@ -156,7 +156,7 @@ for should not be highlighted here
   #let foo = "bar"
 //^^^^^^^^^^^^^^^^ meta.expression.typst
 //^ punctuation.definition.expression.typst
-// ^^^ storage.type.typst
+// ^^^ keyword.declaration.typst
 //         ^ keyword.operator.typst
 //           ^^^^^ string.quoted.double.typst
 //           ^ punctuation.definition.string.begin.typst
@@ -259,3 +259,15 @@ $ F_n = round(1 / sqrt(5) phi.alt^n) $
 $ foo x $
 //^^^ support.function.math.typst
 //    ^ variable.other.math.typst
+
+  #let name = "Typst"
+//^^^^^^^^^^^^^^^^^^^ meta.expression.typst
+//^ punctuation.definition.expression.typst
+// ^^^ keyword.declaration.typst
+This is #name's documentation.
+//      ^^^^^ constant.other.symbol.typst
+//      ^ punctuation.definition.variable.typst
+
+  #include "bar.typ"
+//^ punctuation.definition.expression.typst
+// ^^^^^^^ keyword.import.typst
