@@ -836,13 +836,13 @@ contexts:
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)(?=[\[\(])
       scope: support.other.typst variable.function.typst
       captures:
-        1: punctuation.definition.variable.typst
+        1: punctuation.definition.expression.typst
         3: punctuation.accessor.typst
       push: script-function-content
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
-      scope: constant.other.symbol.typst
+      scope: meta.expression.typst constant.other.symbol.typst
       captures:
-        1: punctuation.definition.variable.typst
+        1: punctuation.definition.expression.typst
         3: punctuation.accessor.typst
     - match: '{{markup_symbol_shorthands}}'
       scope: constant.other.typst
@@ -953,21 +953,21 @@ contexts:
   scripts:
     - match: (#)(?={{prefixes}})
       captures:
-        1: punctuation.definition.script.begin.typst
+        1: punctuation.definition.expression.typst
       push: script-statement
     - match: '#'
-      scope: punctuation.definition.script.begin.typst
+      scope: punctuation.definition.expression.typst
       push: script-expression
 
   script-statement:
-    - meta_scope: markup.other.typst
+    - meta_scope: meta.expression.typst
     - match: $\n?
       #      ^ TODO: this is incorrect, but matching a random "expression" is also hard..
       pop: true
     - include: script-common
 
   script-expression:
-    - meta_scope: markup.other.typst
+    - meta_scope: meta.expression.typst
     - match: (?=[\s\]])
       #      ^ stop scripting when seeing space or ], maybe wrong
       pop: true
@@ -1066,6 +1066,7 @@ contexts:
       pop: true
 
   script-function-content:
+    - meta_scope: meta.expression.typst
     - match: \(
       scope: punctuation.section.group.begin.typst
       push: script-function-params
