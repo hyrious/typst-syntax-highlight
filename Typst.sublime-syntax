@@ -723,34 +723,72 @@ contexts:
         1: constant.character.escape.typst
 
   emphasis:
+    - include: bold-italic
+    - include: italic-bold
     - include: bold
     - include: italic
 
   # https://typst.app/docs/reference/text/strong
   bold:
-    - match: \*
+    - match: (?<!\S)\*
       scope: punctuation.definition.bold.begin.typst
       push: bold-content
 
   bold-content:
     - meta_scope: markup.bold.typst
-    - match: \*
+    - match: \*(?!\S)
       scope: punctuation.definition.bold.end.typst
       pop: true
     - include: inlines
 
   # https://typst.app/docs/reference/text/emph
   italic:
-    - match: _
+    - match: (?<!\S)_
       scope: punctuation.definition.italic.begin.typst
       push: italic-content
 
   italic-content:
     - meta_scope: markup.italic.typst
-    - match: _
+    - match: _(?!\S)
       scope: punctuation.definition.italic.end.typst
       pop: true
     - include: inlines
+
+  bold-italic:
+    - match: (?<!\S)(\*)(_)
+      captures:
+        1: punctuation.definition.bold.begin.typst
+        2: punctuation.definition.italic.begin.typst
+      push:
+        - bold-content
+        - bold-italic-content
+
+  bold-italic-content:
+    - meta_scope: markup.italic.typst
+    - match: (_)(\*)(?!\S)
+      captures:
+        1: punctuation.definition.italic.end.typst
+        2: punctuation.definition.bold.end.typst
+      pop: 2
+    - include: italic-content
+
+  italic-bold:
+    - match: (?<!\S)(_)(\*)
+      captures:
+        1: punctuation.definition.italic.begin.typst
+        2: punctuation.definition.bold.begin.typst
+      push:
+        - italic-content
+        - italic-bold-content
+
+  italic-bold-content:
+    - meta_scope: markup.bold.typst
+    - match: (\*)(_)(?!\S)
+      captures:
+        1: punctuation.definition.bold.end.typst
+        2: punctuation.definition.italic.end.typst
+      pop: 2
+    - include: bold-content
 
   literals:
     - include: code-spans

@@ -22,21 +22,22 @@
 foo\ bar
 // ^ meta.hard-line-break.typst constant.character.escape.typst
 
-foo*bar*_buzz_
-// ^ markup.bold.typst punctuation.definition.bold.begin.typst
-//  ^^^^ markup.bold.typst
-//     ^ markup.bold.typst punctuation.definition.bold.end.typst
-//      ^ markup.italic.typst punctuation.definition.italic.begin.typst
-//       ^^^^^ markup.italic.typst
-//           ^ punctuation.definition.italic.end.typst
-
-foo_*bar*_buzz
-// ^^^^^^^ markup.italic.typst
-// ^ punctuation.definition.italic.begin.typst
+foo *bar* _buzz_
 //  ^^^^^ markup.bold.typst
 //  ^ punctuation.definition.bold.begin.typst
 //      ^ punctuation.definition.bold.end.typst
-//       ^ punctuation.definition.italic.end.typst
+//        ^^^^^^ markup.italic.typst
+//        ^ punctuation.definition.italic.begin.typst
+//             ^ punctuation.definition.italic.end.typst
+
+foo _*bar*_ _*buzz* buf_ zzz
+//  ^^^^^^^ markup.italic.typst markup.bold.typst
+//          ^^^^^^^ markup.italic.typst markup.bold.typst
+//                  ^^^^ markup.italic.typst - markup.bold.typst
+
+foo _bar_buzz_ buf
+//  ^^^^^^^^^^ markup.italic.typst
+//      ^ - punctuation.definition.italic
 
 ```js
 //^ punctuation.definition.raw.code-fence.begin.typst
@@ -271,3 +272,11 @@ This is #name's documentation.
   #include "bar.typ"
 //^ punctuation.definition.expression.typst
 // ^^^^^^^ keyword.import.typst
+
+// #17
+#table(
+  columns: (1fr, auto),
+  [1],[stm32f10x_adc.c],
+  //            ^ - punctuation.definition.italic
+  [2],[stm32f10x_dma.c],
+)
