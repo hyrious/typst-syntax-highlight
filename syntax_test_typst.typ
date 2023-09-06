@@ -280,3 +280,12 @@ This is #name's documentation.
   //            ^ - punctuation.definition.italic
   [2],[stm32f10x_dma.c],
 )
+
+// #19
+This is _emph_, This is not emph!
+//      ^^^^^^ markup.italic.typst
+//            ^ - markup.italic
+
+This is *emph*, This is not emph!
+//      ^^^^^^ markup.bold.typst
+//            ^ - markup.bold

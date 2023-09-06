@@ -24,6 +24,7 @@ variables:
   identifier: '(?:{{non_raw_ident}})'
   operators: ([-+*/]=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
   prefixes: (?:(?:include|import|set|let|if|for|while|show)\b)
+  end_of_emph: '[a-zA-Z0-9]'
 
 contexts:
   # The prototype context is prepended to all contexts but those setting
@@ -736,7 +737,7 @@ contexts:
 
   bold-content:
     - meta_scope: markup.bold.typst
-    - match: \*(?!\S)
+    - match: \*(?!{{end_of_emph}})
       scope: punctuation.definition.bold.end.typst
       pop: true
     - include: inlines
@@ -749,7 +750,7 @@ contexts:
 
   italic-content:
     - meta_scope: markup.italic.typst
-    - match: _(?!\S)
+    - match: _(?!{{end_of_emph}})
       scope: punctuation.definition.italic.end.typst
       pop: true
     - include: inlines
@@ -765,7 +766,7 @@ contexts:
 
   bold-italic-content:
     - meta_scope: markup.italic.typst
-    - match: (_)(\*)(?!\S)
+    - match: (_)(\*)(?!{{end_of_emph}})
       captures:
         1: punctuation.definition.italic.end.typst
         2: punctuation.definition.bold.end.typst
@@ -783,7 +784,7 @@ contexts:
 
   italic-bold-content:
     - meta_scope: markup.bold.typst
-    - match: (\*)(_)(?!\S)
+    - match: (\*)(_)(?!{{end_of_emph}})
       captures:
         1: punctuation.definition.bold.end.typst
         2: punctuation.definition.italic.end.typst
