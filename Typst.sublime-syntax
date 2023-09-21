@@ -1130,11 +1130,17 @@ contexts:
 
   maybe-script-function-content:
     - meta_scope: meta.expression.typst
-    - match: \(
-      scope: punctuation.section.group.begin.typst
+    - match: (?:(\.)({{identifier}}))?(\()
+      captures:
+        1: punctuation.accessor.typst
+        2: support.function.typst
+        3: punctuation.section.group.begin.typst
       push: script-function-params
-    - match: \[
-      scope: punctuation.section.group.begin.typst
+    - match: (?:(\.)({{identifier}}))?(\[)
+      captures:
+        1: punctuation.accessor.typst
+        2: support.function.typst
+        3: punctuation.section.group.begin.typst
       push: content-block-content
     - match: ''
       pop: true

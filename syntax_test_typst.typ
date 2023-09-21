@@ -299,3 +299,9 @@ $#[Y] != #[X]$
 //            ^ - markup.math
 
 === Sub section B
+
+// #23
+#counter(page).update(1).bar
+//            ^ punctuation.accessor
+//             ^^^^^^ support.function.typst
+//                      ^ - support.function
