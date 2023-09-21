@@ -83,6 +83,8 @@ link: https://example.org?a=%20b
 //           ^^^^ meta.number.integer.decimal.typst
 //           ^^ constant.numeric.value.typst
 //             ^^ constant.numeric.suffix.typst
+//    ^^^^^ variable.parameter.typst
+//         ^ punctuation.separator.parameter.typst
 
 #rect(width: 254mm)
 //           ^^^^^ meta.number.integer.decimal.typst
@@ -165,6 +167,8 @@ for should not be highlighted here
 
 #set heading(numbering: "I.")
 //          ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//           ^^^^^^^^^ variable.parameter.typst
+//                    ^ punctuation.separator.parameter.typst
 #lorem(30)
 //    ^^^^ meta.function-call.arguments.typst
 

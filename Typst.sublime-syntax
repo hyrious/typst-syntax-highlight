@@ -1159,4 +1159,8 @@ contexts:
       captures:
         1: punctuation.section.group.end.typst
       pop: true
+    - match: '({{identifier}})\s*(:)'
+      captures:
+        1: variable.parameter.typst
+        2: punctuation.separator.parameter.typst
     - include: script-common
