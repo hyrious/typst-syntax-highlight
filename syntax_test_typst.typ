@@ -289,3 +289,9 @@ This is _emph_, This is not emph!
 This is *emph*, This is not emph!
 //      ^^^^^^ markup.bold.typst
 //            ^ - markup.bold
+
+// #21
+$#[Y] != #[X]$
+//            ^ - markup.math
+
+=== Sub section B

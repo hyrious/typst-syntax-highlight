@@ -1031,8 +1031,8 @@ contexts:
 
   script-expression:
     - meta_scope: meta.expression.typst
-    - match: (?=[\s\]])
-      #      ^ stop scripting when seeing space or ], maybe wrong
+    - match: (?=[\s\]\$])
+      #      ^ stop scripting when seeing space or ] or $, maybe wrong
       pop: true
     - include: script-common
 
