@@ -6,6 +6,12 @@
 /**/
 // <- comment.block.empty.typst punctuation.definition.comment.typst
 
+/* multiline
+// comment */
+should stop here */
+// ^^^^^^^^^^^^^^^^ comment.block.typst
+//                 ^ - comment
+
 = Heading
 // <- markup.heading.typst punctuation.definition.heading.begin.typst
 // ^ markup.heading.typst - punctuation

@@ -72,6 +72,7 @@ contexts:
   block-comment-body:
     - meta_include_prototype: false
     - meta_scope: comment.block.typst
+    - include: line-comments
     - include: block-comment-end
 
   block-comment-end:
