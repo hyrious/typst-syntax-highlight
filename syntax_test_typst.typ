@@ -280,9 +280,10 @@ This is #name's documentation.
 //      ^^^^^ constant.other.symbol.typst
 //      ^ punctuation.definition.variable.typst
 
-  #include "bar.typ"
+  #include "bar.typ" as baz
 //^ punctuation.definition.expression.typst
 // ^^^^^^^ keyword.import.typst
+//                   ^^ keyword.control.import.as.typst
 
 // #17
 #table(

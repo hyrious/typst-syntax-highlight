@@ -1089,6 +1089,8 @@ contexts:
   keywords:
     - match: '\b(include|import)\b'
       scope: keyword.import.typst
+    - match: '\b(as)\b'
+      scope: keyword.control.import.as.typst
     - match: '\b(let|set|show)\b'
       scope: keyword.declaration.typst
     - match: '\b(if|else|for|in|while|break)\b'
