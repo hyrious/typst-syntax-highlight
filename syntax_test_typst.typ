@@ -13,6 +13,12 @@ should stop here */
 // ^^^^^^^^^^^^^^^^ comment.block.typst
 //                 ^ - comment
 
+// #28
+/* multiline
+/* nested */
+comment */
+//      ^^ comment.block.typst punctuation.definition.comment.end.typst
+
 = Heading
 // <- markup.heading.typst punctuation.definition.heading.begin.typst
 // ^ markup.heading.typst - punctuation
