@@ -313,3 +313,11 @@ $#[Y] != #[X]$
 //            ^ punctuation.accessor
 //             ^^^^^^ support.function.typst
 //                      ^ - support.function
+
+// #27
+#let f = {
+  let a = 5
+  [*bold* _italic_]
+// ^^^^^^ markup.bold.typst
+//        ^^^^^^^^ markup.italic.typst
+}

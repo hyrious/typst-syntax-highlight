@@ -24,7 +24,8 @@ variables:
   identifier: '(?:{{non_raw_ident}})'
   operators: ([-+*/]=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
   prefixes: (?:(?:include|import|set|let|if|for|while|show)\b)
-  end_of_emph: '[a-zA-Z0-9]'
+  not_begin_of_emph: '[a-zA-Z0-9]'
+  not_end_of_emph: '[a-zA-Z0-9]'
 
 contexts:
   # The prototype context is prepended to all contexts but those setting
@@ -732,32 +733,32 @@ contexts:
 
   # https://typst.app/docs/reference/text/strong
   bold:
-    - match: (?<!\S)\*
+    - match: (?<!{{not_begin_of_emph}})\*
       scope: punctuation.definition.bold.begin.typst
       push: bold-content
 
   bold-content:
     - meta_scope: markup.bold.typst
-    - match: \*(?!{{end_of_emph}})
+    - match: \*(?!{{not_end_of_emph}})
       scope: punctuation.definition.bold.end.typst
       pop: true
     - include: inlines
 
   # https://typst.app/docs/reference/text/emph
   italic:
-    - match: (?<!\S)_
+    - match: (?<!{{not_begin_of_emph}})_
       scope: punctuation.definition.italic.begin.typst
       push: italic-content
 
   italic-content:
     - meta_scope: markup.italic.typst
-    - match: _(?!{{end_of_emph}})
+    - match: _(?!{{not_end_of_emph}})
       scope: punctuation.definition.italic.end.typst
       pop: true
     - include: inlines
 
   bold-italic:
-    - match: (?<!\S)(\*)(_)
+    - match: (?<!{{not_begin_of_emph}})(\*)(_)
       captures:
         1: punctuation.definition.bold.begin.typst
         2: punctuation.definition.italic.begin.typst
@@ -767,7 +768,7 @@ contexts:
 
   bold-italic-content:
     - meta_scope: markup.italic.typst
-    - match: (_)(\*)(?!{{end_of_emph}})
+    - match: (_)(\*)(?!{{not_end_of_emph}})
       captures:
         1: punctuation.definition.italic.end.typst
         2: punctuation.definition.bold.end.typst
@@ -775,7 +776,7 @@ contexts:
     - include: italic-content
 
   italic-bold:
-    - match: (?<!\S)(_)(\*)
+    - match: (?<!{{not_begin_of_emph}})(_)(\*)
       captures:
         1: punctuation.definition.italic.begin.typst
         2: punctuation.definition.bold.begin.typst
@@ -785,7 +786,7 @@ contexts:
 
   italic-bold-content:
     - meta_scope: markup.bold.typst
-    - match: (\*)(_)(?!{{end_of_emph}})
+    - match: (\*)(_)(?!{{not_end_of_emph}})
       captures:
         1: punctuation.definition.bold.end.typst
         2: punctuation.definition.italic.end.typst
