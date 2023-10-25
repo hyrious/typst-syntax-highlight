@@ -327,3 +327,11 @@ $#[Y] != #[X]$
 // ^^^^^^ markup.bold.typst
 //        ^^^^^^^^ markup.italic.typst
 }
+
+// #29
+#let f = (
+  a-b, a- b, a -b
+// ^ - keyword.operator.typst
+//      ^ - keyword.operator.typst
+//             ^ keyword.operator.typst
+)
