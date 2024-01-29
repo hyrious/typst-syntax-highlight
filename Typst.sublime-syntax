@@ -1026,8 +1026,8 @@ contexts:
 
   script-statement:
     - meta_scope: meta.expression.typst
-    - match: $\n?
-      #      ^ TODO: this is incorrect, but matching a random "expression" is also hard..
+    - match: (?=[\]])|$\n?
+      #      ^ matching a random "expression" is hard, stop early when seeing newline or ]
       pop: true
     - include: script-common
 
@@ -1088,19 +1088,19 @@ contexts:
     - include: hard-line-breaks
 
   keywords:
-    - match: '\b(include|import)\b'
+    - match: '(?<!-)\b(include|import)\b(?!-)'
       scope: keyword.import.typst
-    - match: '\b(as)\b'
+    - match: '(?<!-)\b(as)\b(?!-)'
       scope: keyword.control.import.as.typst
-    - match: '\b(let|set|show)\b'
+    - match: '(?<!-)\b(let|set|show)\b(?!-)'
       scope: keyword.declaration.typst
-    - match: '\b(if|else|for|in|while|break|return)\b'
+    - match: '(?<!-)\b(if|else|for|in|while|break|return)\b(?!-)'
       scope: keyword.control.typst
-    - match: '\b(none)\b'
+    - match: '(?<!-)\b(none)\b(?!-)'
       scope: constant.language.null.typst
-    - match: '\b(auto)\b'
+    - match: '(?<!-)\b(auto)\b(?!-)'
       scope: constant.language.auto.typst
-    - match: '\b(true|false)\b'
+    - match: '(?<!-)\b(true|false)\b(?!-)'
       scope: constant.language.boolean.typst
 
   script-operators:

@@ -335,3 +335,18 @@ $#[Y] != #[X]$
 //      ^ - keyword.operator.typst
 //             ^ keyword.operator.typst
 )
+
+// #32
+#{
+  let show-one() = []
+  let show-two = [asdf]
+  //  ^^^^ - keyword.declaration.typst
+  let three-show = [jkl]
+  //        ^^^^ - keyword.declaration.typst
+  let order = [#show-one()]
+  let mhm = "?"
+//^^^ keyword.declaration.typst
+//          ^^^ string.quoted.double.typst
+  mhm
+}
+// - meta.expression.typst
