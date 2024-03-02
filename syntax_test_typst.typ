@@ -367,3 +367,17 @@ $#[Y] != #[X]$
      test(type(rect.stroke), stroke)
      test(rect.stroke.paint, red)
    }
+
+// #36
+#let in-asdf = a in b
+//   ^^ - keyword
+#let and-asdf = a and b
+//   ^^^ - keyword
+#let not-asdf = not a
+//   ^^^ - keyword
+#let or-asdf = a or b
+//   ^^ - keyword
+#let in-asdf()
+//   ^^ - keyword
+#let and-asdf()
+//   ^^^ - keyword
