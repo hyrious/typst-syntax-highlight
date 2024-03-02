@@ -355,6 +355,10 @@ $#[Y] != #[X]$
    / as.df jkl: asdf
 // ^ markup.terms.typst punctuation.definition.term.typst
 //   ^^^^^^^^^ markup.terms.typst entity.name.enum.typst
+   // foo: bar
+//    ^^^ - markup.terms.typst
+   /* foo: bar */
+//    ^^^ - markup.terms.typst
 
 // #35
 // https://laurmaedje.github.io/posts/types-and-context/

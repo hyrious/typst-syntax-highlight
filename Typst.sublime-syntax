@@ -698,7 +698,7 @@ contexts:
 
   # https://typst.app/docs/reference/model/terms
   terms:
-    - match: \s*(/)\s*([^:]+)(:)
+    - match: \s*(/)(?![/*])\s*([^:]+)(:)
       #                ^^^^ Typst allow any elements in terms, e.g. "/ $f:$: g"
       #                     it will be too complicated to match this case
       scope: markup.terms.typst
