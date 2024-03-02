@@ -23,7 +23,7 @@ variables:
   non_raw_ident: '[[:alpha:]][-_[:alnum:]]*|_[-_[:alnum:]]+'
   identifier: '(?:{{non_raw_ident}})'
   operators: ([+*/]=?|\B-=?|=>|==?|[<>]=?|\bin\b|\bnot\s+in\b|\bnot\b|\band\b|\bor\b)
-  prefixes: (?:(?:include|import|set|let|if|for|while|show)\b)
+  prefixes: (?:(?:include|import|set|let|if|for|while|show|context)\b)
   not_begin_of_emph: '[a-zA-Z0-9]'
   not_end_of_emph: '[a-zA-Z0-9]'
 
@@ -1094,7 +1094,7 @@ contexts:
       scope: keyword.import.typst
     - match: '(?<!-)\b(as)\b(?!-)'
       scope: keyword.control.import.as.typst
-    - match: '(?<!-)\b(let|set|show)\b(?!-)'
+    - match: '(?<!-)\b(let|set|show|context)\b(?!-)'
       scope: keyword.declaration.typst
     - match: '(?<!-)\b(if|else|for|in|while|break|return)\b(?!-)'
       scope: keyword.control.typst

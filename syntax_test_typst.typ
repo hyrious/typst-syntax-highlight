@@ -355,3 +355,15 @@ $#[Y] != #[X]$
    / as.df jkl: asdf
 // ^ markup.terms.typst punctuation.definition.term.typst
 //   ^^^^^^^^^ markup.terms.typst entity.name.enum.typst
+
+// #35
+// https://laurmaedje.github.io/posts/types-and-context/
+#set text(fill: context text.fill.darken(20%))
+//              ^^^^^^^ keyword.declaration
+   #context test(text.lang, "de")
+//  ^^^^^^^ keyword.declaration
+   #context {
+//  ^^^^^^^ keyword.declaration
+     test(type(rect.stroke), stroke)
+     test(rect.stroke.paint, red)
+   }
