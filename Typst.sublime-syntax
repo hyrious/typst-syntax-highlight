@@ -1096,7 +1096,7 @@ contexts:
       scope: keyword.control.import.as.typst
     - match: '(?<!-)\b(let|set|show|context)\b(?!-)'
       scope: keyword.declaration.typst
-    - match: '(?<!-)\b(if|else|for|while|break|return)\b(?!-)'
+    - match: '(?<!-)\b(if|else|for|while|break|continue|return)\b(?!-)'
       scope: keyword.control.typst
     - match: '(?<!-)\b(none)\b(?!-)'
       scope: constant.language.null.typst
