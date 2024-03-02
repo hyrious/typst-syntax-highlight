@@ -107,12 +107,12 @@ contexts:
     - include: inlines
 
   list-blocks:
-    # https://typst.app/docs/reference/layout/list
+    # https://typst.app/docs/reference/model/list
     - match: ^\s*(-)\s
       captures:
         1: markup.list.unnumbered.bullet.typst punctuation.definition.list_item.typst
       push: unordered-list-block
-    # https://typst.app/docs/reference/layout/enum
+    # https://typst.app/docs/reference/model/enum
     - match: ^\s*(\+)\s
       captures:
         1: markup.list.numbered.bullet.typst punctuation.definition.list_item.typst
@@ -696,9 +696,11 @@ contexts:
         1: punctuation.definition.raw.code-fence.end.typst
       pop: true
 
-  # https://typst.app/docs/reference/layout/terms
+  # https://typst.app/docs/reference/model/terms
   terms:
-    - match: \s*(/)\s*(\w+)(:)
+    - match: \s*(/)\s*([^:]+)(:)
+      #                ^^^^ Typst allow any elements in terms, e.g. "/ $f:$: g"
+      #                     it will be too complicated to match this case
       scope: markup.terms.typst
       captures:
         1: punctuation.definition.term.typst

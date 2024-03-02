@@ -350,3 +350,8 @@ $#[Y] != #[X]$
   mhm
 }
 // - meta.expression.typst
+
+// #34
+   / as.df jkl: asdf
+// ^ markup.terms.typst punctuation.definition.term.typst
+//   ^^^^^^^^^ markup.terms.typst entity.name.enum.typst
