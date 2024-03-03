@@ -1178,7 +1178,7 @@ contexts:
       captures:
         1: support.function.typst
         2: punctuation.section.group.begin.typst
-        3: punctuation.definition.raw.begin.typst
+        3: markup.raw.inline.typst punctuation.definition.raw.begin.typst
       push:
         - script-function-params
         - regex-raw-body
@@ -1194,7 +1194,7 @@ contexts:
   regex-raw-body:
     - meta_content_scope: markup.raw.inline.typst string.regexp.typst
     - match: \3(?!`)
-      scope: punctuation.definition.raw.end.typst
+      scope: markup.raw.inline.typst punctuation.definition.raw.end.typst
       pop: true
     - match: (`+)
     - include: scope:source.regexp.js
