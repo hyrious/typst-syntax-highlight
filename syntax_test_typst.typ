@@ -360,6 +360,25 @@ $#[Y] != #[X]$
    /* foo: bar */
 //    ^^^ - markup.terms.typst
 
+// #38
+   / asdf\: asdf: asdf
+// ^ markup.terms.typst punctuation.definition.term.typst
+//       ^^ constant.character.escape.typst
+//              ^ markup.terms.typst punctuation.separator.key-value.typst
+   / asdf#emph[asdf]: asdf
+// ^ markup.terms.typst punctuation.definition.term.typst
+//       ^^^^^^^^^^^ meta.expression.typst
+//                  ^ markup.terms.typst punctuation.separator.key-value.typst
+   / #(a + b): buzz
+//           ^ markup.terms.typst punctuation.separator.key-value.typst
+//             ^^^^ - markup.terms.typst
+
+// #39
+asdf / asdf:
+//   ^ - markup.terms.typst
+   /asdf:
+// ^ - markup.terms.typst
+
 // #35
 // https://laurmaedje.github.io/posts/types-and-context/
 #set text(fill: context text.fill.darken(20%))

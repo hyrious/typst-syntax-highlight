@@ -698,14 +698,20 @@ contexts:
 
   # https://typst.app/docs/reference/model/terms
   terms:
-    - match: \s*(/)(?![/*])\s*([^:]+)(:)
-      #                ^^^^ Typst allow any elements in terms, e.g. "/ $f:$: g"
-      #                     it will be too complicated to match this case
-      scope: markup.terms.typst
+    - match: ^\s*(/)[ ]
       captures:
         1: punctuation.definition.term.typst
-        2: entity.name.enum.typst
-        3: punctuation.separator.key-value.typst
+      push: term-body
+
+  term-body:
+    - meta_scope: markup.terms.typst
+    - meta_content_scope: entity.name.enum.typst
+    - match: ':'
+      scope: punctuation.separator.key-value.typst
+      pop: true
+    - match: ^(?=\S)
+      pop: true
+    - include: markups
 
 ###[ Inline ]#################################################################
 
@@ -1035,8 +1041,8 @@ contexts:
 
   script-expression:
     - meta_scope: meta.expression.typst
-    - match: (?=[\s\]\$])
-      #      ^ stop scripting when seeing space or ] or $, maybe wrong
+    - match: (?=[\s\]\$\:])
+      #      ^ stop scripting when seeing space or ] or $ or :, maybe wrong
       pop: true
     - include: script-common
 
