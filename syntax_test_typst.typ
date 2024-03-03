@@ -404,3 +404,11 @@ asdf / asdf:
 //   ^^ - keyword
 #let and-asdf()
 //   ^^^ - keyword
+
+// #40
+#"a,b;c".split(regex("\p{Greek}"))
+//                    ^^^^^^^^^ string.regexp.typst
+#show regex("[,;]{2}"): set text(red)
+//           ^^^^^^^ string.regexp.typst
+#regex(`\d+\.\d+(\.\d+)?`.text)
+//      ^^^^^^^^^^^^^^^^ markup.raw.inline.typst string.regexp.typst

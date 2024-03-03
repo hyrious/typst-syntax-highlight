@@ -23,7 +23,7 @@ variables:
   non_raw_ident: '[[:alpha:]][-_[:alnum:]]*|_[-_[:alnum:]]+'
   identifier: '(?:{{non_raw_ident}})'
   operators: ([+*/]=?|\B-=?|=>|==?|[<>]=?|\bnot\s+in\b)
-  prefixes: (?:(?:include|import|set|let|if|for|while|show|context)\b)
+  prefixes: (?:(?:include|import|set|let|if|for|while|show|context|regex)\b)
   not_begin_of_emph: '[a-zA-Z0-9]'
   not_end_of_emph: '[a-zA-Z0-9]'
 
@@ -1050,6 +1050,7 @@ contexts:
     - include: script-blocks
     - include: content-blocks
     - include: maths
+    - include: regexes
     - include: escaped-char
     - include: labels
     #          ^ not knowing the boundary of one-liners..
@@ -1088,6 +1089,7 @@ contexts:
 
   statements:
     - include: strings
+    - include: code-spans
     - include: script-functions
     - include: keywords
     - include: script-operators
@@ -1159,6 +1161,43 @@ contexts:
       push: content-block-content
     - match: ''
       pop: true
+
+  # https://typst.app/docs/reference/foundations/regex
+  # https://docs.rs/regex/latest/regex/#syntax
+  # The JavaScript's regex definition is quite close to Typst's
+  regexes:
+    - match: '\b(regex)(\()(")'
+      captures:
+        1: support.function.typst
+        2: punctuation.section.group.begin.typst
+        3: punctuation.definition.string.begin.typst
+      push:
+        - script-function-params
+        - regex-string-body
+    - match: '\b(regex)(\()(`)'
+      captures:
+        1: support.function.typst
+        2: punctuation.section.group.begin.typst
+        3: punctuation.definition.raw.begin.typst
+      push:
+        - script-function-params
+        - regex-raw-body
+
+  regex-string-body:
+    - meta_include_prototype: false
+    - meta_content_scope: string.regexp.typst
+    - match: '(?<!\\)"'
+      scope: punctuation.definition.string.end.typst
+      pop: true
+    - include: scope:source.regexp.js
+
+  regex-raw-body:
+    - meta_content_scope: markup.raw.inline.typst string.regexp.typst
+    - match: \3(?!`)
+      scope: punctuation.definition.raw.end.typst
+      pop: true
+    - match: (`+)
+    - include: scope:source.regexp.js
 
   script-functions:
     - match: '(\.)?({{identifier}})(\()'
