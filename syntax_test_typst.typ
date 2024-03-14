@@ -6,12 +6,10 @@
 /**/
 // <- comment.block.empty.typst punctuation.definition.comment.typst
 
-// #24
-/* multiline
-// comment */
-should stop here */
-// ^^^^^^^^^^^^^^^^ comment.block.typst
-//                 ^ - comment
+// #41
+// Nested "//" doesn't count as line comment.
+/* // */
+//      ^ - comment
 
 // #28
 /* multiline
