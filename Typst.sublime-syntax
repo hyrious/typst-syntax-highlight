@@ -158,10 +158,10 @@ contexts:
 
   fenced-code-block-content:
     - meta_scope: meta.code-fence.typst
-    - match: $
-      pop: true
     - include: fenced-syntaxes
     - include: fenced-raw
+    - match: ''
+      pop: true
 
   fenced-syntaxes:
     - include: fenced-actionscript
@@ -802,6 +802,7 @@ contexts:
     - include: bold-content
 
   literals:
+    - include: fenced-code-blocks
     - include: code-spans
     - include: escaped-char
 
@@ -1089,6 +1090,7 @@ contexts:
 
   statements:
     - include: strings
+    - include: fenced-code-blocks
     - include: code-spans
     - include: script-functions
     - include: keywords

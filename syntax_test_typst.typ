@@ -347,7 +347,7 @@ $#[Y] != #[X]$
 //          ^^^ string.quoted.double.typst
   mhm
 }
-// - meta.expression.typst
+// ^ - meta.expression.typst
 
 // #34
    / as.df jkl: asdf
@@ -410,3 +410,15 @@ asdf / asdf:
 //           ^^^^^^^ string.regexp.typst
 #regex(`\d+\.\d+(\.\d+)?`.text)
 //      ^^^^^^^^^^^^^^^^ markup.raw.inline.typst string.regexp.typst
+
+// #42
+#let f() = {
+  let a = ```rs
+  fn main() -> Result<()> {}
+  ```.text
+//^^^ punctuation.definition.raw.code-fence.end.typst
+//   ^ - raw.code-fence
+  [Code: #a]
+//       ^^ meta.expression.typst
+}
+// ^ - raw.code-fence, meta.expression.typst
