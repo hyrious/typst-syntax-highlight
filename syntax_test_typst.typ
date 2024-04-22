@@ -422,3 +422,19 @@ asdf / asdf:
 //       ^^ meta.expression.typst
 }
 // ^ - raw.code-fence, meta.expression.typst
+
+// #43
+#let x = f("hello", 1)
+#let x = f("\"", 1)
+#let x = f("she said \"cool\"", 1)
+#let x = f("\\", 1)
+#let x = f("\\\"", 1)
+#let x = f("\\\\", 1)
+//                   ^ - string
+#let x = f("\\\\\\", 1)
+#let x = f("\"\"", 1)
+#let x = f("
+  multi line \"string\"
+  ending in slash \
+", 1)\
+//    ^ constant.character.escape.typst

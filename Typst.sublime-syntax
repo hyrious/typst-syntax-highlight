@@ -1012,7 +1012,7 @@ contexts:
     - include: hard-line-breaks
 
   escaped-char:
-    - match: '(\\).'
+    - match: '(\\)[\S\s]'
       scope: constant.character.escape.typst
       captures:
         1: punctuation.definition.backslash.typst
@@ -1143,7 +1143,7 @@ contexts:
   string-content:
     - meta_include_prototype: false
     - meta_scope: string.quoted.double.typst
-    - match: '\\.'
+    - include: escaped-char
     - match: '"'
       scope: punctuation.definition.string.end.typst
       pop: true
