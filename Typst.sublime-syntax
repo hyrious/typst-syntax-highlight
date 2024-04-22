@@ -1143,7 +1143,8 @@ contexts:
   string-content:
     - meta_include_prototype: false
     - meta_scope: string.quoted.double.typst
-    - match: '(?<!\\)"'
+    - match: '\\.'
+    - match: '"'
       scope: punctuation.definition.string.end.typst
       pop: true
 
