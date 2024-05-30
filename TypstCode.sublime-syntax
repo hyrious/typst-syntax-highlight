@@ -14,7 +14,4 @@ contexts:
     - include: scripts
 
   scripts:
-    - match: (?={{prefixes}})
-      captures:
-        0: keyword.other.typst punctuation.definition.expression.typst
-      push: script-statement
+    - include: script-common

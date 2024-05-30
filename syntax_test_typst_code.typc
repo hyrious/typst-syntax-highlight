@@ -2,3 +2,10 @@
 
   let test();
 //^^^ keyword.declaration.typst
+
+  [(
+    smartquote(double: true),
+//  ^^^^^^^^^^ support.function.typst
+    [asdf],
+    smartquote(double: true),
+  )],
