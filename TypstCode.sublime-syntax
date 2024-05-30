@@ -1,0 +1,20 @@
+%YAML 1.2
+---
+
+file_extensions:
+  - typc
+
+name: Typst Code
+scope: source.typst
+version: 2
+extends: Packages/Typst/Typst.sublime-syntax
+
+contexts:
+  main:
+    - include: scripts
+
+  scripts:
+    - match: (?={{prefixes}})
+      captures:
+        0: keyword.other.typst punctuation.definition.expression.typst
+      push: script-statement
