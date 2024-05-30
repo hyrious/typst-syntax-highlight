@@ -1,0 +1,4 @@
+// SYNTAX TEST "Packages/Typst/TypstCode.sublime-syntax"
+
+  let test();
+//^^^ keyword.declaration.typst
