@@ -438,3 +438,21 @@ asdf / asdf:
   ending in slash \
 ", 1)\
 //    ^ constant.character.escape.typst
+
+// #48
+
+```//```
+// ^^ markup.raw.block.typst
+//   ^ - comment
+asdf
+// ^ - comment
+
+  `//asdf`
+//^^^^^^^^ markup.raw.inline.typst
+asdf
+// ^ - comment
+
+```js // comment```
+//               ^ - comment
+asdf
+// ^ - comment

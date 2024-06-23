@@ -711,6 +711,7 @@ contexts:
       push: fenced-raw-content
 
   fenced-raw-content:
+    - meta_include_prototype: false
     - meta_content_scope: markup.raw.block.typst
     - match: '(?:^[ \t]*)?(\1)\s*($\n?)?'
       captures:
@@ -834,6 +835,7 @@ contexts:
       push: code-span-body
 
   code-span-body:
+    - meta_include_prototype: false
     - meta_scope: markup.raw.inline.typst
     - match: \1(?!`)
       scope: punctuation.definition.raw.end.typst
