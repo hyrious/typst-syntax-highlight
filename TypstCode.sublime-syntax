@@ -1,9 +1,6 @@
 %YAML 1.2
 ---
 
-file_extensions:
-  - typc
-
 name: Typst Code
 scope: source.typst
 version: 2
