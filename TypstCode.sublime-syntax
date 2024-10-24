@@ -8,6 +8,7 @@ name: Typst Code
 scope: source.typst
 version: 2
 extends: Packages/Typst/Typst.sublime-syntax
+hidden: true
 
 contexts:
   main:
