@@ -456,3 +456,15 @@ asdf
 //               ^ - comment
 asdf
 // ^ - comment
+
+// #50
+  #table(
+    columns: 2,
+    [A], [B],
+    [C], [
+      - item1
+      - item2
+    ]
+//  ^ punctuation.section.group.end
+  )
+//^ punctuation.section.group.end

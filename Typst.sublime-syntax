@@ -135,6 +135,8 @@ contexts:
   list-block-end:
     - match: ^(?=\S)
       pop: true
+    - match: ^(?=\s*\])
+      pop: true
 
   list-block-content:
     - include: list-items
