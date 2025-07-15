@@ -1037,6 +1037,10 @@ contexts:
     - include: hard-line-breaks
 
   escaped-char:
+    - match: '(\\)(u)(\h{4}|\{\h+\})'
+      scope: constant.character.escape.typst
+      captures:
+        1: punctuation.definition.backslash.typst
     - match: '(\\)[\S\s]'
       scope: constant.character.escape.typst
       captures:
