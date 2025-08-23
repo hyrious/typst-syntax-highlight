@@ -144,7 +144,7 @@ Left #h(1fr) Left-ish #h(2fr) Right
 $ sin pi => 0 $
 //^^^^^^^^^^^^^ markup.math.typst
 //^^^ support.function.math.typst
-//    ^^ support.constant.greek.math.typst
+//    ^^ support.constant.sym.greek.typst
 //       ^^ constant.other.typst
 //          ^ constant.numeric.value.typst
 //            ^ markup.math.typst punctuation.definition.math.end.typst
@@ -270,11 +270,75 @@ $ F_n = round(1 / sqrt(5) phi.alt^n) $
 //^ variable.other.math.typst
 //  ^ variable.other.math.typst
 //      ^^^^^ support.function.math.typst
-//                        ^^^ support.constant.greek.math.typst
+//                        ^^^ support.constant.sym.greek.typst
+//                           ^ punctuation.accessor.dot.typst
+//                            ^^^ support.constant.sym.modifier.typst
+
+$ tilde(phi.alt) $
+//^^^^^ support.function.math.typst
+//     ^ punctuation.section.group.begin.typst
+//      ^^^ support.constant.sym.greek.typst
+//         ^ punctuation.accessor.dot.typst
+//          ^^^ support.constant.sym.modifier.typst
+//             ^ punctuation.section.group.end.typst
+
+$ tilde (phi.alt) $
+//^^^^^ support.constant.sym.typst
+//      ^ constant.character.parenthesis.typst
+//       ^^^ support.constant.sym.greek.typst
+//          ^ punctuation.accessor.dot.typst
+//           ^^^ support.constant.sym.modifier.typst
+//              ^ constant.character.parenthesis.typst
+
+$ phi.alt_i $
+//^^^ support.constant.sym.greek.typst
+//   ^ punctuation.accessor.dot.typst
+//    ^^^ support.constant.sym.modifier.typst
+//       ^ keyword.operator.math.typst
+//        ^ variable.other.math.typst
+
+$ tilde. $
+//^^^^^ support.constant.sym.typst
+//     ^ punctuation.accessor.dot.typst
+
+$ tilde.eq. $
+//^^^^^ support.constant.sym.typst
+//     ^ punctuation.accessor.dot.typst
+//      ^^ support.constant.sym.modifier.typst
+//        ^ punctuation.accessor.dot.typst
+
+$ tilde.eq.not $
+//^^^^^ support.constant.sym.typst
+//     ^ punctuation.accessor.dot.typst
+//      ^^ support.constant.sym.modifier.typst
+//        ^ punctuation.accessor.dot.typst
+//         ^^^ support.constant.sym.modifier.typst
+
+$ tilde.not.eq $
+//^^^^^ support.constant.sym.typst
+//     ^ punctuation.accessor.dot.typst
+//      ^^^ support.constant.sym.modifier.typst
+//         ^ punctuation.accessor.dot.typst
+//          ^^ support.constant.sym.modifier.typst
+
+$ tilde.foo $
+//      ^^^ - support
+
+$ 2pi $
+//^ constant.numeric.value.typst
+// ^^ support.constant.sym.greek.typst
 
 $ foo x $
 //^^^ support.function.math.typst
 //    ^ variable.other.math.typst
+
+  #sym.phi.alt
+//^ punctuation.definition.expression.typst
+// ^^^ support.module.sym.typst
+//    ^ punctuation.accessor.dot.typst
+//     ^^^ support.constant.sym.greek.typst
+//        ^ punctuation.accessor.dot.typst
+//         ^^^ support.constant.sym.modifier.typst
 
   #let name = "Typst"
 //^^^^^^^^^^^^^^^^^^^ meta.expression.typst
