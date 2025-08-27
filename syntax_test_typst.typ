@@ -426,7 +426,7 @@ $#[Y] != #[X]$
 
 // #23
 #counter(page).update(1).bar
-//            ^ punctuation.accessor
+//            ^ punctuation.accessor.dot.typst
 //             ^^^^^^ support.function.typst
 //                      ^ - support.function
 

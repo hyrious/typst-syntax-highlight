@@ -166,8 +166,7 @@ contexts:
     - meta_scope: meta.code-fence.typst
     - include: fenced-syntaxes
     - include: fenced-raw
-    - match: ''
-      pop: true
+    - include: else-pop
 
   fenced-syntaxes:
     - include: fenced-actionscript
@@ -905,8 +904,7 @@ contexts:
     - match: '\['
       scope: punctuation.definition.generic.begin.typst
       push: ref-content
-    - match: ''
-      pop: true
+    - include: else-pop
 
   ref-content:
     - match: '\]'
@@ -928,13 +926,13 @@ contexts:
       scope: support.other.typst variable.function.typst
       captures:
         1: punctuation.definition.expression.typst
-        3: punctuation.accessor.typst
+        3: punctuation.accessor.dot.typst
       push: maybe-script-function-content
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
       scope: meta.expression.typst constant.other.symbol.typst
       captures:
         1: punctuation.definition.variable.typst
-        3: punctuation.accessor.typst
+        3: punctuation.accessor.dot.typst
     - match: '{{markup_symbol_shorthands}}'
       scope: constant.other.typst
 
@@ -1013,14 +1011,14 @@ contexts:
       push: maybe-math-group
     - match: '(\.)?([[:alpha:]]{2,})'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: variable.function.math.typst
       push: maybe-math-group
 
   math-variables:
     - match: '(\.)?([[:alpha:]])'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: variable.other.math.typst
 
   maybe-math-group:
@@ -1243,18 +1241,17 @@ contexts:
     - meta_scope: meta.expression.typst
     - match: (?:(\.)({{identifier}}))?(\()
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: script-function-params
     - match: (?:(\.)({{identifier}}))?(\[)
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: content-block-content
-    - match: ''
-      pop: true
+    - include: else-pop
 
   # https://typst.app/docs/reference/foundations/regex
   # https://docs.rs/regex/latest/regex/#syntax
@@ -1296,13 +1293,13 @@ contexts:
   script-functions:
     - match: '(\.)?({{identifier}})(\()'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: script-function-params
     - match: '(\.)?({{identifier}})(\[)'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: content-block-content
