@@ -380,6 +380,11 @@ $ sum_(i=1)^(N-1) x_i $
 $ ) $
 //^ constant.character.parenthesis.typst
 
+$ bold(u): Omega -> RR^d, quad p: Omega -> RR $
+//       ^ punctuation.separator.colon.typst
+//                      ^ punctuation.separator.comma.typst
+//                        ^^^^ support.constant.math.typst
+
   #sym.phi.alt
 //^ punctuation.definition.expression.typst
 // ^^^ support.module.sym.typst

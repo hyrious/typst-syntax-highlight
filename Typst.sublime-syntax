@@ -958,6 +958,8 @@ contexts:
     - include: math-symbols
     - include: math-operators
     - include: math-attachments
+    - include: math-punctuations
+    - include: math-spacings
     - include: math-functions
     - include: math-variables
     - include: symbols
@@ -1033,8 +1035,8 @@ contexts:
     - match: \)
       scope: punctuation.section.group.end.typst
       pop: true
-    - include: math-common
     - include: script-symbols
+    - include: math-common
 
   math-brackets:
     - match: \(
@@ -1050,7 +1052,6 @@ contexts:
       scope: constant.character.parenthesis.typst
       pop: true
     - include: math-common
-    - include: script-symbols
 
   math-numerics:
     - match: \b(0x)(\h+)
@@ -1109,6 +1110,16 @@ contexts:
     - match: \^|_
       scope: keyword.operator.math.typst
       push: maybe-math-group
+
+  math-punctuations:
+    - match: \,
+      scope: punctuation.separator.comma.typst
+    - match: ':'
+      scope: punctuation.separator.colon.typst
+
+  math-spacings:
+    - match: \b(?:thin|med|thick|quad|wide)\b
+      scope: support.constant.math.typst
 
 ###[ Scripting ]##############################################################
 
