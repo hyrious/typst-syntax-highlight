@@ -143,7 +143,7 @@ Left #h(1fr) Left-ish #h(2fr) Right
 
 $ sin pi => 0 $
 //^^^^^^^^^^^^^ markup.math.typst
-//^^^ support.function.math.typst
+//^^^ support.constant.math.operator.typst
 //    ^^ support.constant.sym.greek.typst
 //       ^^ constant.other.typst
 //          ^ constant.numeric.value.typst
@@ -328,9 +328,58 @@ $ 2pi $
 //^ constant.numeric.value.typst
 // ^^ support.constant.sym.greek.typst
 
-$ foo x $
-//^^^ support.function.math.typst
+$ frac(x, y) $
+//^^^^ support.function.math.typst
+//    ^ punctuation.section.group.begin.typst
+//     ^ variable.other.math.typst
+//      ^ punctuation.separator.typst
+//        ^ variable.other.math.typst
+//         ^ punctuation.section.group.end.typst
+
+$ frac $
+//^^^^ support.function.math.typst
+
+$ foo(x) $
+//^^^ variable.function.math.typst
+//   ^ punctuation.section.group.begin.typst
 //    ^ variable.other.math.typst
+//     ^ punctuation.section.group.end.typst
+
+$ foo (x) $
+//^^^ variable.function.math.typst
+//    ^ constant.character.parenthesis.typst
+//     ^ variable.other.math.typst
+//      ^ constant.character.parenthesis.typst
+
+$ foo x $
+//^^^ variable.function.math.typst
+//    ^ variable.other.math.typst
+
+$ f(x) $
+//^ variable.other.math.typst
+// ^ constant.character.parenthesis.typst
+//  ^ variable.other.math.typst
+//   ^ constant.character.parenthesis.typst
+
+$ phi(x) $
+//^^^ support.constant.sym.greek.typst
+//   ^ constant.character.parenthesis.typst
+//    ^ variable.other.math.typst
+//     ^ constant.character.parenthesis.typst
+
+$ sum_(i=1)^(N-1) x_i $
+//    ^ punctuation.section.group.begin.typst
+//        ^ punctuation.section.group.end.typst
+//          ^ punctuation.section.group.begin.typst
+//              ^ punctuation.section.group.end.typst
+
+$ ) $
+//^ constant.character.parenthesis.typst
+
+$ bold(u): Omega -> RR^d, quad p: Omega -> RR $
+//       ^ punctuation.separator.colon.typst
+//                      ^ punctuation.separator.comma.typst
+//                        ^^^^ support.constant.math.typst
 
   #sym.phi.alt
 //^ punctuation.definition.expression.typst
@@ -378,7 +427,7 @@ $#[Y] != #[X]$
 
 // #23
 #counter(page).update(1).bar
-//            ^ punctuation.accessor
+//            ^ punctuation.accessor.dot.typst
 //             ^^^^^^ support.function.typst
 //                      ^ - support.function
 

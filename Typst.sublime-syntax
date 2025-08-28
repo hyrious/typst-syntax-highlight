@@ -19,7 +19,7 @@ variables:
   html_entity: '&([a-zA-Z0-9]+|#\d+|#[Xx]\h+);'
   no_escape_behind: '(?<![^\\]\\)(?<![\\]{3})'
   markup_symbol_shorthands: (\.\.\.|---?|-\?|~)
-  math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\|[-=]>|\|\]|\|\||~~?>|')
+  math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\*|\|[-=]>|\|\]|\|\||~~?>|')
   non_raw_ident: '[[:alpha:]][-_[:alnum:]]*|_[-_[:alnum:]]+'
   identifier: '(?:{{non_raw_ident}})'
   operators: ([+*/]=?|!=|\B-=?|=>|==?|[<>]=?|\bnot\s+in\b)
@@ -166,8 +166,7 @@ contexts:
     - meta_scope: meta.code-fence.typst
     - include: fenced-syntaxes
     - include: fenced-raw
-    - match: ''
-      pop: true
+    - include: else-pop
 
   fenced-syntaxes:
     - include: fenced-actionscript
@@ -905,8 +904,7 @@ contexts:
     - match: '\['
       scope: punctuation.definition.generic.begin.typst
       push: ref-content
-    - match: ''
-      pop: true
+    - include: else-pop
 
   ref-content:
     - match: '\]'
@@ -928,13 +926,13 @@ contexts:
       scope: support.other.typst variable.function.typst
       captures:
         1: punctuation.definition.expression.typst
-        3: punctuation.accessor.typst
+        3: punctuation.accessor.dot.typst
       push: maybe-script-function-content
     - match: (#)(?!{{prefixes}})({{identifier}}(?:(\.){{identifier}})*)
       scope: meta.expression.typst constant.other.symbol.typst
       captures:
         1: punctuation.definition.variable.typst
-        3: punctuation.accessor.typst
+        3: punctuation.accessor.dot.typst
     - match: '{{markup_symbol_shorthands}}'
       scope: constant.other.typst
 
@@ -959,7 +957,11 @@ contexts:
     - include: math-accent-functions
     - include: math-symbols
     - include: math-operators
+    - include: math-attachments
+    - include: math-punctuations
+    - include: math-spacings
     - include: math-functions
+    - include: math-variables
     - include: symbols
     - include: strings
     - include: scripts
@@ -969,21 +971,21 @@ contexts:
       captures:
         1: support.function.math.typst
         2: punctuation.section.group.begin.typst
-      push: math-function-params
+      push: math-group-content
     - match: (dot)(?:(\.)(double|triple|quad))?(\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-params
+      push: math-group-content
     - match: (acute)(?:(\.)(double))?(\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-params
+      push: math-group-content
     - match: (arrow)(?:(\.)(l)(?:(\.)(r))?)?(\()
       captures:
         1: support.function.math.typst
@@ -992,55 +994,64 @@ contexts:
         4: punctuation.accessor.dot.typst
         5: support.function.math.modifier.typst
         6: punctuation.section.group.begin.typst
-      push: math-function-params
+      push: math-group-content
     - match: (harpoon)(?:(\.)(lt))?(\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-params
+      push: math-group-content
 
   math-functions:
-    - match: '(\.)?([[:alpha:]]+)(\()'
-      captures:
-        1: punctuation.accessor.typst
-        2: support.function.math.typst
-        3: punctuation.section.group.begin.typst
-      push: math-function-params
+    - match: (?:dif|Dif){{break}}
+      scope: support.constant.math.typst
+    - match: (?:arccos|arcsin|arctan|arg|cos|cosh|cot|coth|csc|csch|ctg|deg|det|dim|exp|gcd|lcm|hom|id|im|inf|ker|lg|lim|liminf|limsup|ln|log|max|min|mod|Pr|sec|sech|sin|sinc|sinh|sup|tan|tanh|tg|tr){{break}}
+      scope: support.constant.math.operator.typst
+    - match: (?:abs|attach|bb|binom|bold|cal|cancel|cases|ceil|class|display|floor|frac|frak|inline|italic|limits|lr|mat|mid|mono|norm|op|overbrace|overbracket|overline|overparen|overshell|primes|root|round|sans|scripts?|serif|sqrt|sscript|stretch|underbrace|underbracket|underline|underparen|undershell|upright|vec)\b
+      scope: support.function.math.typst
+      push: maybe-math-group
     - match: '(\.)?([[:alpha:]]{2,})'
       captures:
-        1: punctuation.accessor.typst
-        2: support.function.math.typst
+        1: punctuation.accessor.dot.typst
+        2: variable.function.math.typst
+      push: maybe-math-group
+
+  math-variables:
     - match: '(\.)?([[:alpha:]])'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: variable.other.math.typst
 
+  maybe-math-group:
+    - match: \(
+      scope: punctuation.section.group.begin.typst
+      set: math-group-content
+    - include: else-pop
+
+  math-group-content:
+    - match: (?=\$)
+      pop: true
+    - match: \)
+      scope: punctuation.section.group.end.typst
+      pop: true
+    - include: script-symbols
+    - include: math-common
+
   math-brackets:
-    - match: '\('
+    - match: \(
       scope: constant.character.parenthesis.typst
-      push: math-bracket-content
+      push: math-brackets-content
+    - match: \)
+      scope: constant.character.parenthesis.typst
 
-  math-bracket-content:
+  math-brackets-content:
     - match: (?=\$)
       pop: true
-    - match: (\))
-      captures:
-        1: constant.character.parenthesis.typst
+    - match: \)
+      scope: constant.character.parenthesis.typst
       pop: true
     - include: math-common
-    - include: script-symbols
-
-  math-function-params:
-    - match: (?=\$)
-      pop: true
-    - match: (\))
-      captures:
-        1: punctuation.section.group.end.typst
-      pop: true
-    - include: math-common
-    - include: script-symbols
 
   math-numerics:
     - match: \b(0x)(\h+)
@@ -1092,8 +1103,23 @@ contexts:
         1: punctuation.definition.backslash.typst
 
   math-operators:
-    - match: \+|\-|=|-|\*|/|\^|_|<|>
+    - match: \+|\-|/|=|<|>
       scope: keyword.operator.math.typst
+
+  math-attachments:
+    - match: \^|_
+      scope: keyword.operator.math.typst
+      push: maybe-math-group
+
+  math-punctuations:
+    - match: \,
+      scope: punctuation.separator.comma.typst
+    - match: ':'
+      scope: punctuation.separator.colon.typst
+
+  math-spacings:
+    - match: \b(?:thin|med|thick|quad|wide)\b
+      scope: support.constant.math.typst
 
 ###[ Scripting ]##############################################################
 
@@ -1226,18 +1252,17 @@ contexts:
     - meta_scope: meta.expression.typst
     - match: (?:(\.)({{identifier}}))?(\()
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: script-function-params
     - match: (?:(\.)({{identifier}}))?(\[)
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: content-block-content
-    - match: ''
-      pop: true
+    - include: else-pop
 
   # https://typst.app/docs/reference/foundations/regex
   # https://docs.rs/regex/latest/regex/#syntax
@@ -1279,22 +1304,21 @@ contexts:
   script-functions:
     - match: '(\.)?({{identifier}})(\()'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: script-function-params
     - match: '(\.)?({{identifier}})(\[)'
       captures:
-        1: punctuation.accessor.typst
+        1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: content-block-content
 
   script-function-params:
     - meta_scope: meta.function-call.arguments.typst
-    - match: (\))
-      captures:
-        1: punctuation.section.group.end.typst
+    - match: \)
+      scope: punctuation.section.group.end.typst
       pop: true
     - match: '({{identifier}})\s*(:)'
       captures:
@@ -2053,8 +2077,6 @@ contexts:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
         - include: consume-and-pop
-    - match: (?:dif|Dif){{break}}
-      scope: support.constant.math.typst
     - match: (?:AA|BB|CC|DD|EE|FF|GG|HH|II|JJ|KK|LL|MM|NN|OO|PP|QQ|RR|SS|TT|UU|VV|WW|XX|YY|ZZ){{break}}
       scope: support.constant.sym.typst
     - match: (?:Alpha|Beta|Chi|Delta|Epsilon|Eta|Gamma|Iota|Kai|Kappa|Lambda|Mu|Nu|Omega|Omicron|Phi|Pi|Psi|Rho|Sigma|Tau|Theta|Upsilon|Xi|Zeta|alpha|beta|chi|delta|epsilon|eta|gamma|iota|kappa|lambda|mu|nu|omega|omicron|phi|pi|psi|rho|sigma|tau|theta|upsilon|xi|zeta){{break}}
