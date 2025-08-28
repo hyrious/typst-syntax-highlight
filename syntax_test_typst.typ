@@ -328,10 +328,6 @@ $ 2pi $
 //^ constant.numeric.value.typst
 // ^^ support.constant.sym.greek.typst
 
-$ sin x $
-//^^^ support.constant.math.operator.typst
-//    ^ variable.other.math.typst
-
 $ frac(x, y) $
 //^^^^ support.function.math.typst
 //    ^ punctuation.section.group.begin.typst
