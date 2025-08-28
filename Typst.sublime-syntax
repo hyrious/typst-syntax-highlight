@@ -19,7 +19,7 @@ variables:
   html_entity: '&([a-zA-Z0-9]+|#\d+|#[Xx]\h+);'
   no_escape_behind: '(?<![^\\]\\)(?<![\\]{3})'
   markup_symbol_shorthands: (\.\.\.|---?|-\?|~)
-  math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\|[-=]>|\|\]|\|\||~~?>|')
+  math_symbol_shorthands: (->>?|-->|::?=|!=|\[\||<==?>|<--?>|<--?|<-<|<<-|<<<?|<==?|<~~?|>->|>>>?|==?>|=:|>=|\*|\|[-=]>|\|\]|\|\||~~?>|')
   non_raw_ident: '[[:alpha:]][-_[:alnum:]]*|_[-_[:alnum:]]+'
   identifier: '(?:{{non_raw_ident}})'
   operators: ([+*/]=?|!=|\B-=?|=>|==?|[<>]=?|\bnot\s+in\b)
@@ -1103,7 +1103,7 @@ contexts:
         1: punctuation.definition.backslash.typst
 
   math-operators:
-    - match: \+|\-|=|-|\*|/|<|>
+    - match: \+|\-|/|=|<|>
       scope: keyword.operator.math.typst
 
   math-attachments:
@@ -1317,9 +1317,8 @@ contexts:
 
   script-function-params:
     - meta_scope: meta.function-call.arguments.typst
-    - match: (\))
-      captures:
-        1: punctuation.section.group.end.typst
+    - match: \)
+      scope: punctuation.section.group.end.typst
       pop: true
     - match: '({{identifier}})\s*(:)'
       captures:
