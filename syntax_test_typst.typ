@@ -268,14 +268,26 @@ Evil purple now occurs <<<
 
 $ F_n = round(1 / sqrt(5) phi.alt^n) $
 //^ variable.other.math.typst
+// ^ keyword.operator.math.typst
 //  ^ variable.other.math.typst
+//    ^ constant.other.typst
 //      ^^^^^ support.function.math.typst
+//           ^ punctuation.section.group.begin.typst
+//            ^ meta.number.integer.decimal.typst constant.numeric.value.typst
+//              ^ keyword.operator.math.typst
+//                ^^^^ support.function.math.typst
+//                    ^ punctuation.section.group.begin.typst
+//                     ^ meta.number.integer.decimal.typst constant.numeric.value.typst
+//                      ^ punctuation.section.group.end.typst
 //                        ^^^ support.constant.sym.greek.typst
 //                           ^ punctuation.accessor.dot.typst
 //                            ^^^ support.constant.sym.modifier.typst
+//                               ^ keyword.operator.math.typst
+//                                ^ variable.other.math.typst
+//                                 ^ punctuation.section.group.end.typst
 
 $ tilde(phi.alt) $
-//^^^^^ support.function.math.typst
+//^^^^^ support.function.math.typst - meta.function-call.arguments
 //     ^ punctuation.section.group.begin.typst
 //      ^^^ support.constant.sym.greek.typst
 //         ^ punctuation.accessor.dot.typst
@@ -369,9 +381,14 @@ $ phi(x) $
 
 $ sum_(i=1)^(N-1) x_i $
 //    ^ punctuation.section.group.begin.typst
+//      ^ constant.other.typst - keyword.operator
 //        ^ punctuation.section.group.end.typst
 //          ^ punctuation.section.group.begin.typst
 //              ^ punctuation.section.group.end.typst
+
+$ mat(1, 2; 3, 4; delim: "[") $
+//    ^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//                     ^ punctuation.separator.key-value.typst
 
 $ ) $
 //^ constant.character.parenthesis.typst
