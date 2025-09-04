@@ -90,6 +90,12 @@ link: https://example.org?a=%20b
  #1e4
 //^^^ meta.number.float.decimal.typst constant.numeric.value.typst
 
+$ x_1, x^1, x_1.23, x^1.23 $
+//  ^ meta.number.integer.decimal.typst constant.numeric.value.typst
+//       ^ meta.number.integer.decimal.typst constant.numeric.value.typst
+//            ^^^^ meta.number.float.decimal.typst constant.numeric.value.typst
+//                    ^^^^ meta.number.float.decimal.typst constant.numeric.value.typst
+
 #rect(width: 72pt)
 //           ^^^^ meta.number.integer.decimal.typst
 //           ^^ constant.numeric.value.typst
@@ -354,6 +360,9 @@ $ foo (x) $
 $ foo x $
 //^^^ variable.function.math.typst
 //    ^ variable.other.math.typst
+
+$ foo1 $
+//^^^^ variable.function.math.typst - constant.numeric
 
 $ f(x) $
 //^ variable.other.math.typst
