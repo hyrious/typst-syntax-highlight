@@ -1011,7 +1011,7 @@ contexts:
     - match: (?:abs|attach|bb|binom|bold|cal|cancel|cases|ceil|class|display|floor|frac|frak|inline|italic|limits|lr|mat|mid|mono|norm|op|overbrace|overbracket|overline|overparen|overshell|primes|root|round|sans|scripts?|serif|sqrt|sscript|stretch|underbrace|underbracket|underline|underparen|undershell|upright|vec)\b
       scope: support.function.math.typst
       push: maybe-math-function-parameters
-    - match: '(\.)?([[:alpha:]]{2,})'
+    - match: '(\.)?([[:alpha:]][[:alpha:]\d]+)'
       captures:
         1: punctuation.accessor.dot.typst
         2: variable.function.math.typst
@@ -1069,17 +1069,17 @@ contexts:
     - include: math-common
 
   math-numerics:
-    - match: \b(0x)(\h+)
+    - match: (0x)(\h+)
       scope: meta.number.integer.hexadecimal.typst
       captures:
         1: constant.numeric.base.typst
         2: constant.numeric.value.typst
-    - match: \b(0o)([0-7]+)
+    - match: (0o)([0-7]+)
       scope: meta.number.integer.octal.typst
       captures:
         1: constant.numeric.base.typst
         2: constant.numeric.value.typst
-    - match: \b(0b)([01]+)
+    - match: (0b)([01]+)
       scope: meta.number.integer.binary.typst
       captures:
         1: constant.numeric.base.typst
@@ -1090,7 +1090,7 @@ contexts:
         1: constant.numeric.value.typst
         2: punctuation.separator.decimal.typst
         3: constant.numeric.suffix.typst
-    - match: \b(\d+)(%|(?:pt|mm|cm|in|em|deg|rad|fr)\b)?
+    - match: (\d+)(%|(?:pt|mm|cm|in|em|deg|rad|fr)\b)?
       scope: meta.number.integer.decimal.typst
       captures:
         1: constant.numeric.value.typst
