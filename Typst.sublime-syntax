@@ -883,18 +883,18 @@ contexts:
       captures:
         1: punctuation.definition.escape.typst
 
-  # https://typst.app/docs/reference/construct/label
+  # https://typst.app/docs/reference/foundations/label
   labels:
-    - match: '(<)([-_\w]+)(>)'
+    - match: '(<)([-_:\w]+)(>)'
       scope: storage.modifier.label.typst
       captures:
         1: punctuation.definition.label.begin.typst
         2: entity.name.label.typst
         3: punctuation.definition.label.end.typst
 
-  # https://typst.app/docs/reference/meta/ref
+  # https://typst.app/docs/reference/model/ref
   refs:
-    - match: '(@)[-_\w]+'
+    - match: '(@)[-_:\w]+'
       scope: constant.other.reference.typst
       captures:
         1: punctuation.definition.reference.typst
