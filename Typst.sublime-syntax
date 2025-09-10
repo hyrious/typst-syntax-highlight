@@ -967,26 +967,26 @@ contexts:
     - include: scripts
 
   math-accent-functions:
-    - match: (grave|hat|tilde|macron|dash|breve|diaer|circle|caron)(\()
+    - match: (grave|hat|tilde|macron|dash|breve|diaer|circle|caron)(?=\()
       captures:
         1: support.function.math.typst
         2: punctuation.section.group.begin.typst
-      push: math-function-parameters
-    - match: (dot)(?:(\.)(double|triple|quad))?(\()
+      push: maybe-math-function-params
+    - match: (dot)(?:(\.)(double|triple|quad))?(?=\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-parameters
-    - match: (acute)(?:(\.)(double))?(\()
+      push: maybe-math-function-params
+    - match: (acute)(?:(\.)(double))?(?=\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-parameters
-    - match: (arrow)(?:(\.)(l)(?:(\.)(r))?)?(\()
+      push: maybe-math-function-params
+    - match: (arrow)(?:(\.)(l)(?:(\.)(r))?)?(?=\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
@@ -994,14 +994,14 @@ contexts:
         4: punctuation.accessor.dot.typst
         5: support.function.math.modifier.typst
         6: punctuation.section.group.begin.typst
-      push: math-function-parameters
-    - match: (harpoon)(?:(\.)(lt))?(\()
+      push: maybe-math-function-params
+    - match: (harpoon)(?:(\.)(lt))?(?=\()
       captures:
         1: support.function.math.typst
         2: punctuation.accessor.dot.typst
         3: support.function.math.modifier.typst
         4: punctuation.section.group.begin.typst
-      push: math-function-parameters
+      push: maybe-math-function-params
 
   math-functions:
     - match: (?:dif|Dif){{break}}
@@ -1010,12 +1010,12 @@ contexts:
       scope: support.constant.math.operator.typst
     - match: (?:abs|attach|bb|binom|bold|cal|cancel|cases|ceil|class|display|floor|frac|frak|inline|italic|limits|lr|mat|mid|mono|norm|op|overbrace|overbracket|overline|overparen|overshell|primes|root|round|sans|scripts?|serif|sqrt|sscript|stretch|underbrace|underbracket|underline|underparen|undershell|upright|vec)\b
       scope: support.function.math.typst
-      push: maybe-math-function-parameters
-    - match: '(\.)?([[:alpha:]][[:alpha:]\d]+)'
+      push: maybe-math-function-params
+    - match: '(\.)?([[:alpha:]][[:alnum:]]+)'
       captures:
         1: punctuation.accessor.dot.typst
         2: variable.function.math.typst
-      push: maybe-math-function-parameters
+      push: maybe-math-function-params
 
   math-variables:
     - match: '(\.)?([[:alpha:]])'
@@ -1037,19 +1037,23 @@ contexts:
       pop: true
     - include: math-common
 
-  maybe-math-function-parameters:
+  maybe-math-function-params:
     - match: \(
       scope: punctuation.section.group.begin.typst
-      set: math-function-parameters
+      set: math-function-params
     - include: else-pop
 
-  math-function-parameters:
-    - meta_content_scope: meta.function-call.arguments.typst
+  math-function-params:
+    - meta_scope: meta.function-call.arguments.typst
     - match: (?=\$)
       pop: true
     - match: \)
       scope: punctuation.section.group.end.typst
       pop: true
+    - match: '({{identifier}})\s*(:)'
+      captures:
+        1: variable.parameter.typst
+        2: punctuation.separator.key-value.typst
     - include: script-symbols
     - include: math-common
 
@@ -1265,12 +1269,12 @@ contexts:
 
   maybe-script-function-content:
     - meta_scope: meta.expression.typst
-    - match: (?:(\.)({{identifier}}))?(\()
+    - match: (?:(\.)({{identifier}}))?(?=\()
       captures:
         1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
-      push: script-function-params
+      push: maybe-script-function-params
     - match: (?:(\.)({{identifier}}))?(\[)
       captures:
         1: punctuation.accessor.dot.typst
@@ -1317,18 +1321,24 @@ contexts:
     - include: scope:source.regexp.js
 
   script-functions:
-    - match: '(\.)?({{identifier}})(\()'
+    - match: '(\.)?({{identifier}})(?=\()'
       captures:
         1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
-      push: script-function-params
+      push: maybe-script-function-params
     - match: '(\.)?({{identifier}})(\[)'
       captures:
         1: punctuation.accessor.dot.typst
         2: support.function.typst
         3: punctuation.section.group.begin.typst
       push: content-block-content
+
+  maybe-script-function-params:
+    - match: \(
+      scope: punctuation.section.group.begin.typst
+      set: script-function-params
+    - include: else-pop
 
   script-function-params:
     - meta_scope: meta.function-call.arguments.typst

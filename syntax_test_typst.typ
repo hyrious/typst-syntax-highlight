@@ -97,11 +97,15 @@ $ x_1, x^1, x_1.23, x^1.23 $
 //                    ^^^^ meta.number.float.decimal.typst constant.numeric.value.typst
 
 #rect(width: 72pt)
+//   ^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//   ^ punctuation.section.group.begin.typst
+//    ^^^^^ variable.parameter.typst
+//         ^ punctuation.separator.parameter.typst
 //           ^^^^ meta.number.integer.decimal.typst
 //           ^^ constant.numeric.value.typst
 //             ^^ constant.numeric.suffix.typst
-//    ^^^^^ variable.parameter.typst
-//         ^ punctuation.separator.parameter.typst
+//               ^ punctuation.section.group.end.typst
+//                ^ - meta.function-call.arguments
 
 #rect(width: 254mm)
 //           ^^^^^ meta.number.integer.decimal.typst
@@ -183,9 +187,14 @@ for should not be highlighted here
 //               ^ punctuation.definition.string.end.typst
 
 #set heading(numbering: "I.")
+//   ^^^^^^^ - meta.function-call.arguments
 //          ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//          ^ punctuation.section.group.begin.typst
 //           ^^^^^^^^^ variable.parameter.typst
 //                    ^ punctuation.separator.parameter.typst
+//                          ^ punctuation.section.group.end.typst
+//                           ^ - meta.function-call.arguments
+
 #lorem(30)
 //    ^^^^ meta.function-call.arguments.typst
 
@@ -396,8 +405,10 @@ $ sum_(i=1)^(N-1) x_i $
 //              ^ punctuation.section.group.end.typst
 
 $ mat(1, 2; 3, 4; delim: "[") $
-//    ^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//   ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.typst
+//                ^^^^^ variable.parameter.typst
 //                     ^ punctuation.separator.key-value.typst
+//                           ^ - meta.function-call.arguments
 
 $ ) $
 //^ constant.character.parenthesis.typst
