@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>scope</key>
+    <string>text.typst</string>
+    <key>settings</key>
+    <dict>
+        <key>foldScopes</key>
+        <array>
+            <dict>
+                <key>begin</key>
+                <string>markup.heading meta.whitespace.newline</string>
+                <key>end</key>
+                <string>markup.heading</string>
+                <key>excludeTrailingNewlines</key>
+                <true/>
+            </dict>
+        </array>
+    </dict>
+</dict>
+</plist>
