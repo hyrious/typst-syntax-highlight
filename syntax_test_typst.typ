@@ -281,6 +281,9 @@ Evil purple now occurs <<<
 //^ punctuation.definition.reference.typst
 // ^^^^^ - punctuation 
 
+  @
+//^ punctuation.definition.reference.typst
+
 $ F_n = round(1 / sqrt(5) phi.alt^n) $
 //^ variable.other.math.typst
 // ^ keyword.operator.math.typst
