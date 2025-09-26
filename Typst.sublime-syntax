@@ -899,6 +899,8 @@ contexts:
       captures:
         1: punctuation.definition.reference.typst
       push: maybe-ref-content
+    - match: '@'
+      scope: punctuation.definition.reference.typst
 
   maybe-ref-content:
     - match: '\['
