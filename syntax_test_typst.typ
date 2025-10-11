@@ -362,7 +362,7 @@ $ frac(x, y) $
 //^^^^ support.function.math.typst
 //    ^ punctuation.section.group.begin.typst
 //     ^ variable.other.math.typst
-//      ^ punctuation.separator.typst
+//      ^ punctuation.separator.comma.typst
 //        ^ variable.other.math.typst
 //         ^ punctuation.section.group.end.typst
 
@@ -412,6 +412,9 @@ $ mat(1, 2; 3, 4; delim: "[") $
 //                ^^^^^ variable.parameter.typst
 //                     ^ punctuation.separator.key-value.typst
 //                           ^ - meta.function-call.arguments
+
+$ mat(1, ..., n; 1, ..., n) $
+//       ^^^ constant.other.typst - keyword.operator.range
 
 $ ) $
 //^ constant.character.parenthesis.typst
