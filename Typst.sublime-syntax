@@ -1360,7 +1360,7 @@ contexts:
       pop: true
 
   named-general-symbols:
-    - match: (beta|kappa|phi|pi|rho|theta|epsilon|sigma)(\.)
+    - match: (Theta|beta|kappa|phi|pi|rho|theta|sigma)(\.)
       captures:
         1: support.constant.sym.greek.typst
         2: punctuation.accessor.dot.typst
@@ -1396,7 +1396,7 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
-    - match: (div|perp)(\.)
+    - match: (perp)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
@@ -1432,7 +1432,7 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
-    - match: (Omega|amp)(\.)
+    - match: (Omega|amp|interrobang|iota)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
@@ -1459,6 +1459,24 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
+    - match: (compose|convolve)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: o{{break}}
+          scope: support.constant.sym.modifier.typst
+          pop: true
+        - include: consume-and-pop
+    - match: (peso)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: philippine{{break}}
+          scope: support.constant.sym.modifier.typst
+          pop: true
+        - include: consume-and-pop
     - match: (planck)(\.)
       captures:
         1: support.constant.sym.typst
@@ -1468,7 +1486,7 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
-    - match: (pilcrow|semi)(\.)
+    - match: (pilcrow)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
@@ -1504,7 +1522,7 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
-    - match: (ceil|floor|floral)(\.)
+    - match: (bag|ceil|floor|floral|mustache)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
@@ -1558,6 +1576,15 @@ contexts:
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
+    - match: (cc)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (?:by|nc|nd|public|sa|zero){{break}}
+          scope: support.constant.sym.modifier.typst
+          pop: true
+        - include: consume-and-pop
     - match: (checkmark)(\.)
       captures:
         1: support.constant.sym.typst
@@ -1608,7 +1635,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (?:circle|dot|plus|square|tilde|triangle){{break}}
+        - match: (?:circle|dot|o|plus|square|tilde|triangle){{break}}
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
@@ -1626,7 +1653,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (?:big|double|triple){{break}}
+        - match: (?:big|double|o|triple){{break}}
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
@@ -1644,7 +1671,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (?:basic|circle|double|low|op|small|square|triple){{break}}
+        - match: (?:basic|circle|double|low|o|op|small|square|triple){{break}}
           scope: support.constant.sym.modifier.typst
           pop: true
         - include: consume-and-pop
@@ -1689,7 +1716,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (acute|arc|curly|dot|double|l|oblique|r|rev|right|s|spatial|spheric|sq|top)(?:(\.)|{{break}})
+        - match: (acute|arc|azimuth|curly|dot|double|l|oblique|obtuse|r|rev|right|s|spatial|spheric|sq|top)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1699,7 +1726,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (b|bar|bl|br|ccw|curve|cw|dashed|dotted|double|filled|half|hook|l|long|loop|not|quad|r|squiggly|stop|stroked|t|tail|tilde|tl|tr|triple|turn|twohead|wave|zigzag)(?:(\.)|{{break}})
+        - match: (b|bar|bl|br|ccw|curve|cw|dashed|dotted|double|dstruck|filled|half|hook|l|long|loop|not|open|quad|r|squiggly|stop|stroked|struck|t|tail|tilde|tl|tr|triple|turn|twohead|wave|zigzag)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1734,12 +1761,42 @@ contexts:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
         - include: consume-and-pop
-    - match: (brace|paren|shell)(\.)
+    - match: (brace)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
         - match: (b|double|l|r|t)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (bracket)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (b|l|r|t|tick)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (bullet)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (hole|hyph|l|o|op|r|stroked|tri)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (chevron)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (closed|l|r)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1759,7 +1816,27 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (double|eq|op|tri)(?:(\.)|{{break}})
+        - match: (currency|double|eq|op|tri)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (comma|semi)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (inv|rev)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (corner)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (b|l|r|t)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1784,6 +1861,16 @@ contexts:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
         - include: consume-and-pop
+    - match: (div)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (circle|o|slanted)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
     - match: (divides)(\.)
       captures:
         1: support.constant.sym.typst
@@ -1799,7 +1886,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (basic|big|c|circle|double|op|quad|square|triple)(?:(\.)|{{break}})
+        - match: (basic|big|c|circle|double|o|op|quad|square|triple)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1834,6 +1921,16 @@ contexts:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
         - include: consume-and-pop
+    - match: (epsilon)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (alt|rev)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
     - match: (eq)(\.)
       captures:
         1: support.constant.sym.typst
@@ -1860,6 +1957,16 @@ contexts:
         2: punctuation.accessor.dot.typst
       push:
         - match: (dotted|double|l|r)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (gender)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (double|female|intersex|male|neuter|r|stroke|t|trans)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -1964,12 +2071,32 @@ contexts:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
         - include: consume-and-pop
+    - match: (paren)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (b|closed|double|flat|l|r|t)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
     - match: (plus)(\.)
       captures:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (arrow|big|circle|dot|double|minus|small|square|triangle|triple)(?:(\.)|{{break}})
+        - match: (arrow|big|circle|dot|double|l|minus|o|r|small|square|triangle|triple)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (power)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (off|on|sleep)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -2010,6 +2137,26 @@ contexts:
         2: punctuation.accessor.dot.typst
       push:
         - match: (eighth|half|measure|multiple|quarter|sixteenth|whole)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (rupee)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (generic|indian|tamil|wancho)(?:(\.)|{{break}})
+          captures:
+            1: support.constant.sym.modifier.typst
+            2: punctuation.accessor.dot.typst
+        - include: consume-and-pop
+    - match: (shell)(\.)
+      captures:
+        1: support.constant.sym.typst
+        2: punctuation.accessor.dot.typst
+      push:
+        - match: (b|double|filled|l|r|t)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -2079,7 +2226,7 @@ contexts:
         1: support.constant.sym.typst
         2: punctuation.accessor.dot.typst
       push:
-        - match: (big|circle|div|l|r|square|three|triangle)(?:(\.)|{{break}})
+        - match: (big|circle|div|hat|l|o|r|square|three|triangle)(?:(\.)|{{break}})
           captures:
             1: support.constant.sym.modifier.typst
             2: punctuation.accessor.dot.typst
@@ -2106,7 +2253,7 @@ contexts:
         - include: consume-and-pop
     - match: (?:AA|BB|CC|DD|EE|FF|GG|HH|II|JJ|KK|LL|MM|NN|OO|PP|QQ|RR|SS|TT|UU|VV|WW|XX|YY|ZZ){{break}}
       scope: support.constant.sym.typst
-    - match: (?:Alpha|Beta|Chi|Delta|Epsilon|Eta|Gamma|Iota|Kai|Kappa|Lambda|Mu|Nu|Omega|Omicron|Phi|Pi|Psi|Rho|Sigma|Tau|Theta|Upsilon|Xi|Zeta|alpha|beta|chi|delta|epsilon|eta|gamma|iota|kappa|lambda|mu|nu|omega|omicron|phi|pi|psi|rho|sigma|tau|theta|upsilon|xi|zeta){{break}}
+    - match: (?:Alpha|Beta|Chi|Delta|Digamma|Epsilon|Eta|Gamma|Iota|Kai|Kappa|Lambda|Mu|Nu|Omega|Omicron|Phi|Pi|Psi|Rho|Sigma|Tau|Theta|Upsilon|Xi|Zeta|alpha|beta|chi|delta|digamma|epsilon|eta|gamma|iota|kappa|lambda|mu|nu|omega|omicron|phi|pi|psi|rho|sigma|tau|theta|upsilon|xi|zeta){{break}}
       scope: support.constant.sym.greek.typst
-    - match: (?:Im|Re|acute|alef|aleph|amp|and|angle|angstrom|approx|arrow|arrowhead|arrows|ast|asymp|at|backslash|ballot|bar|because|beth?|bitcoin|bot|brace|bracket|breve|bullet|caret|caron|ceil|checkmark|circle|co|colon|comma|complement|compose|convolve|copyleft|copyright|crossmark|dagger|daleth?|dash|degree|diaer|diameter|diamond|die|diff|div|divides|dollar|dots?|dotless|ell|ellipse|emptyset|eq|equiv|errorbar|euro|excl|exists|fence|flat|floor|floral|forall|forces|franc|gimm?el|gradient|grave|gt|harpoons?|hash|hat|hexa|hourglass|hyph|image|in|infinity|integral|inter|interleave|interrobang|join|laplace|lat|lira|lozenge|lrm|lt|macron|maltese|mapsto|minus|miny|models|multimap|nabla|natural|note?|nothing|numero|oo|or|original|parallel|parallelogram|paren|partial|penta|percent|permille|perp|peso|pilcrow|planck|plus|pound|prec|prime|product|prop|qed|quest|quote|ratio|rect|refmark|rest|rlm|ruble|rupee|section|semi|sharp|shell|shin|slash|smash|smt|space|square|star|subset|succ|suit|sum|supset|tack|therefore|tilde|times|tiny|top|trademark|triangle|union|without|wj|won|wreath|xor|yen|zwj|zwnj|zws){{break}}
+    - match: (?:Im|Re|Sha|acute|afghani|aleph|amp|and|angle|angstrom|angzarr|approx|arrow|arrowhead|arrows|ast|asymp|at|backslash|bag|baht|ballot|bar|because|beth|bitcoin|bot|brace|bracket|breve|bullet|caret|caron|cc|cedi|ceil|cent|checkmark|chevron|circle|co|colon|comma|complement|compose|convolve|copyleft|copyright|corner|crossmark|currency|dagger|daleth|dash|degree|diaer|diameter|diamond|die|div|divides|dollar|dong|dorome|dots?|dotless|dram|earth|ell|ellipse|emptyset|eq|equiv|errorbar|euro|excl|exists|fence|flat|floor|floral|forall|forces|frown|gender|gimel|gradient|grave|gt|guarani|harpoons?|hash|hat|hexa|hourglass|hryvnia|hyph|image|in|infinity|integral|inter|interleave|interrobang|join|jupiter|kip|laplace|lari|lat|lira|lozenge|lrm|lt|macron|maltese|manat|mapsto|mars|mercury|minus|miny|models|multimap|mustache|nabla|naira|natural|neptune|note?|nothing|numero|oo|or|original|parallel|parallelogram|paren|partial|pataca|penta|percent|permille|permyriad|perp|peso|pilcrow|planck|plus|pound|power|prec|prime|product|prop|qed|quest|quote|ratio|rect|refmark|rest|riel|rlm|ruble|rupee|saturn|section|semi|sha|sharp|shell|shekel|slash|smash|smile|smt|som|space|square|star|subset|succ|suit|sum|sun|supset|tack|taka|taman|tenge|therefore|tilde|times|tiny|togrog|top|trademark|triangle|union|uranus|venus|without|wj|won|wreath|xor|yen|yuan|zwj|zwnj|zws){{break}}
       scope: support.constant.sym.typst
