@@ -1056,8 +1056,8 @@ contexts:
       captures:
         1: variable.parameter.typst
         2: punctuation.separator.key-value.typst
-    - include: script-symbols
     - include: math-common
+    - include: script-symbols
 
   math-brackets:
     - match: \(
@@ -1248,7 +1248,7 @@ contexts:
     - match: ':'
       scope: punctuation.separator.key-value.typst
     - match: ','
-      scope: punctuation.separator.typst
+      scope: punctuation.separator.comma.typst
     - match: ';'
       scope: punctuation.terminator.typst
     - match: '\.\.'
