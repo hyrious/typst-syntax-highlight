@@ -1,4 +1,4 @@
 {
     "word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?_",
-    "spelling_selector": "-(comment, markup.math, markup.raw, markup.underline.link, variable.parameter, variable.function, support, keyword.declaration, entity.name.label, constant), string.quoted - meta.expression",
+    "spelling_selector": "-(comment, constant, entity.name.label, keyword.declaration, markup.math, markup.raw, markup.underline.link, support, variable.function, variable.parameter), string.quoted - meta.expression",
 }
