@@ -4,6 +4,7 @@
   "file_regex": "┌─ (?:\\\\{2}\\?\\\\)?(.+):(\\d+):(\\d+)",
   "env": { "NO_COLOR": "1" },
   "cancel": { "kill": true },
+  "syntax": "Packages/Typst/Build Results.sublime-syntax",
   "variants": [
     {
       "name": "Open",

@@ -1,0 +1,55 @@
+%YAML 1.2
+---
+name: Typst Build Results
+hidden: true
+scope: text.build-results.typst
+
+contexts:
+  main:
+    - match: '^((error)(:)).*(\n)'
+      scope: message.error.build-results
+      captures:
+        1: markup.heading.build-results
+        2: markup.error.build-results
+        3: punctuation.separator.build-results
+        4: meta.fold.begin.build-results
+      push:
+        - include: fold-end
+        - include: location
+        - include: line-number
+        - match: '^\s*│\s*(\^+)'
+          captures:
+            1: markup.error.build-results
+    - match: '^((warning)(:)).*(\n)'
+      scope: message.warning.build-results
+      captures:
+        1: markup.heading.build-results
+        2: markup.warning.build-results
+        3: punctuation.separator.build-results
+        4: meta.fold.begin.build-results
+      push:
+        - include: fold-end
+        - include: location
+        - include: line-number
+        - match: '^\s*│\s*(\^+)'
+          captures:
+            1: markup.warning.build-results
+
+  fold-end:
+    - match: ^\n
+      scope: meta.fold.end.build-results
+      pop: 1
+
+  location:
+    - match: '^\s*┌─ (?:\\{2}\?\\)?(.+)(:)(\d+)(:)(\d+)'
+      captures:
+        1: entity.name.filename.build-results
+        2: punctuation.separator.sequence.build-results
+        3: constant.numeric.line-number.build-results
+        4: punctuation.separator.sequence.build-results
+        5: constant.numeric.line-number.build-results
+
+  line-number:
+    - match: '^(\d+)\s*│'
+      captures:
+        1: constant.numeric.line-number.build-results
