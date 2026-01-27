@@ -24,8 +24,9 @@ variables:
   identifier: '(?:{{non_raw_ident}})'
   operators: ([+*/]=?|!=|\B-=?|=>|==?|[<>]=?|\bnot\s+in\b)
   prefixes: (?:(?:include|import|set|let|if|for|while|show|context|regex)\b)
-  not_begin_of_emph: '[a-zA-Z0-9]'
-  not_end_of_emph: '[a-zA-Z0-9]'
+  word_without_underscore: '[a-zA-Z0-9]'
+  no_space_nor_punct: (?![\s*\p{P}])
+  no_space_but_punct: (?=[[^\s*]&&\p{P}])
 
 contexts:
   # The prototype context is prepended to all contexts but those setting
@@ -766,67 +767,31 @@ contexts:
     - include: bold
     - include: italic
 
-  # https://typst.app/docs/reference/text/strong
+  # https://typst.app/docs/reference/model/strong
   bold:
-    - match: (?<!{{not_begin_of_emph}})\*
+    - match: (?<!{{word_without_underscore}})\*{{no_space_nor_punct}}|\B\*{{no_space_but_punct}}|\b\*(?!{{word_without_underscore}})
       scope: punctuation.definition.bold.begin.typst
       push: bold-content
 
   bold-content:
     - meta_scope: markup.bold.typst
-    - match: \*(?!{{not_end_of_emph}})
+    - match: \*(?!{{word_without_underscore}})
       scope: punctuation.definition.bold.end.typst
       pop: true
     - include: inlines
 
-  # https://typst.app/docs/reference/text/emph
+  # https://typst.app/docs/reference/model/emph
   italic:
-    - match: (?<!{{not_begin_of_emph}})_
+    - match: \b_(?=\S)(?!_)
       scope: punctuation.definition.italic.begin.typst
       push: italic-content
 
   italic-content:
     - meta_scope: markup.italic.typst
-    - match: _(?!{{not_end_of_emph}})
+    - match: _\b
       scope: punctuation.definition.italic.end.typst
       pop: true
     - include: inlines
-
-  bold-italic:
-    - match: (?<!{{not_begin_of_emph}})(\*)(_)
-      captures:
-        1: punctuation.definition.bold.begin.typst
-        2: punctuation.definition.italic.begin.typst
-      push:
-        - bold-content
-        - bold-italic-content
-
-  bold-italic-content:
-    - meta_scope: markup.italic.typst
-    - match: (_)(\*)(?!{{not_end_of_emph}})
-      captures:
-        1: punctuation.definition.italic.end.typst
-        2: punctuation.definition.bold.end.typst
-      pop: 2
-    - include: italic-content
-
-  italic-bold:
-    - match: (?<!{{not_begin_of_emph}})(_)(\*)
-      captures:
-        1: punctuation.definition.italic.begin.typst
-        2: punctuation.definition.bold.begin.typst
-      push:
-        - italic-content
-        - italic-bold-content
-
-  italic-bold-content:
-    - meta_scope: markup.bold.typst
-    - match: (\*)(_)(?!{{not_end_of_emph}})
-      captures:
-        1: punctuation.definition.bold.end.typst
-        2: punctuation.definition.italic.end.typst
-      pop: 2
-    - include: bold-content
 
   literals:
     - include: fenced-code-blocks

@@ -42,9 +42,11 @@ foo *bar* _buzz_
 //             ^ punctuation.definition.italic.end.typst
 
 foo _*bar*_ _*buzz* buf_ zzz
-//  ^^^^^^^ markup.italic.typst markup.bold.typst
-//          ^^^^^^^ markup.italic.typst markup.bold.typst
-//                  ^^^^ markup.italic.typst - markup.bold.typst
+//  ^^^^^^^ markup.italic.typst
+//   ^^^^^ markup.bold.typst
+//          ^^^^^^^^^^^^ markup.italic.typst
+//           ^^^^^^ markup.bold.typst
+//                 ^^^^^ - markup.bold.typst
 
 foo _bar_buzz_ buf
 //  ^^^^^^^^^^ markup.italic.typst
@@ -624,3 +626,10 @@ asdf
 //  ^ punctuation.section.group.end
   )
 //^ punctuation.section.group.end
+
+// #67
+  *\(#func(state-var)*#other-var*\)* text which is now shown as emphasized
+//^^^^^^^^^^^^^^^^^^^^ markup.bold
+//                    ^ - markup.bold
+//                              ^^^^ markup.bold
+//                                   ^ - markup.bold
