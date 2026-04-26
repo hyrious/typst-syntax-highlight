@@ -229,9 +229,9 @@ The first #count numbers of the sequence are:
 
 // #6
 #let a-b(a, b) = a + b
-//   ^^^ support.function.typst
+//   ^^^ entity.name.function.typst
 #let a_b(a, b) = a * b
-//   ^^^ support.function.typst
+//   ^^^ entity.name.function.typst
   #a-b(2, 3) #a-b
 // ^^^ variable.function.typst
 //           ^^^^ constant.other.symbol.typst
@@ -633,3 +633,8 @@ asdf
 //                    ^ - markup.bold
 //                              ^^^^ markup.bold
 //                                   ^ - markup.bold
+
+// #68
+#let example(title: none, body) = {}
+//           ^^^^^ variable.parameter.typst
+//                  ^^^^ - variable.parameter.typst

@@ -1124,6 +1124,37 @@ contexts:
     - match: (?=[\]])|$\n?
       #      ^ matching a random "expression" is hard, stop early when seeing newline or ]
       pop: true
+    - match: \blet\b
+      scope: keyword.declaration.typst
+      push: maybe-function-binding
+    - include: script-common
+
+  maybe-function-binding:
+    - match: '({{identifier}})\s*(\()'
+      captures:
+        1: meta.function.typst entity.name.function.typst
+        2: punctuation.definition.group.begin.typst
+      push: function-binding-params
+    - match: '$|(?=\S)'
+      pop: true
+
+  function-binding-params:
+    - match: '\)'
+      scope: punctuation.definition.group.end.typst
+      pop: true
+    - match: '{{identifier}}'
+      scope: variable.parameter.typst
+    - match: ','
+      scope: punctuation.separator.typst
+    - match: '\.\.'
+      scope: keyword.operator.range.typst
+    - match: ':'
+      scope: punctuation.separator.parameter.typst
+      set: function-binding-default-value
+
+  function-binding-default-value:
+    - match: '(?=[,\)])'
+      set: function-binding-params
     - include: script-common
 
   script-expression:
