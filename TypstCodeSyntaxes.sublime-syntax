@@ -1,51 +1,28 @@
 %YAML 1.2
 ---
+scope: text.typst
 version: 2
+hidden: true
 
 contexts:
+
   main:
     - include: fenced-syntaxes-gen
 
-  fenced-syntaxes-gen:
-    - include: fenced-actionscript
-    - include: fenced-applescript
-    - include: fenced-clojure
-    - include: fenced-c
-    - include: fenced-cpp
-    - include: fenced-csharp
-    - include: fenced-css
-    - include: fenced-diff
-    - include: fenced-dosbatch
-    - include: fenced-erlang
-    - include: fenced-graphviz
-    - include: fenced-golang
-    - include: fenced-haskell
-    - include: fenced-html
-    - include: fenced-java
-    - include: fenced-javascript
-    - include: fenced-jsonc
-    - include: fenced-jspx
-    - include: fenced-latex
-    - include: fenced-lisp
-    - include: fenced-lua
-    - include: fenced-makefile
-    - include: fenced-matlab
-    - include: fenced-objc
-    - include: fenced-objcpp
-    - include: fenced-ocaml
-    - include: fenced-perl
-    - include: fenced-php
-    - include: fenced-python
-    - include: fenced-regexp
-    - include: fenced-ruby
-    - include: fenced-rust
-    - include: fenced-scala
-    - include: fenced-shell-script
-    - include: fenced-sql
-    - include: fenced-typescript
-    - include: fenced-xml
-    - include: fenced-yaml
+  # ASP: asa
+  fenced-asp:
+    - match: (`{3,})((?i:asa|asp))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.asp
+      embed_scope: markup.raw.block.asp.typst source.asp
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
 
+  # ActionScript: as
+  # [extended]
   fenced-actionscript:
     - match: (`{3,})((?i:actionscript|as))($\n?|\b)
       captures:
@@ -57,8 +34,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # AppleScript: applescript, script editor
   fenced-applescript:
-    - match: (`{3,})((?i:applescript|osascript))($\n?|\b)
+    - match: (`{3,})((?i:applescript))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -68,17 +46,58 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-clojure:
-    - match: (`{3,})((?i:clojure|clj))($\n?|\b)
+  # Batch File: bat, cmd
+  # [extended]
+  fenced-dosbatch:
+    - match: (`{3,})((?i:bat|cmd))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
-      embed: scope:source.clojure
-      embed_scope: markup.raw.block.clojure.typst source.clojure
+      embed: scope:source.dosbatch
+      embed_scope: markup.raw.block.dosbatch.typst source.dosbatch
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # NAnt Build File: build
+  fenced-build:
+    - match: (`{3,})((?i:build))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.build
+      embed_scope: markup.raw.block.build.typst source.build
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # C#: cs, csx
+  # [extended]
+  fenced-csharp:
+    - match: (`{3,})((?i:cs|csx))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cs
+      embed_scope: markup.raw.block.csharp.typst source.cs
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # C++: cpp, cc, cp, cxx, c++, C, h, hh, hpp, hxx, h++, inl, ipp
+  # [extended]
+  fenced-cpp:
+    - match: (`{3,})((?i:C|c\+\+|cc|cp|cpp|cxx|h|h\+\+|hh|hpp|hxx|inl|ipp))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.c++
+      embed_scope: markup.raw.block.cpp.typst source.c++
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # C: c, h
   fenced-c:
     - match: (`{3,})((?i:c|h))($\n?|\b)
       captures:
@@ -90,28 +109,7 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-cpp:
-    - match: (`{3,})((?i:c\+\+|cc|cpp|cxx|h\+\+|hpp|hxx))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.c++
-      embed_scope: markup.raw.block.cpp.typst source.c++
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
-  fenced-csharp:
-    - match: (`{3,})((?i:csharp|c\#|cs))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.cs
-      embed_scope: markup.raw.block.csharp.typst source.cs
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # CSS: css, css.erb, css.liquid
   fenced-css:
     - match: (`{3,})((?i:css))($\n?|\b)
       captures:
@@ -123,6 +121,31 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Clojure: clj, cljc, cljs, edn
+  fenced-clojure:
+    - match: (`{3,})((?i:clj|cljc|cljs|clojure|edn))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.clojure
+      embed_scope: markup.raw.block.clojure.typst source.clojure
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # D: d, di
+  fenced-d:
+    - match: (`{3,})((?i:d|di))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.d
+      embed_scope: markup.raw.block.d.typst source.d
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Diff: diff, patch
   fenced-diff:
     - match: (`{3,})((?i:diff|patch))($\n?|\b)
       captures:
@@ -134,19 +157,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-dosbatch:
-    - match: (`{3,})((?i:bat|cmd|dos))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.dosbatch
-      embed_scope: markup.raw.block.dosbatch.typst source.dosbatch
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # Erlang: erl, hrl, Emakefile, emakefile, escript
   fenced-erlang:
-    - match: (`{3,})((?i:erlang|escript))($\n?|\b)
+    - match: (`{3,})((?i:Emakefile|emakefile|erl|erlang|escript|hrl))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -156,8 +169,130 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # HTML (Erlang): yaws
+  fenced-yaws:
+    - match: (`{3,})((?i:yaws))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.yaws
+      embed_scope: markup.raw.block.yaws.typst source.yaws
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Attributes: attributes, gitattributes, .gitattributes
+  fenced-attributes:
+    - match: (`{3,})((?i:attributes|gitattributes))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.attributes
+      embed_scope: markup.raw.block.attributes.typst source.attributes
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Commit: COMMIT_EDITMSG, MERGE_MSG, TAG_EDITMSG
+  fenced-COMMIT_EDITMSG:
+    - match: (`{3,})((?i:COMMIT_EDITMSG|MERGE_MSG|TAG_EDITMSG))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.COMMIT_EDITMSG
+      embed_scope: markup.raw.block.COMMIT_EDITMSG.typst source.COMMIT_EDITMSG
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Config: gitconfig, .gitconfig, .gitmodules
+  fenced-gitconfig:
+    - match: (`{3,})((?i:gitconfig|gitmodules))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.gitconfig
+      embed_scope: markup.raw.block.gitconfig.typst source.gitconfig
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Ignore: exclude, gitignore, .gitignore
+  fenced-exclude:
+    - match: (`{3,})((?i:exclude|gitignore))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.exclude
+      embed_scope: markup.raw.block.exclude.typst source.exclude
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Link: .git
+  fenced-git:
+    - match: (`{3,})((?i:git))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.git
+      embed_scope: markup.raw.block.git.typst source.git
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Log: gitlog
+  fenced-gitlog:
+    - match: (`{3,})((?i:gitlog))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.gitlog
+      embed_scope: markup.raw.block.gitlog.typst source.gitlog
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Mailmap: .mailmap, mailmap
+  fenced-mailmap:
+    - match: (`{3,})((?i:mailmap))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.mailmap
+      embed_scope: markup.raw.block.mailmap.typst source.mailmap
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Git Rebase Todo: git-rebase-todo
+  fenced-git-rebase-todo:
+    - match: (`{3,})((?i:git-rebase-todo))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.git-rebase-todo
+      embed_scope: markup.raw.block.git-rebase-todo.typst source.git-rebase-todo
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Go: go
+  fenced-go:
+    - match: (`{3,})((?i:go))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.go
+      embed_scope: markup.raw.block.go.typst source.go
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Graphviz (DOT): dot, DOT, gv
+  # [extended]
   fenced-graphviz:
-    - match: (`{3,})((?i:graphviz))($\n?|\b)
+    - match: (`{3,})((?i:DOT|dot|gv))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -167,30 +302,22 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-golang:
-    - match: (`{3,})((?i:go(?:lang)?))($\n?|\b)
+  # Groovy: groovy, gvy, gradle, Jenkinsfile
+  fenced-groovy:
+    - match: (`{3,})((?i:Jenkinsfile|gradle|groovy|gvy))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
-      embed: scope:source.go
-      embed_scope: markup.raw.block.golang.typst source.go
+      embed: scope:source.groovy
+      embed_scope: markup.raw.block.groovy.typst source.groovy
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-haskell:
-    - match: (`{3,})((?i:haskell))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.haskell
-      embed_scope: markup.raw.block.haskell.typst source.haskell
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # HTML: html, htm, shtml, xhtml
+  # [extended]
   fenced-html:
-    - match: (`{3,})((?i:html))($\n?|\b)
+    - match: (`{3,})((?i:htm|html|shtml|xhtml))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -200,8 +327,58 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Haskell: hs
+  fenced-haskell:
+    - match: (`{3,})((?i:haskell|hs))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.haskell
+      embed_scope: markup.raw.block.haskell.typst source.haskell
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Literate Haskell: lhs
+  fenced-lhs:
+    - match: (`{3,})((?i:lhs))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.lhs
+      embed_scope: markup.raw.block.lhs.typst source.lhs
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # JSON: json, sublime-settings, sublime-menu, sublime-keymap, sublime-mousemap, sublime-theme, sublime-build, sublime-project, sublime-completions, sublime-commands, sublime-macro, sublime-color-scheme, ipynb, Pipfile.lock
+  fenced-json:
+    - match: (`{3,})((?i:Pipfile|ipynb|json|sublime-build|sublime-color-scheme|sublime-commands|sublime-completions|sublime-keymap|sublime-macro|sublime-menu|sublime-mousemap|sublime-project|sublime-settings|sublime-theme))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.json
+      embed_scope: markup.raw.block.json.typst source.json
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Java Server Page (JSP): jsp
+  # [extended]
+  fenced-jsp:
+    - match: (`{3,})((?i:jsp))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:text.html.jsp
+      embed_scope: markup.raw.block.jsp.typst text.html.jsp
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Java: java, bsh
   fenced-java:
-    - match: (`{3,})((?i:java))($\n?|\b)
+    - match: (`{3,})((?i:bsh|java))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -211,8 +388,22 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Java Properties: properties
+  fenced-properties:
+    - match: (`{3,})((?i:properties))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.properties
+      embed_scope: markup.raw.block.properties.typst source.properties
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # JavaScript: js, htc
+  # [extended]
   fenced-javascript:
-    - match: (`{3,})((?i:javascript|js))($\n?|\b)
+    - match: (`{3,})((?i:htc|javascript|js|javascript))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -222,30 +413,22 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-jsonc:
-    - match: (`{3,})((?i:jsonc?))($\n?|\b)
+  # BibTeX: bib
+  fenced-bibtex:
+    - match: (`{3,})((?i:bib|bibtex))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
-      embed: scope:source.json
-      embed_scope: markup.raw.block.jsonc.typst source.json
+      embed: scope:source.bibtex
+      embed_scope: markup.raw.block.bibtex.typst source.bibtex
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-jspx:
-    - match: (`{3,})((?i:jspx?))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:text.html.jsp
-      embed_scope: markup.raw.block.jspx.typst text.html.jsp
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # LaTeX: tex, ltx
+  # [extended]
   fenced-latex:
-    - match: (`{3,})((?i:tex|latex))($\n?|\b)
+    - match: (`{3,})((?i:latex|ltx|tex|latex))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -255,8 +438,21 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # TeX: sty, cls
+  fenced-tex:
+    - match: (`{3,})((?i:cls|sty|tex))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.tex
+      embed_scope: markup.raw.block.tex.typst source.tex
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Lisp: lisp, cl, clisp, l, mud, el, scm, ss, lsp, fasl, sld
   fenced-lisp:
-    - match: (`{3,})((?i:lisp))($\n?|\b)
+    - match: (`{3,})((?i:cl|clisp|el|fasl|l|lisp|lsp|mud|scm|sld|ss))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -266,6 +462,7 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Lua: lua
   fenced-lua:
     - match: (`{3,})((?i:lua))($\n?|\b)
       captures:
@@ -277,8 +474,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Makefile: make, GNUmakefile, makefile, Makefile, makefile.am, Makefile.am, makefile.in, Makefile.in, OCamlMakefile, mak, mk
   fenced-makefile:
-    - match: (`{3,})((?i:makefile))($\n?|\b)
+    - match: (`{3,})((?i:GNUmakefile|Makefile|OCamlMakefile|mak|make|makefile|mk))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -288,6 +486,19 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Markdown: md, mdown, markdown, markdn
+  fenced-markdown:
+    - match: (`{3,})((?i:markdn|markdown|md|mdown))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.markdown
+      embed_scope: markup.raw.block.markdown.typst source.markdown
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # MATLAB: matlab
   fenced-matlab:
     - match: (`{3,})((?i:matlab))($\n?|\b)
       captures:
@@ -299,30 +510,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-objc:
-    - match: (`{3,})((?i:objc|obj-c|objectivec|objective-c))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.objc
-      embed_scope: markup.raw.block.objc.typst source.objc
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
-  fenced-objcpp:
-    - match: (`{3,})((?i:objc\+\+|obj-c\+\+|objectivec\+\+|objective-c\+\+))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.objc++
-      embed_scope: markup.raw.block.objcpp.typst source.objc++
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # OCaml: ml, mli
   fenced-ocaml:
-    - match: (`{3,})((?i:ocaml))($\n?|\b)
+    - match: (`{3,})((?i:ml|mli|ocaml))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -332,19 +522,59 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-perl:
-    - match: (`{3,})((?i:perl))($\n?|\b)
+  # OCamllex: mll
+  fenced-ocamllex:
+    - match: (`{3,})((?i:mll|ocamllex))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
-      embed: scope:source.perl
-      embed_scope: markup.raw.block.perl.typst source.perl
+      embed: scope:source.ocamllex
+      embed_scope: markup.raw.block.ocamllex.typst source.ocamllex
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # OCamlyacc: mly
+  fenced-ocamlyacc:
+    - match: (`{3,})((?i:mly|ocamlyacc))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ocamlyacc
+      embed_scope: markup.raw.block.ocamlyacc.typst source.ocamlyacc
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Objective-C++: mm, M, h
+  # [extended]
+  fenced-objcpp:
+    - match: (`{3,})((?i:M|h|mm))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.objc++
+      embed_scope: markup.raw.block.objcpp.typst source.objc++
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Objective-C: m, h
+  # [extended]
+  fenced-objc:
+    - match: (`{3,})((?i:h|m|objective-c))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.objc
+      embed_scope: markup.raw.block.objc.typst source.objc
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # PHP: php, php3, php4, php5, php7, phps, phpt, phtml
   fenced-php:
-    - match: (`{3,})((?i:php|inc))($\n?|\b)
+    - match: (`{3,})((?i:php|php3|php4|php5|php7|phps|phpt|phtml))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -354,8 +584,33 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Pascal: pas, p, dpr
+  fenced-pascal:
+    - match: (`{3,})((?i:dpr|p|pas|pascal))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.pascal
+      embed_scope: markup.raw.block.pascal.typst source.pascal
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Perl: pl, pc, pm, pmc, pod, t
+  fenced-perl:
+    - match: (`{3,})((?i:pc|perl|pl|pm|pmc|pod|t))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.perl
+      embed_scope: markup.raw.block.perl.typst source.perl
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Python: py, py3, pyw, pyi, pyx, pyx.in, pxd, pxd.in, pxi, pxi.in, rpy, cpy, SConstruct, Sconstruct, sconstruct, SConscript, gyp, gypi, Snakefile, vpy, wscript, bazel, bzl
   fenced-python:
-    - match: (`{3,})((?i:python|py))($\n?|\b)
+    - match: (`{3,})((?i:SConscript|SConstruct|Sconstruct|Snakefile|bazel|bzl|cpy|gyp|gypi|pxd|pxi|py|py3|pyi|python|pyw|pyx|rpy|sconstruct|vpy|wscript))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -365,8 +620,94 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # R: R, r, Rprofile
+  fenced-r:
+    - match: (`{3,})((?i:R|Rprofile|r))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.r
+      embed_scope: markup.raw.block.r.typst source.r
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Rd (R Documentation): rd
+  fenced-rd:
+    - match: (`{3,})((?i:rd))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.rd
+      embed_scope: markup.raw.block.rd.typst source.rd
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # HTML (Rails): rails, rhtml, erb, html.erb
+  fenced-rails:
+    - match: (`{3,})((?i:erb|html|rails|rhtml))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.rails
+      embed_scope: markup.raw.block.rails.typst source.rails
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # JavaScript (Rails): js.erb
+  fenced-js:
+    - match: (`{3,})((?i:js))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.js
+      embed_scope: markup.raw.block.js.typst source.js
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ruby Haml: haml, sass
+  fenced-haml:
+    - match: (`{3,})((?i:haml|sass))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.haml
+      embed_scope: markup.raw.block.haml.typst source.haml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ruby on Rails: rxml, builder
+  fenced-rxml:
+    - match: (`{3,})((?i:builder|rxml))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.rxml
+      embed_scope: markup.raw.block.rxml.typst source.rxml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SQL (Rails): erbsql, sql.erb
+  fenced-erbsql:
+    - match: (`{3,})((?i:erbsql|sql))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.erbsql
+      embed_scope: markup.raw.block.erbsql.typst source.erbsql
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Regular Expression: re
+  # [extended]
   fenced-regexp:
-    - match: (`{3,})((?i:regexp?))($\n?|\b)
+    - match: (`{3,})((?i:re))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -376,8 +717,21 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # reStructuredText: rst, rest
+  fenced-restructuredtext:
+    - match: (`{3,})((?i:rest|restructuredtext|rst))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.restructuredtext
+      embed_scope: markup.raw.block.restructuredtext.typst source.restructuredtext
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ruby: rb, Appfile, Appraisals, Berksfile, Brewfile, capfile, cgi, Cheffile, config.ru, Deliverfile, Fastfile, fcgi, Gemfile, gemspec, Guardfile, irbrc, jbuilder, Podfile, podspec, prawn, rabl, rake, Rakefile, Rantfile, rbx, rjs, ruby.rail, Scanfile, simplecov, Snapfile, thor, Thorfile, Vagrantfile
   fenced-ruby:
-    - match: (`{3,})((?i:ruby|rb|rbx))($\n?|\b)
+    - match: (`{3,})((?i:Appfile|Appraisals|Berksfile|Brewfile|Cheffile|Deliverfile|Fastfile|Gemfile|Guardfile|Podfile|Rakefile|Rantfile|Scanfile|Snapfile|Thorfile|Vagrantfile|capfile|cgi|config|fcgi|gemspec|irbrc|jbuilder|podspec|prawn|rabl|rake|rb|rbx|rjs|ruby|simplecov|thor))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -387,8 +741,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Rust: rs
   fenced-rust:
-    - match: (`{3,})((?i:rust|rs))($\n?|\b)
+    - match: (`{3,})((?i:rs|rust))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -398,30 +753,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-scala:
-    - match: (`{3,})((?i:scala))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.scala
-      embed_scope: markup.raw.block.scala.typst source.scala
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
-  fenced-shell-script:
-    - match: (`{3,})((?i:shell-script|sh|bash|zsh))($\n?|\b)
-      captures:
-        1: punctuation.definition.raw.code-fence.begin.typst
-        2: constant.other.language-name.typst
-      embed: scope:source.shell.bash
-      embed_scope: markup.raw.block.shell-script.typst source.shell.bash
-      escape: '(?:^[ \t]*)?(\1)\s*'
-      escape_captures:
-        1: punctuation.definition.raw.code-fence.end.typst
-
+  # SQL: sql, ddl, dml
   fenced-sql:
-    - match: (`{3,})((?i:sql))($\n?|\b)
+    - match: (`{3,})((?i:ddl|dml|sql))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -431,19 +765,71 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
-  fenced-typescript:
-    - match: (`{3,})((?i:typescript|ts))($\n?|\b)
+  # Scala: scala, sbt, sc
+  fenced-scala:
+    - match: (`{3,})((?i:sbt|sc|scala))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
-      embed: scope:source.ts
-      embed_scope: markup.raw.block.typescript.typst source.ts
+      embed: scope:source.scala
+      embed_scope: markup.raw.block.scala.typst source.scala
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # Bourne Again Shell (bash): sh, bash, zsh, ash, .bash_aliases, .bash_completions, .bash_functions, .bash_login, .bash_logout, .bash_profile, .bash_variables, .bashrc, .profile, .textmate_init, .zlogin, .zlogout, .zprofile, .zshenv, .zshrc, PKGBUILD, ebuild, eclass
+  # [extended]
+  fenced-shell-script:
+    - match: (`{3,})((?i:PKGBUILD|ash|bash|bash_aliases|bash_completions|bash_functions|bash_login|bash_logout|bash_profile|bash_variables|bashrc|ebuild|eclass|profile|sh|textmate_init|zlogin|zlogout|zprofile|zsh|zshenv|zshrc))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.shell.bash
+      embed_scope: markup.raw.block.shell-script.typst source.shell.bash
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # HTML (Tcl): adp
+  fenced-adp:
+    - match: (`{3,})((?i:adp))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.adp
+      embed_scope: markup.raw.block.adp.typst source.adp
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Tcl: tcl
+  fenced-tcl:
+    - match: (`{3,})((?i:tcl))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.tcl
+      embed_scope: markup.raw.block.tcl.typst source.tcl
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Textile: textile
+  fenced-textile:
+    - match: (`{3,})((?i:textile))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.textile
+      embed_scope: markup.raw.block.textile.typst source.textile
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # XML: xml, xsd, xslt, tld, dtml, rng, rss, opml, svg, xaml
+  # [extended]
   fenced-xml:
-    - match: (`{3,})((?i:atom|plist|svg|xjb|xml|xsd|xsl))($\n?|\b)
+    - match: (`{3,})((?i:dtml|opml|rng|rss|svg|tld|xaml|xml|xsd|xslt))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -453,8 +839,9 @@ contexts:
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
 
+  # YAML: yaml, yml, sublime-syntax
   fenced-yaml:
-    - match: (`{3,})((?i:yaml|yml))($\n?|\b)
+    - match: (`{3,})((?i:sublime-syntax|yaml|yml))($\n?|\b)
       captures:
         1: punctuation.definition.raw.code-fence.begin.typst
         2: constant.other.language-name.typst
@@ -463,3 +850,1348 @@ contexts:
       escape: '(?:^[ \t]*)?(\1)\s*'
       escape_captures:
         1: punctuation.definition.raw.code-fence.end.typst
+
+  # AWK: awk
+  fenced-awk:
+    - match: (`{3,})((?i:awk))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.awk
+      embed_scope: markup.raw.block.awk.typst source.awk
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ada: adb, ads, gpr
+  fenced-ada:
+    - match: (`{3,})((?i:ada|adb|ads|gpr))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ada
+      embed_scope: markup.raw.block.ada.typst source.ada
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Apache Conf: envvars, htaccess, HTACCESS, htgroups, HTGROUPS, htpasswd, HTPASSWD, .htaccess, .HTACCESS, .htgroups, .HTGROUPS, .htpasswd, .HTPASSWD
+  fenced-envvars:
+    - match: (`{3,})((?i:HTACCESS|HTGROUPS|HTPASSWD|envvars|htaccess|htgroups|htpasswd))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.envvars
+      embed_scope: markup.raw.block.envvars.typst source.envvars
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # AsciiDoc (Asciidoctor): adoc, ad, asciidoc
+  fenced-adoc:
+    - match: (`{3,})((?i:ad|adoc|asciidoc))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.adoc
+      embed_scope: markup.raw.block.adoc.typst source.adoc
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Assembly (x86_64): yasm, nasm, asm, inc, mac
+  fenced-yasm:
+    - match: (`{3,})((?i:asm|inc|mac|nasm|yasm))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.yasm
+      embed_scope: markup.raw.block.yasm.typst source.yasm
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CFML: cfml, cfm, cfc
+  fenced-cfml:
+    - match: (`{3,})((?i:cfc|cfm|cfml))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cfml
+      embed_scope: markup.raw.block.cfml.typst source.cfml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CMake C Header: h.in
+  fenced-h:
+    - match: (`{3,})((?i:h))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.h
+      embed_scope: markup.raw.block.h.typst source.h
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CMake C++ Header: hh.in, hpp.in, hxx.in, h++.in
+  fenced-hh:
+    - match: (`{3,})((?i:h\+\+|hh|hpp|hxx))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.hh
+      embed_scope: markup.raw.block.hh.typst source.hh
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CMake: CMakeLists.txt, cmake
+  fenced-cmake:
+    - match: (`{3,})((?i:CMakeLists|cmake))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cmake
+      embed_scope: markup.raw.block.cmake.typst source.cmake
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CMakeCache: CMakeCache.txt
+  fenced-cmakecache:
+    - match: (`{3,})((?i:CMakeCache|cmakecache))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cmakecache
+      embed_scope: markup.raw.block.cmakecache.typst source.cmakecache
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Comma Separated Values: csv, tsv
+  fenced-csv:
+    - match: (`{3,})((?i:csv|tsv))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.csv
+      embed_scope: markup.raw.block.csv.typst source.csv
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Cabal: cabal
+  fenced-cabal:
+    - match: (`{3,})((?i:cabal))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cabal
+      embed_scope: markup.raw.block.cabal.typst source.cabal
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CoffeeScript: coffee, Cakefile, coffee.erb, cson
+  fenced-coffeescript:
+    - match: (`{3,})((?i:Cakefile|coffee|coffeescript|cson))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.coffeescript
+      embed_scope: markup.raw.block.coffeescript.typst source.coffeescript
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # CpuInfo: cpuinfo
+  fenced-cpuinfo:
+    - match: (`{3,})((?i:cpuinfo))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cpuinfo
+      embed_scope: markup.raw.block.cpuinfo.typst source.cpuinfo
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Crontab: tab, crontab, cron.d
+  fenced-crontab:
+    - match: (`{3,})((?i:cron|crontab|tab))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.crontab
+      embed_scope: markup.raw.block.crontab.typst source.crontab
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Crystal: cr
+  fenced-crystal:
+    - match: (`{3,})((?i:cr|crystal))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.crystal
+      embed_scope: markup.raw.block.crystal.typst source.crystal
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Dart: dart
+  fenced-dart:
+    - match: (`{3,})((?i:dart))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.dart
+      embed_scope: markup.raw.block.dart.typst source.dart
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Dockerfile: Dockerfile, dockerfile, .Dockerfile
+  fenced-dockerfile:
+    - match: (`{3,})((?i:Dockerfile|dockerfile))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.dockerfile
+      embed_scope: markup.raw.block.dockerfile.typst source.dockerfile
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # DotENV: .env, .env.dist, .env.local, .env.sample, .env.example, .env.template, .env.test, .env.test.local, .env.testing, .env.dev, .env.development, .env.development.local, .env.prod, .env.production, .env.production.local, .env.dusk.local, .env.staging, .env.default, .env.defaults, .envrc, .flaskenv, env, env.example, env.sample, env.template
+  fenced-dotenv:
+    - match: (`{3,})((?i:dotenv|env|envrc|flaskenv))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.dotenv
+      embed_scope: markup.raw.block.dotenv.typst source.dotenv
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Elixir: ex, exs
+  fenced-elixir:
+    - match: (`{3,})((?i:elixir|ex|exs))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.elixir
+      embed_scope: markup.raw.block.elixir.typst source.elixir
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Elm: elm
+  fenced-elm:
+    - match: (`{3,})((?i:elm))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.elm
+      embed_scope: markup.raw.block.elm.typst source.elm
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Email: eml, msg, mbx, mboxz
+  fenced-email:
+    - match: (`{3,})((?i:email|eml|mboxz|mbx|msg))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.email
+      embed_scope: markup.raw.block.email.typst source.email
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # F#: fs, fsi, fsx
+  fenced-fs:
+    - match: (`{3,})((?i:fs|fsi|fsx))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.fs
+      embed_scope: markup.raw.block.fs.typst source.fs
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Fish: fish
+  fenced-fish:
+    - match: (`{3,})((?i:fish))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.fish
+      embed_scope: markup.raw.block.fish.typst source.fish
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Fortran (Fixed Form): f, F, f77, F77, for, FOR, fpp, FPP
+  fenced-f:
+    - match: (`{3,})((?i:F|F77|FOR|FPP|f|f77|for|fpp))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.f
+      embed_scope: markup.raw.block.f.typst source.f
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Fortran (Modern): f90, F90, f95, F95, f03, F03, f08, F08
+  fenced-f90:
+    - match: (`{3,})((?i:F03|F08|F90|F95|f03|f08|f90|f95))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.f90
+      embed_scope: markup.raw.block.f90.typst source.f90
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Fortran Namelist: namelist
+  fenced-namelist:
+    - match: (`{3,})((?i:namelist))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.namelist
+      embed_scope: markup.raw.block.namelist.typst source.namelist
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # fstab: fstab, crypttab, mtab
+  fenced-fstab:
+    - match: (`{3,})((?i:crypttab|fstab|mtab))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.fstab
+      embed_scope: markup.raw.block.fstab.typst source.fstab
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # GLSL: vs, fs, gs, vsh, fsh, gsh, vshader, fshader, gshader, vert, frag, geom, tesc, tese, comp, glsl, mesh, task, rgen, rint, rahit, rchit, rmiss, rcall
+  fenced-glsl:
+    - match: (`{3,})((?i:comp|frag|fs|fsh|fshader|geom|glsl|gs|gsh|gshader|mesh|rahit|rcall|rchit|rgen|rint|rmiss|task|tesc|tese|vert|vs|vsh|vshader))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.glsl
+      embed_scope: markup.raw.block.glsl.typst source.glsl
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # GraphQL: graphql, graphqls, gql
+  fenced-graphql:
+    - match: (`{3,})((?i:gql|graphql|graphqls))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.graphql
+      embed_scope: markup.raw.block.graphql.typst source.graphql
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Groff/troff: groff, troff, 1, 2, 3, 4, 5, 6, 7, 8, 9
+  fenced-groff:
+    - match: (`{3,})((?i:1|2|3|4|5|6|7|8|9|groff|troff))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.groff
+      embed_scope: markup.raw.block.groff.typst source.groff
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # group: group
+  fenced-group:
+    - match: (`{3,})((?i:group))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.group
+      embed_scope: markup.raw.block.group.typst source.group
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # HTML (Twig): twig, html.twig
+  fenced-twig:
+    - match: (`{3,})((?i:html|twig))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.twig
+      embed_scope: markup.raw.block.twig.typst source.twig
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # hosts: hosts
+  fenced-hosts:
+    - match: (`{3,})((?i:hosts))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.hosts
+      embed_scope: markup.raw.block.hosts.typst source.hosts
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # INI: ini, INI, inf, INF, reg, REG, lng, cfg, CFG, desktop, url, URL, .editorconfig, .coveragerc, .pylintrc, .gitlint, .hgrc, hgrc
+  fenced-ini:
+    - match: (`{3,})((?i:CFG|INF|INI|REG|URL|cfg|coveragerc|desktop|editorconfig|gitlint|hgrc|inf|ini|lng|pylintrc|reg|url))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ini
+      embed_scope: markup.raw.block.ini.typst source.ini
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # HTML (Jinja2): htm.j2, html.j2, xhtml.j2, xml.j2
+  fenced-htm:
+    - match: (`{3,})((?i:htm|html|xhtml|xml))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.htm
+      embed_scope: markup.raw.block.htm.typst source.htm
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Jinja2: j2, jinja2, jinja
+  fenced-j2:
+    - match: (`{3,})((?i:j2|jinja|jinja2))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.j2
+      embed_scope: markup.raw.block.j2.typst source.j2
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # jsonnet: jsonnet, libsonnet, libjsonnet
+  fenced-jsonnet:
+    - match: (`{3,})((?i:jsonnet|libjsonnet|libsonnet))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.jsonnet
+      embed_scope: markup.raw.block.jsonnet.typst source.jsonnet
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Julia: jl
+  fenced-julia:
+    - match: (`{3,})((?i:jl|julia))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.julia
+      embed_scope: markup.raw.block.julia.typst source.julia
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Kotlin: kt, kts
+  fenced-kotlin:
+    - match: (`{3,})((?i:kotlin|kt|kts))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.kotlin
+      embed_scope: markup.raw.block.kotlin.typst source.kotlin
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Less: less, css.less
+  fenced-less:
+    - match: (`{3,})((?i:css|less))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.less
+      embed_scope: markup.raw.block.less.typst source.less
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # LLVM: ll
+  fenced-llvm:
+    - match: (`{3,})((?i:ll|llvm))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.llvm
+      embed_scope: markup.raw.block.llvm.typst source.llvm
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Lean: lean
+  fenced-lean:
+    - match: (`{3,})((?i:lean))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.lean
+      embed_scope: markup.raw.block.lean.typst source.lean
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # LiveScript: ls, Slakefile, ls.erb
+  fenced-livescript:
+    - match: (`{3,})((?i:Slakefile|livescript|ls))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.livescript
+      embed_scope: markup.raw.block.livescript.typst source.livescript
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Manpage: man
+  fenced-manpage:
+    - match: (`{3,})((?i:man|manpage))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.manpage
+      embed_scope: markup.raw.block.manpage.typst source.manpage
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # MediaWiki: mediawiki, wikipedia, wiki
+  fenced-mediawiki:
+    - match: (`{3,})((?i:mediawiki|wiki|wikipedia))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.mediawiki
+      embed_scope: markup.raw.block.mediawiki.typst source.mediawiki
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # MemInfo: meminfo
+  fenced-meminfo:
+    - match: (`{3,})((?i:meminfo))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.meminfo
+      embed_scope: markup.raw.block.meminfo.typst source.meminfo
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # NSIS: nsi, nsh, bnsi, bnsh, nsdinc
+  fenced-nsis:
+    - match: (`{3,})((?i:bnsh|bnsi|nsdinc|nsh|nsi|nsis))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.nsis
+      embed_scope: markup.raw.block.nsis.typst source.nsis
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # nginx: conf.erb, conf, nginx.conf, mime.types, fastcgi_params, scgi_params, uwsgi_params
+  fenced-nginx:
+    - match: (`{3,})((?i:conf|fastcgi_params|mime|nginx|scgi_params|uwsgi_params))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.nginx
+      embed_scope: markup.raw.block.nginx.typst source.nginx
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Nim: nim, nims, nimble
+  fenced-nim:
+    - match: (`{3,})((?i:nim|nimble|nims))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.nim
+      embed_scope: markup.raw.block.nim.typst source.nim
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ninja: ninja
+  fenced-ninja:
+    - match: (`{3,})((?i:ninja))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ninja
+      embed_scope: markup.raw.block.ninja.typst source.ninja
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Nix: nix
+  fenced-nix:
+    - match: (`{3,})((?i:nix))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.nix
+      embed_scope: markup.raw.block.nix.typst source.nix
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # orgmode: org
+  fenced-orgmode:
+    - match: (`{3,})((?i:org|orgmode))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.orgmode
+      embed_scope: markup.raw.block.orgmode.typst source.orgmode
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # passwd: passwd
+  fenced-passwd:
+    - match: (`{3,})((?i:passwd))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.passwd
+      embed_scope: markup.raw.block.passwd.typst source.passwd
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Protocol Buffer: proto, protobuf, protodevel
+  fenced-proto:
+    - match: (`{3,})((?i:proto|protobuf|protodevel))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.proto
+      embed_scope: markup.raw.block.proto.typst source.proto
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Protocol Buffer (TEXT): pb.txt, proto.text, textpb, pbtxt, prototxt, textproto
+  fenced-pb:
+    - match: (`{3,})((?i:pb|pbtxt|proto|prototxt|textpb|textproto))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.pb
+      embed_scope: markup.raw.block.pb.typst source.pb
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Puppet: pp, epp
+  fenced-puppet:
+    - match: (`{3,})((?i:epp|pp|puppet))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.puppet
+      embed_scope: markup.raw.block.puppet.typst source.puppet
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # PureScript: purs
+  fenced-purescript:
+    - match: (`{3,})((?i:purescript|purs))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.purescript
+      embed_scope: markup.raw.block.purescript.typst source.purescript
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # QML: qml, qmlproject
+  fenced-qml:
+    - match: (`{3,})((?i:qml|qmlproject))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.qml
+      embed_scope: markup.raw.block.qml.typst source.qml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Racket: rkt
+  fenced-racket:
+    - match: (`{3,})((?i:racket|rkt))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.racket
+      embed_scope: markup.raw.block.racket.typst source.racket
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Rego: rego
+  fenced-rego:
+    - match: (`{3,})((?i:rego))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.rego
+      embed_scope: markup.raw.block.rego.typst source.rego
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Requirements.txt: requirements.txt, requirements.in, pip
+  fenced-requirements:
+    - match: (`{3,})((?i:pip|requirements))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.requirements
+      embed_scope: markup.raw.block.requirements.typst source.requirements
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # resolv: resolv.conf
+  fenced-resolv:
+    - match: (`{3,})((?i:resolv))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.resolv
+      embed_scope: markup.raw.block.resolv.typst source.resolv
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Robot Framework: robot, resource
+  fenced-robot:
+    - match: (`{3,})((?i:resource|robot))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.robot
+      embed_scope: markup.raw.block.robot.typst source.robot
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SCSS: scss
+  fenced-scss:
+    - match: (`{3,})((?i:scss))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.scss
+      embed_scope: markup.raw.block.scss.typst source.scss
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Sass: sass
+  fenced-sass:
+    - match: (`{3,})((?i:sass))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.sass
+      embed_scope: markup.raw.block.sass.typst source.sass
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SML: sml, cm, sig
+  fenced-sml:
+    - match: (`{3,})((?i:cm|sig|sml))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.sml
+      embed_scope: markup.raw.block.sml.typst source.sml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Ruby Slim: slim, skim
+  fenced-slim:
+    - match: (`{3,})((?i:skim|slim))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.slim
+      embed_scope: markup.raw.block.slim.typst source.slim
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Strace: strace
+  fenced-strace:
+    - match: (`{3,})((?i:strace))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.strace
+      embed_scope: markup.raw.block.strace.typst source.strace
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Stylus: styl, stylus
+  fenced-stylus:
+    - match: (`{3,})((?i:styl|stylus))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.stylus
+      embed_scope: markup.raw.block.stylus.typst source.stylus
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Solidity: sol
+  fenced-solidity:
+    - match: (`{3,})((?i:sol|solidity))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.solidity
+      embed_scope: markup.raw.block.solidity.typst source.solidity
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Vyper: vy
+  fenced-vyper:
+    - match: (`{3,})((?i:vy|vyper))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.vyper
+      embed_scope: markup.raw.block.vyper.typst source.vyper
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # JQ: jq
+  fenced-jq:
+    - match: (`{3,})((?i:jq))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.jq
+      embed_scope: markup.raw.block.jq.typst source.jq
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Svelte: svlt, svelte
+  fenced-svelte:
+    - match: (`{3,})((?i:svelte|svlt))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.svelte
+      embed_scope: markup.raw.block.svelte.typst source.svelte
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Swift: swift
+  fenced-swift:
+    - match: (`{3,})((?i:swift))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.swift
+      embed_scope: markup.raw.block.swift.typst source.swift
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SystemVerilog: sv, v, svh, vh
+  fenced-systemverilog:
+    - match: (`{3,})((?i:sv|svh|systemverilog|v|vh))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.systemverilog
+      embed_scope: markup.raw.block.systemverilog.typst source.systemverilog
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # TOML: toml, tml, Cargo.lock, Gopkg.lock, Pipfile, pdm.lock, poetry.lock, uv.lock
+  fenced-toml:
+    - match: (`{3,})((?i:Cargo|Gopkg|Pipfile|pdm|poetry|tml|toml|uv))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.toml
+      embed_scope: markup.raw.block.toml.typst source.toml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # JSON (Terraform): tfstate
+  fenced-tfstate:
+    - match: (`{3,})((?i:tfstate))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.tfstate
+      embed_scope: markup.raw.block.tfstate.typst source.tfstate
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Terraform: tf, tfvars, hcl
+  fenced-terraform:
+    - match: (`{3,})((?i:hcl|terraform|tf|tfvars))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.terraform
+      embed_scope: markup.raw.block.terraform.typst source.terraform
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Todo.txt: todo.txt, done.txt
+  fenced-todo:
+    - match: (`{3,})((?i:done|todo))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.todo
+      embed_scope: markup.raw.block.todo.typst source.todo
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # TypeScript: ts, mts, cts
+  # [extended]
+  fenced-typescript:
+    - match: (`{3,})((?i:cts|mts|ts|typescript))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ts
+      embed_scope: markup.raw.block.typescript.typst source.ts
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # TypeScriptReact: tsx
+  fenced-typescriptreact:
+    - match: (`{3,})((?i:tsx|typescriptreact))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.typescriptreact
+      embed_scope: markup.raw.block.typescriptreact.typst source.typescriptreact
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Verilog: v, V
+  fenced-verilog:
+    - match: (`{3,})((?i:V|v|verilog))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.verilog
+      embed_scope: markup.raw.block.verilog.typst source.verilog
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # VimL: vim, vimrc, gvimrc, .vimrc, .gvimrc, _vimrc, _gvimrc
+  fenced-viml:
+    - match: (`{3,})((?i:_gvimrc|_vimrc|gvimrc|vim|viml|vimrc))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.viml
+      embed_scope: markup.raw.block.viml.typst source.viml
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Vue Component: vue
+  fenced-vue:
+    - match: (`{3,})((?i:vue))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.vue
+      embed_scope: markup.raw.block.vue.typst source.vue
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Zig: zig
+  fenced-zig:
+    - match: (`{3,})((?i:zig))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.zig
+      embed_scope: markup.raw.block.zig.typst source.zig
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Command Help: cmd-help, help
+  fenced-cmd-help:
+    - match: (`{3,})((?i:cmd-help|help))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.cmd-help
+      embed_scope: markup.raw.block.cmd-help.typst source.cmd-help
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # gnuplot: gp, gpl, gnuplot, gnu, plot, plt
+  fenced-gnuplot:
+    - match: (`{3,})((?i:gnu|gnuplot|gp|gpl|plot|plt))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.gnuplot
+      embed_scope: markup.raw.block.gnuplot.typst source.gnuplot
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # HTTP Request and Response: http
+  fenced-http:
+    - match: (`{3,})((?i:http))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.http
+      embed_scope: markup.raw.block.http.typst source.http
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # log: log
+  fenced-log:
+    - match: (`{3,})((?i:log))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.log
+      embed_scope: markup.raw.block.log.typst source.log
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Highlight non-printables: show-nonprintable
+  fenced-show-nonprintable:
+    - match: (`{3,})((?i:show-nonprintable))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.show-nonprintable
+      embed_scope: markup.raw.block.show-nonprintable.typst source.show-nonprintable
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Authorized Keys: authorized_keys, pub, authorized_keys2
+  fenced-authorized_keys:
+    - match: (`{3,})((?i:authorized_keys|authorized_keys2|pub))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.authorized_keys
+      embed_scope: markup.raw.block.authorized_keys.typst source.authorized_keys
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # Known Hosts: known_hosts, known_hosts.old
+  fenced-known_hosts:
+    - match: (`{3,})((?i:known_hosts))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.known_hosts
+      embed_scope: markup.raw.block.known_hosts.typst source.known_hosts
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SSH Config: ssh_config
+  fenced-ssh_config:
+    - match: (`{3,})((?i:ssh_config))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.ssh_config
+      embed_scope: markup.raw.block.ssh_config.typst source.ssh_config
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # SSHD Config: sshd_config
+  fenced-sshd_config:
+    - match: (`{3,})((?i:sshd_config))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.sshd_config
+      embed_scope: markup.raw.block.sshd_config.typst source.sshd_config
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # syslog: syslog
+  fenced-syslog:
+    - match: (`{3,})((?i:syslog))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.syslog
+      embed_scope: markup.raw.block.syslog.typst source.syslog
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # varlink: varlink
+  fenced-varlink:
+    - match: (`{3,})((?i:varlink))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.varlink
+      embed_scope: markup.raw.block.varlink.typst source.varlink
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+
+  # WGSL: wgsl
+  fenced-wgsl:
+    - match: (`{3,})((?i:wgsl))($\n?|\b)
+      captures:
+        1: punctuation.definition.raw.code-fence.begin.typst
+        2: constant.other.language-name.typst
+      embed: scope:source.wgsl
+      embed_scope: markup.raw.block.wgsl.typst source.wgsl
+      escape: '(?:^[ \t]*)?(\1)\s*'
+      escape_captures:
+        1: punctuation.definition.raw.code-fence.end.typst
+  fenced-syntaxes-gen:
+    - include: fenced-COMMIT_EDITMSG
+    - include: fenced-actionscript
+    - include: fenced-ada
+    - include: fenced-adoc
+    - include: fenced-adp
+    - include: fenced-applescript
+    - include: fenced-asp
+    - include: fenced-attributes
+    - include: fenced-authorized_keys
+    - include: fenced-awk
+    - include: fenced-bibtex
+    - include: fenced-build
+    - include: fenced-c
+    - include: fenced-cabal
+    - include: fenced-cfml
+    - include: fenced-clojure
+    - include: fenced-cmake
+    - include: fenced-cmakecache
+    - include: fenced-cmd-help
+    - include: fenced-coffeescript
+    - include: fenced-cpp
+    - include: fenced-cpuinfo
+    - include: fenced-crontab
+    - include: fenced-crystal
+    - include: fenced-csharp
+    - include: fenced-css
+    - include: fenced-csv
+    - include: fenced-d
+    - include: fenced-dart
+    - include: fenced-diff
+    - include: fenced-dockerfile
+    - include: fenced-dosbatch
+    - include: fenced-dotenv
+    - include: fenced-elixir
+    - include: fenced-elm
+    - include: fenced-email
+    - include: fenced-envvars
+    - include: fenced-erbsql
+    - include: fenced-erlang
+    - include: fenced-exclude
+    - include: fenced-f
+    - include: fenced-f90
+    - include: fenced-fish
+    - include: fenced-fs
+    - include: fenced-fstab
+    - include: fenced-git
+    - include: fenced-git-rebase-todo
+    - include: fenced-gitconfig
+    - include: fenced-gitlog
+    - include: fenced-glsl
+    - include: fenced-gnuplot
+    - include: fenced-go
+    - include: fenced-graphql
+    - include: fenced-graphviz
+    - include: fenced-groff
+    - include: fenced-groovy
+    - include: fenced-group
+    - include: fenced-h
+    - include: fenced-haml
+    - include: fenced-haskell
+    - include: fenced-hh
+    - include: fenced-hosts
+    - include: fenced-htm
+    - include: fenced-html
+    - include: fenced-http
+    - include: fenced-ini
+    - include: fenced-j2
+    - include: fenced-java
+    - include: fenced-javascript
+    - include: fenced-jq
+    - include: fenced-js
+    - include: fenced-json
+    - include: fenced-jsonnet
+    - include: fenced-jsp
+    - include: fenced-julia
+    - include: fenced-known_hosts
+    - include: fenced-kotlin
+    - include: fenced-latex
+    - include: fenced-lean
+    - include: fenced-less
+    - include: fenced-lhs
+    - include: fenced-lisp
+    - include: fenced-livescript
+    - include: fenced-llvm
+    - include: fenced-log
+    - include: fenced-lua
+    - include: fenced-mailmap
+    - include: fenced-makefile
+    - include: fenced-manpage
+    - include: fenced-markdown
+    - include: fenced-matlab
+    - include: fenced-mediawiki
+    - include: fenced-meminfo
+    - include: fenced-namelist
+    - include: fenced-nginx
+    - include: fenced-nim
+    - include: fenced-ninja
+    - include: fenced-nix
+    - include: fenced-nsis
+    - include: fenced-objc
+    - include: fenced-objcpp
+    - include: fenced-ocaml
+    - include: fenced-ocamllex
+    - include: fenced-ocamlyacc
+    - include: fenced-orgmode
+    - include: fenced-pascal
+    - include: fenced-passwd
+    - include: fenced-pb
+    - include: fenced-perl
+    - include: fenced-php
+    - include: fenced-properties
+    - include: fenced-proto
+    - include: fenced-puppet
+    - include: fenced-purescript
+    - include: fenced-python
+    - include: fenced-qml
+    - include: fenced-r
+    - include: fenced-racket
+    - include: fenced-rails
+    - include: fenced-rd
+    - include: fenced-regexp
+    - include: fenced-rego
+    - include: fenced-requirements
+    - include: fenced-resolv
+    - include: fenced-restructuredtext
+    - include: fenced-robot
+    - include: fenced-ruby
+    - include: fenced-rust
+    - include: fenced-rxml
+    - include: fenced-sass
+    - include: fenced-scala
+    - include: fenced-scss
+    - include: fenced-shell-script
+    - include: fenced-show-nonprintable
+    - include: fenced-slim
+    - include: fenced-sml
+    - include: fenced-solidity
+    - include: fenced-sql
+    - include: fenced-ssh_config
+    - include: fenced-sshd_config
+    - include: fenced-strace
+    - include: fenced-stylus
+    - include: fenced-svelte
+    - include: fenced-swift
+    - include: fenced-syslog
+    - include: fenced-systemverilog
+    - include: fenced-tcl
+    - include: fenced-terraform
+    - include: fenced-tex
+    - include: fenced-textile
+    - include: fenced-tfstate
+    - include: fenced-todo
+    - include: fenced-toml
+    - include: fenced-twig
+    - include: fenced-typescript
+    - include: fenced-typescriptreact
+    - include: fenced-varlink
+    - include: fenced-verilog
+    - include: fenced-viml
+    - include: fenced-vue
+    - include: fenced-vyper
+    - include: fenced-wgsl
+    - include: fenced-xml
+    - include: fenced-yaml
+    - include: fenced-yasm
+    - include: fenced-yaws
+    - include: fenced-zig
