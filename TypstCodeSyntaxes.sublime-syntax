@@ -4,9 +4,9 @@ version: 2
 
 contexts:
   main:
-    - include: fenced-syntaxes
+    - include: fenced-syntaxes-gen
 
-  fenced-syntaxes:
+  fenced-syntaxes-gen:
     - include: fenced-actionscript
     - include: fenced-applescript
     - include: fenced-clojure

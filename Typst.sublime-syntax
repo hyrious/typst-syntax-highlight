@@ -13,6 +13,7 @@ file_extensions:
 name: Typst
 scope: text.typst
 version: 2
+extends: Packages/Typst/TypstCodeSyntaxes.sublime-syntax
 
 variables:
   break: (?=\b|_)
