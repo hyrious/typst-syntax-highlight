@@ -1,17 +1,7 @@
 {
   "actionscript": { "scope": "source.actionscript" },
-  "bat": { "rename": "dosbatch" },
-  "clj": { "rename": "clojure" },
   "cs": { "rename": "csharp" },
   "dot": { "rename": "graphviz" },
-  "erl": { "rename": "erlang" },
-  "hs": { "rename": "haskell" },
-  "make": { "rename": "makefile" },
-  "ml": { "rename": "ocaml" },
-  "mm": { "rename": "objcpp" },
   "objective-c": { "rename": "objc" },
-  "pl": { "rename": "perl" },
-  "rb": { "rename": "ruby" },
-  "re": { "rename": "regexp" },
   "sh": { "rename": "shell-script" }
 }
