@@ -1,0 +1,25 @@
+name: Check generated syntaxes
+
+on:
+  pull_request:
+    paths:
+      - 'gen/**'
+
+jobs:
+  check-gen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: generate
+        run: |
+          cd gen
+          cargo r > ../TypstCodeSyntaxes.sublime-syntax
+
+      - name: check
+        run: |
+          if [[ -n "$(git status --porcelain | grep TypstCodeSyntaxes.sublime-syntax)" ]]; then
+            echo "TypstCodeSyntaxes.sublime-syntax has uncommited changes"
+            exit 1
+          fi
