@@ -1,10 +1,10 @@
 #![warn(unused_crate_dependencies)]
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
-use typst_library::text::RawElem;
+use typst_library::text::RAW_SYNTAXES;
 
 const HEADER: &str = r#"
 %YAML 1.2
@@ -55,43 +55,67 @@ fn main() -> Result<()> {
         println!("{}", MAIN_CONTEXT.trim_end());
     }
 
-    let mut is_native = 0;
     let mut added_scopes = HashSet::new();
     // todo: check unused
     let mut used_extends = HashSet::new();
-    for (name, exts) in RawElem::languages() {
+
+    let mut ext_owners: HashMap<String, Vec<&str>> = HashMap::new();
+    for syntax in RAW_SYNTAXES.syntaxes().iter().filter(|s| !s.hidden) {
+        for ext in &syntax.file_extensions {
+            ext_owners
+                .entry(ext_to_tag(ext))
+                .or_default()
+                .push(&syntax.name);
+        }
+    }
+
+    for syntax in RAW_SYNTAXES.syntaxes() {
+        if syntax.hidden {
+            continue;
+        }
+
+        let name = syntax.name.as_str();
+        let mut exts: Vec<_> = syntax
+            .file_extensions
+            .iter()
+            .map(|e| ext_to_tag(e))
+            .filter(|e| !is_wrong_ext(e))
+            .collect();
+
+        if let Some(converted) = name_to_match_pat(name)
+            && !ext_owners
+                .get(&converted)
+                .is_some_and(|owners| owners.iter().any(|owner| *owner != name))
+        {
+            exts.insert(0, converted);
+        }
+
+        exts.retain(|tag| {
+            RAW_SYNTAXES
+                .find_syntax_by_token(tag)
+                .is_some_and(|matched| matched.name == syntax.name)
+        });
+
         if exts.is_empty() {
             continue;
         }
-        if name == "Typst" && exts == ["typ"] || is_native > 0 {
-            is_native += 1;
-            continue;
-        }
-        let mut comment = format!("{name}: {}", exts.join(", "));
-        let mut exts: Vec<_> = exts
-            .into_iter()
-            .map(ext_to_tag)
-            .filter(|e| !is_wrong_ext(e))
-            .collect();
-        // todo: do not use converted name if there's the same extension
-        // already in use, e.g. tex in latex. note that typst itself has the
-        // same problem
-        if let Some(converted) = name_to_match_pat(name) {
-            exts.insert(0, converted);
-        }
-        let scope_base_name = ext_to_tag(&exts[0]);
-        if SKIP_SYNTAX.contains(&scope_base_name.as_str()) {
+
+        let comment = format!("{name}: {}", syntax.file_extensions.join(", "));
+        let extend_key = exts[0].clone();
+        if SKIP_SYNTAX.contains(&extend_key.as_str()) {
             eprintln!("skipping ignored {comment}");
             continue;
         }
-        let extend = extends.get(&scope_base_name);
+        let extend = extends.get(&extend_key);
 
         let scope = if let Some(extend) = extend
             && let Some(rename) = &extend.rename
         {
             rename.to_owned()
+        } else if let Some(name_tag) = name_to_match_pat(name) {
+            name_tag
         } else {
-            scope_base_name.to_owned()
+            scope_to_tag(&syntax.scope.to_string())
         };
 
         if added_scopes.contains(&scope) {
@@ -108,18 +132,17 @@ fn main() -> Result<()> {
         exts.sort_unstable();
 
         if extend.is_some() {
-            used_extends.insert(scope_base_name.clone());
-            comment += "\n  # [extended]"
+            used_extends.insert(extend_key);
         }
-        let res = fill_template(&scope, &exts, &scope, extend, &comment);
+        let full_scope = syntax.scope.to_string();
+        let res = fill_template(&scope, &exts, &scope, &full_scope, extend, &comment);
         println!("{res}");
 
         added_scopes.insert(scope);
     }
-    assert_eq!(is_native, 3);
 
     if !skip_main {
-        println!("  fenced-syntaxes-gen:");
+        println!("\n  fenced-syntaxes-gen:");
         let mut added_scopes: Vec<_> = added_scopes.iter().collect();
         added_scopes.sort_unstable();
         for scope in added_scopes {
@@ -134,6 +157,7 @@ fn fill_template(
     name: &str,
     exts: &[String],
     scope: &str,
+    default_full_scope: &str,
     extend: Option<&ExtendMatch>,
     comment: &str,
 ) -> String {
@@ -142,7 +166,7 @@ fn fill_template(
     {
         scope
     } else {
-        &format!("source.{scope}")
+        default_full_scope
     };
 
     let extend_matches: &[String] = extend.map(|e| e.matches.as_ref()).unwrap_or_default();
@@ -176,6 +200,30 @@ fn ext_to_tag(ext: &str) -> String {
         return first.to_string();
     }
     ext.to_string()
+}
+
+fn scope_to_tag(scope: &str) -> String {
+    let scope = scope
+        .strip_prefix("source.")
+        .or_else(|| scope.strip_prefix("text."))
+        .unwrap_or(scope);
+    let scope = scope.replace("++", "pp");
+
+    let mut out = String::new();
+    for ch in scope.chars() {
+        match ch {
+            '+' => out.push('p'),
+            '#' => out.push_str("sharp"),
+            '.' | '_' => out.push('-'),
+            c if c.is_ascii_alphanumeric() => out.push(c.to_ascii_lowercase()),
+            _ => out.push('-'),
+        }
+    }
+
+    while out.contains("--") {
+        out = out.replace("--", "-");
+    }
+    out.trim_matches('-').to_string()
 }
 
 fn name_to_match_pat(name: &str) -> Option<String> {

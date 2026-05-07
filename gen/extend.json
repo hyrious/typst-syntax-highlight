@@ -1,42 +1,17 @@
 {
-  "actionscript": { "scope": "source.actionscript.2" },
+  "actionscript": { "scope": "source.actionscript" },
   "bat": { "rename": "dosbatch" },
-  "clj": {
-    "matches": [ "clojure" ],
-    "rename": "clojure"
-  },
-  "cpp": { "scope": "source.c++" },
-  "cs": { "scope": "source.cs", "rename": "csharp" },
-  "dot": { "scope": "source.dot", "rename": "graphviz" },
-  "erl": {
-    "matches": [ "erlang" ],
-    "rename": "erlang"
-  },
-  "hs": {
-    "matches": [ "haskell" ],
-    "rename": "haskell"
-  },
-  "html": { "scope": "text.html.basic" },
-  "javascript": {
-    "matches": [ "javascript" ],
-    "scope": "source.js"
-  },
-  "jsp": { "scope": "text.html.jsp" },
-  "latex": {
-    "matches": [ "latex" ],
-    "scope": "text.tex.latex"
-  },
+  "clj": { "rename": "clojure" },
+  "cs": { "rename": "csharp" },
+  "dot": { "rename": "graphviz" },
+  "erl": { "rename": "erlang" },
+  "hs": { "rename": "haskell" },
   "make": { "rename": "makefile" },
-  "ml": {
-    "matches": [ "ocaml" ],
-    "rename": "ocaml"
-  },
-  "mm": { "scope": "source.objc++", "rename": "objcpp" },
+  "ml": { "rename": "ocaml" },
+  "mm": { "rename": "objcpp" },
   "objective-c": { "rename": "objc" },
   "pl": { "rename": "perl" },
   "rb": { "rename": "ruby" },
   "re": { "rename": "regexp" },
-  "sh": { "scope": "source.shell.bash", "rename": "shell-script" },
-  "typescript": { "scope": "source.ts" },
-  "xml": { "scope": "text.xml" }
+  "sh": { "rename": "shell-script" }
 }
