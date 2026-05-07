@@ -108,14 +108,20 @@ fn main() -> Result<()> {
         }
         let extend = extends.get(&extend_key);
 
-        let scope = if let Some(extend) = extend
-            && let Some(rename) = &extend.rename
-        {
-            rename.to_owned()
-        } else if let Some(name_tag) = name_to_match_pat(name) {
+        let scope = if let Some(name_tag) = name_to_match_pat(name) {
             name_tag
         } else {
             scope_to_tag(&syntax.scope.to_string())
+        };
+        let scope = if let Some(extend) = extend
+            && let Some(rename) = &extend.rename
+        {
+            if &scope == rename {
+                eprintln!("{scope}: unused rename {rename:?}");
+            }
+            rename.to_owned()
+        } else {
+            scope
         };
 
         if added_scopes.contains(&scope) {
@@ -141,6 +147,12 @@ fn main() -> Result<()> {
         added_scopes.insert(scope);
     }
 
+    let extends: HashSet<_> = extends.keys().cloned().collect();
+    let unused_extends: Vec<_> = extends.difference(&used_extends).cloned().collect();
+    if !unused_extends.is_empty() {
+        eprintln!("unused extends: {}", unused_extends.join(", "));
+    }
+
     if !skip_main {
         println!("\n  fenced-syntaxes-gen:");
         let mut added_scopes: Vec<_> = added_scopes.iter().collect();
@@ -154,7 +166,7 @@ fn main() -> Result<()> {
 }
 
 fn fill_template(
-    name: &str,
+    key: &str,
     exts: &[String],
     scope: &str,
     default_full_scope: &str,
@@ -164,12 +176,24 @@ fn fill_template(
     let full_scope = if let Some(extend) = extend
         && let Some(scope) = &extend.scope
     {
+        if default_full_scope == scope {
+            eprintln!("{key}: unused scope {scope:?}");
+        }
         scope
     } else {
         default_full_scope
     };
 
     let extend_matches: &[String] = extend.map(|e| e.matches.as_ref()).unwrap_or_default();
+    // check unused matches
+    {
+        let extended: HashSet<_> = extend_matches.iter().collect();
+        let existing: HashSet<_> = exts.iter().collect();
+        let unused: Vec<_> = extended.intersection(&existing).copied().cloned().collect();
+        if !unused.is_empty() {
+            eprintln!("{key}: unused extend.matches: {}", unused.join(", "));
+        }
+    }
     let matches = exts
         .iter()
         .chain(extend_matches.iter())
@@ -179,7 +203,7 @@ fn fill_template(
 
     TEMPLATE
         .trim_end()
-        .replace("$NAME", name)
+        .replace("$NAME", key)
         .replace("$SCOPE", scope)
         .replace("$FULL_SCOPE", full_scope)
         .replace("$MATCH", &escape_regex(&matches))
