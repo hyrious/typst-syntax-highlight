@@ -44,6 +44,18 @@ with the config below:
 }
 ```
 
+## Development
+
+### Update available syntaxes for `raw`
+
+Required: `cargo` (Rust), `just` (optional)
+
+First, update version of `typst-syntax` in `gen/Cargo.toml`, then run:
+
+```sh
+just
+```
+
 ## License
 
 MIT @ [hyrious](https://github.com/hyrious)
