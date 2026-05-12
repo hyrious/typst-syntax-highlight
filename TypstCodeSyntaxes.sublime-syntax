@@ -1,5 +1,6 @@
 %YAML 1.2
 ---
+scope: syntax.text.typst
 version: 2
 hidden: true
 

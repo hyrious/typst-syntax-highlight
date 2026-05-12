@@ -9,6 +9,7 @@ use typst_library::text::RAW_SYNTAXES;
 const HEADER: &str = r#"
 %YAML 1.2
 ---
+scope: syntax.text.typst
 version: 2
 hidden: true
 

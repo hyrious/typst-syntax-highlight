@@ -638,3 +638,8 @@ asdf
 #let example(title: none, body) = {}
 //           ^^^^^ variable.parameter.typst
 //                  ^^^^ - variable.parameter.typst
+
+```typ
+// test
+#let a = "test"
+```
