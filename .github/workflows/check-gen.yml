@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'gen/**'
+      - 'Typst.sublime-syntax'
+      - 'TypstCodeSyntaxes.sublime-syntax'
 
 jobs:
   check-gen:
@@ -15,11 +17,12 @@ jobs:
       - name: generate
         run: |
           cd gen
-          cargo r > ../TypstCodeSyntaxes.sublime-syntax
+          cargo r
 
       - name: check
         run: |
-          if [[ -n "$(git status --porcelain | grep TypstCodeSyntaxes.sublime-syntax)" ]]; then
-            echo "TypstCodeSyntaxes.sublime-syntax has uncommited changes"
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "generated files have uncommited changes"
+            git status --short
             exit 1
           fi

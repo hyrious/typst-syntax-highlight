@@ -249,8 +249,8 @@ The first #count numbers of the sequence are:
     1 & n lt.eq 1,
     2 T lr((log n)) plus 2^(log^ast n) & n gt 1
 //        ^ punctuation.section.group.begin.typst
-//         ^ constant.character.parenthesis.typst
-//               ^ constant.character.parenthesis.typst
+//         ^ constant.character.parenthesis.math.begin.typst
+//               ^ constant.character.parenthesis.math.end.typst
 //                ^ punctuation.section.group.end.typst
   ) $
 
@@ -316,11 +316,11 @@ $ tilde(phi.alt) $
 
 $ tilde (phi.alt) $
 //^^^^^ support.constant.sym.typst
-//      ^ constant.character.parenthesis.typst
+//      ^ constant.character.parenthesis.math.begin.typst
 //       ^^^ support.constant.sym.greek.typst
 //          ^ punctuation.accessor.dot.typst
 //           ^^^ support.constant.sym.modifier.typst
-//              ^ constant.character.parenthesis.typst
+//              ^ constant.character.parenthesis.math.end.typst
 
 $ phi.alt_i $
 //^^^ support.constant.sym.greek.typst
@@ -379,9 +379,9 @@ $ foo(x) $
 
 $ foo (x) $
 //^^^ variable.function.math.typst
-//    ^ constant.character.parenthesis.typst
+//    ^ constant.character.parenthesis.math.begin.typst
 //     ^ variable.other.math.typst
-//      ^ constant.character.parenthesis.typst
+//      ^ constant.character.parenthesis.math.end.typst
 
 $ foo x $
 //^^^ variable.function.math.typst
@@ -392,15 +392,89 @@ $ foo1 $
 
 $ f(x) $
 //^ variable.other.math.typst
-// ^ constant.character.parenthesis.typst
+// ^ constant.character.parenthesis.math.begin.typst
 //  ^ variable.other.math.typst
-//   ^ constant.character.parenthesis.typst
+//   ^ constant.character.parenthesis.math.end.typst
 
 $ phi(x) $
 //^^^ support.constant.sym.greek.typst
-//   ^ constant.character.parenthesis.typst
+//   ^ constant.character.parenthesis.math.begin.typst
 //    ^ variable.other.math.typst
-//     ^ constant.character.parenthesis.typst
+//     ^ constant.character.parenthesis.math.end.typst
+
+$ chevron.l(x) $
+//^^^^^^^ support.constant.sym.typst
+//       ^ punctuation.accessor.dot.typst
+//        ^ support.constant.sym.modifier.typst
+//         ^ punctuation.section.group.begin.typst
+//          ^ meta.function-call.arguments.typst variable.other.math.typst
+//           ^ punctuation.section.group.end.typst
+
+$ bracket.l.tick.b(x) $
+//^^^^^^^ support.constant.sym.typst
+//       ^ punctuation.accessor.dot.typst
+//        ^ support.constant.sym.modifier.typst
+//         ^ punctuation.accessor.dot.typst
+//          ^^^^ support.constant.sym.modifier.typst
+//              ^ punctuation.accessor.dot.typst
+//               ^ support.constant.sym.modifier.typst
+//                ^ punctuation.section.group.begin.typst
+//                 ^ meta.function-call.arguments.typst variable.other.math.typst
+//                  ^ punctuation.section.group.end.typst
+
+$ bar.v.double(x, size: 150%) $
+//^^^ support.constant.sym.typst
+//   ^ punctuation.accessor.dot.typst
+//    ^ support.constant.sym.modifier.typst
+//     ^ punctuation.accessor.dot.typst
+//      ^^^^^^ support.constant.sym.modifier.typst
+//            ^ punctuation.section.group.begin.typst
+//             ^ meta.function-call.arguments.typst variable.other.math.typst
+//                ^^^^ meta.function-call.arguments.typst variable.parameter.typst
+//                    ^ meta.function-call.arguments.typst punctuation.separator.key-value.typst
+//                          ^ punctuation.section.group.end.typst
+
+$ chevron.r(x) $
+//^^^^^^^ support.constant.sym.typst
+//       ^ punctuation.accessor.dot.typst
+//        ^ support.constant.sym.modifier.typst
+//         ^ constant.character.parenthesis.math.begin.typst
+//          ^ variable.other.math.typst
+//           ^ constant.character.parenthesis.math.end.typst
+
+$ ceil.r(x) $
+//^^^^ support.constant.sym.typst
+//    ^ punctuation.accessor.dot.typst
+//     ^ support.constant.sym.modifier.typst
+//      ^ constant.character.parenthesis.math.begin.typst
+//       ^ variable.other.math.typst
+//        ^ constant.character.parenthesis.math.end.typst
+
+$ bowtie.stroked.big.l.r $
+//^^^^^^ support.constant.sym.typst
+//      ^ punctuation.accessor.dot.typst
+//       ^^^^^^^ support.constant.sym.modifier.typst
+//              ^ punctuation.accessor.dot.typst
+//               ^^^ support.constant.sym.modifier.typst
+//                  ^ punctuation.accessor.dot.typst
+//                   ^ support.constant.sym.modifier.typst
+//                    ^ punctuation.accessor.dot.typst
+//                     ^ support.constant.sym.modifier.typst
+
+$ mapsfrom.long + pee + zero.slashed + spacebar $
+//^^^^^^^^ support.constant.sym.typst
+//        ^ punctuation.accessor.dot.typst
+//         ^^^^ support.constant.sym.modifier.typst
+//                ^^^ support.constant.sym.typst
+//                      ^^^^ support.constant.sym.typst
+//                          ^ punctuation.accessor.dot.typst
+//                           ^^^^^^^ support.constant.sym.modifier.typst
+//                                     ^^^^^^^^ support.constant.sym.typst
+
+$ join.l $
+//^^^^ - support.constant.sym
+//    ^ punctuation.accessor.dot.typst
+//     ^ variable.other.math.typst
 
 $ sum_(i=1)^(N-1) x_i $
 //    ^ punctuation.section.group.begin.typst
@@ -419,7 +493,7 @@ $ mat(1, ..., n; 1, ..., n) $
 //       ^^^ constant.other.typst - keyword.operator.range
 
 $ ) $
-//^ constant.character.parenthesis.typst
+//^ constant.character.parenthesis.math.end.typst
 
 $ bold(u): Omega -> RR^d, quad p: Omega -> RR $
 //       ^ punctuation.separator.colon.typst

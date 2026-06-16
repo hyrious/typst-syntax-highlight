@@ -46,11 +46,11 @@ with the config below:
 
 ## Development
 
-### Update available syntaxes for `raw`
+### Update generated syntax data
 
 Required: `cargo` (Rust), `just` (optional)
 
-First, update version of `typst-syntax` in `gen/Cargo.toml`, then run:
+First, update versions of Typst/Codex dependencies in `gen/Cargo.toml`, then run:
 
 ```sh
 just
