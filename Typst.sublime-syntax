@@ -15,7 +15,13 @@ scope: text.typst
 version: 2
 extends: TypstCodeSyntaxes.sublime-syntax
 
+first_line_match: |-
+  (?xi:
+    ^ \#! .* {{shebang_language}}
+  )
+
 variables:
+  shebang_language: \b(typst)\b
   break: (?=\b|_)
   html_entity: '&([a-zA-Z0-9]+|#\d+|#[Xx]\h+);'
   no_escape_behind: '(?<![^\\]\\)(?<![\\]{3})'
@@ -36,7 +42,26 @@ contexts:
     - include: comments
 
   main:
-    - include: markups
+    - meta_include_prototype: false
+    - match: ''
+      push: [markups, shebang]
+
+  shebang:
+    - meta_include_prototype: false
+    - match: ^\s*(\#!)
+      captures:
+        1: punctuation.definition.comment.typst
+      set: shebang-body
+    - match: ^|(?=\S)
+      pop: true
+
+  shebang-body:
+    - meta_include_prototype: false
+    - meta_scope: comment.line.shebang.typst
+    - match: '{{shebang_language}}'
+      scope: constant.language.shebang.typst
+    - match: $\n?
+      pop: true
 
   else-pop:
     - match: ''
